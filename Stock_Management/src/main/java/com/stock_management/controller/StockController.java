@@ -1,13 +1,12 @@
 package com.stock_management.controller;
 
+import com.stock_management.dto.CountProductsDto;
+import com.stock_management.dto.StockDto;
 import com.stock_management.entity.Stock;
 import com.stock_management.service.StockService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,8 +21,13 @@ public class StockController {
     }
 
     // GET GOES HERE
-    @GetMapping("/all")
-    public ResponseEntity<List<Stock>>getAllStocks(){
+    @GetMapping("all")
+    public ResponseEntity<List<StockDto>>getAllStocks(){
         return new ResponseEntity<>(stockService.findAllStocks(), HttpStatus.ACCEPTED.OK);
     }
+
+//    @GetMapping("countProducts/{ProductId}")
+//    public ResponseEntity<CountProductsDto>getNumberOfProducts(@PathVariable Long ProductId){
+//        return new ResponseEntity<>(stockService.countProductsByProductId(ProductId), HttpStatus.OK);
+//    }
 }

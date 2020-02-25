@@ -1,5 +1,6 @@
 package com.stock_management.controller;
 
+import com.stock_management.dto.UserDto;
 import com.stock_management.entity.User;
 import com.stock_management.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ public class UserController {
 
     // GET GOES HERE
     @GetMapping("all")
-    public  ResponseEntity<List<User>>getAllUsers(){
+    public  ResponseEntity<List<UserDto>>getAllUsers(){
         return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
     }
     @GetMapping("userId/{userId}")
