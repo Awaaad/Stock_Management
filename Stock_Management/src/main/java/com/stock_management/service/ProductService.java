@@ -7,7 +7,20 @@ import com.stock_management.entity.Product;
 import java.util.List;
 
 public interface ProductService {
+    // GET
     List<ProductDto> findAllProducts();
 
-//    CountProductsDto countProductByProductId(Long ProductId);
+    CountProductsDto countAllProducts();
+
+    ProductDto findProductById(Long productId);
+
+    List<ProductDto> findProductsByStockId(Long stockId);
+
+    CountProductsDto countProductsByStockId(Long stockId);
+
+    // POST
+    void saveProduct(ProductDto productDto);
+
+    // PUT
+    void editProduct(ProductDto productDto);
 }

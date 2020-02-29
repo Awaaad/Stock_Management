@@ -3,5 +3,5 @@ import lombok.Data;
 
 @Data
 public class CountProductsDto {
-    private int numberOfProducts;
+    private Long numberOfProducts;
 }

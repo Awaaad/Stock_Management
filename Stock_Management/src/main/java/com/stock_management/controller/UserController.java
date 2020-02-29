@@ -24,8 +24,15 @@ public class UserController {
     public  ResponseEntity<List<UserDto>>getAllUsers(){
         return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
     }
-    @GetMapping("userId/{userId}")
-    public ResponseEntity<User>getUserById(@PathVariable Long userId){
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserDto>getUserById(@PathVariable Long userId){
         return new ResponseEntity<>(userService.findUserById(userId), HttpStatus.OK);
+    }
+
+    // POST GOES HERE
+    @PostMapping("/saveUser")
+    public ResponseEntity saveUser(@RequestBody UserDto userDto){
+        userService.saveUser(userDto);
+        return new ResponseEntity<String>("User saved successfully!", HttpStatus.OK);
     }
 }

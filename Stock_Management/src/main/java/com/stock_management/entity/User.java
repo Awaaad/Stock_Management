@@ -34,7 +34,8 @@ public class User {
     @Column(name = "phone", nullable = false)
     private Integer phone;
 
-    @OneToMany(targetEntity =  Stock.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private List<Stock> stocks;
+//    @OneToMany(targetEntity =  Stock.class, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+//    private List<Stock> stocks;
+
 }

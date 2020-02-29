@@ -1,5 +1,6 @@
 package com.stock_management.dto;
 
+import com.stock_management.entity.Stock;
 import lombok.Data;
 
 import java.util.Date;
@@ -15,4 +16,5 @@ public class ProductDto {
     private String Supplier;
     private Double price;
     private Integer quantity;
+    private StockDto stock;
 }

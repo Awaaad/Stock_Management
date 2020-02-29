@@ -6,8 +6,10 @@ import com.stock_management.entity.Stock;
 import com.stock_management.mapper.StockMapper;
 import com.stock_management.repository.StockRepository;
 import com.stock_management.service.StockService;
+import lombok.var;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +26,14 @@ public class StockServiceImplementation implements StockService {
         List<Stock> stocks = stockRepository.findAll();
         return stocks.stream().map(stockMapper::mapStockEntityToDto).collect(Collectors.toList());
     }
+
+    @Override
+    public StockDto findStockById(Long stockId) {
+        Optional<Stock> stock = stockRepository.findById(stockId);
+        var oneStock = stock.orElse(null);
+        return stockMapper.mapStockEntityToDto(oneStock);
+    }
+
 
 //    @Override
 //    public CountProductsDto countProductsByProductId(Long ProductId) {

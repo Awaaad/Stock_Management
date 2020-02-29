@@ -9,5 +9,5 @@ import java.util.List;
 public interface StockService {
     List<StockDto> findAllStocks();
 
-//    CountProductsDto countProductsByProductId(Long ProductId);
+    StockDto findStockById (Long stockId);
 }

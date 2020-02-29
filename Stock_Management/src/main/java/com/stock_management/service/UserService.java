@@ -6,7 +6,11 @@ import com.stock_management.entity.User;
 import java.util.List;
 
 public interface UserService {
-    User findUserById (Long userId);
+    // Get
+    UserDto findUserById (Long userId);
 
     List<UserDto> findAllUsers();
+
+    // Post
+    void saveUser (UserDto userDto);
 }

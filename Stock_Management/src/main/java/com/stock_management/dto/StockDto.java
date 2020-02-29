@@ -10,5 +10,5 @@ public class StockDto {
     private Long stockId;
     private String stockName;
     private LocalDateTime dateAdded;
-    private List<ProductDto> products;
+    private UserDto user;
 }

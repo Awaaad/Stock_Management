@@ -22,15 +22,21 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public User findUserById(Long userId) {
+    public UserDto findUserById(Long userId) {
         Optional<User> user = userRepository.findById(userId);
         var oneUser = user.orElse(null);
-        return oneUser;
+        return userMapper.mapUserEntityToDto(oneUser);
     }
 
     @Override
     public List<UserDto> findAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream().map(userMapper::mapUserEntityToDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public void saveUser(UserDto userDto) {
+        var saveUserInformation = userMapper.mapUserDtoToEntity(userDto);
+        userRepository.save(saveUserInformation);
     }
 }

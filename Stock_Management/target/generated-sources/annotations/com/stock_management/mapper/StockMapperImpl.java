@@ -1,17 +1,15 @@
 package com.stock_management.mapper;
 
-import com.stock_management.dto.ProductDto;
 import com.stock_management.dto.StockDto;
-import com.stock_management.entity.Product;
+import com.stock_management.dto.UserDto;
 import com.stock_management.entity.Stock;
-import java.util.ArrayList;
-import java.util.List;
+import com.stock_management.entity.User;
 import javax.annotation.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-02-24T22:11:55+0400",
+    date = "2020-02-29T14:32:40+0400",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.5 (Oracle Corporation)"
 )
 @Component
@@ -28,7 +26,7 @@ public class StockMapperImpl implements StockMapper {
         stockDto.setStockId( stockEntity.getStockId() );
         stockDto.setStockName( stockEntity.getStockName() );
         stockDto.setDateAdded( stockEntity.getDateAdded() );
-        stockDto.setProducts( productListToProductDtoList( stockEntity.getProducts() ) );
+        stockDto.setUser( userToUserDto( stockEntity.getUser() ) );
 
         return stockDto;
     }
@@ -44,74 +42,42 @@ public class StockMapperImpl implements StockMapper {
         stock.setStockId( stockDto.getStockId() );
         stock.setStockName( stockDto.getStockName() );
         stock.setDateAdded( stockDto.getDateAdded() );
-        stock.setProducts( productDtoListToProductList( stockDto.getProducts() ) );
+        stock.setUser( userDtoToUser( stockDto.getUser() ) );
 
         return stock;
     }
 
-    protected ProductDto productToProductDto(Product product) {
-        if ( product == null ) {
+    protected UserDto userToUserDto(User user) {
+        if ( user == null ) {
             return null;
         }
 
-        ProductDto productDto = new ProductDto();
+        UserDto userDto = new UserDto();
 
-        productDto.setProductId( product.getProductId() );
-        productDto.setProductName( product.getProductName() );
-        productDto.setDescription( product.getDescription() );
-        productDto.setCategory( product.getCategory() );
-        productDto.setMakeDate( product.getMakeDate() );
-        productDto.setExpiryDate( product.getExpiryDate() );
-        productDto.setSupplier( product.getSupplier() );
-        productDto.setPrice( product.getPrice() );
-        productDto.setQuantity( product.getQuantity() );
+        userDto.setUserId( user.getUserId() );
+        userDto.setFirstName( user.getFirstName() );
+        userDto.setLastName( user.getLastName() );
+        userDto.setAge( user.getAge() );
+        userDto.setEmail( user.getEmail() );
+        userDto.setPhone( user.getPhone() );
 
-        return productDto;
+        return userDto;
     }
 
-    protected List<ProductDto> productListToProductDtoList(List<Product> list) {
-        if ( list == null ) {
+    protected User userDtoToUser(UserDto userDto) {
+        if ( userDto == null ) {
             return null;
         }
 
-        List<ProductDto> list1 = new ArrayList<ProductDto>( list.size() );
-        for ( Product product : list ) {
-            list1.add( productToProductDto( product ) );
-        }
+        User user = new User();
 
-        return list1;
-    }
+        user.setUserId( userDto.getUserId() );
+        user.setFirstName( userDto.getFirstName() );
+        user.setLastName( userDto.getLastName() );
+        user.setAge( userDto.getAge() );
+        user.setEmail( userDto.getEmail() );
+        user.setPhone( userDto.getPhone() );
 
-    protected Product productDtoToProduct(ProductDto productDto) {
-        if ( productDto == null ) {
-            return null;
-        }
-
-        Product product = new Product();
-
-        product.setProductId( productDto.getProductId() );
-        product.setProductName( productDto.getProductName() );
-        product.setDescription( productDto.getDescription() );
-        product.setCategory( productDto.getCategory() );
-        product.setMakeDate( productDto.getMakeDate() );
-        product.setExpiryDate( productDto.getExpiryDate() );
-        product.setSupplier( productDto.getSupplier() );
-        product.setPrice( productDto.getPrice() );
-        product.setQuantity( productDto.getQuantity() );
-
-        return product;
-    }
-
-    protected List<Product> productDtoListToProductList(List<ProductDto> list) {
-        if ( list == null ) {
-            return null;
-        }
-
-        List<Product> list1 = new ArrayList<Product>( list.size() );
-        for ( ProductDto productDto : list ) {
-            list1.add( productDtoToProduct( productDto ) );
-        }
-
-        return list1;
+        return user;
     }
 }

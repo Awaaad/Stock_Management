@@ -43,4 +43,8 @@ public class Product {
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
+
+    @ManyToOne(targetEntity = Stock.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "stock_id", referencedColumnName = "stock_id")
+    private Stock stock;
 }
