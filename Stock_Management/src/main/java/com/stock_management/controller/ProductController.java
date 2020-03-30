@@ -1,6 +1,5 @@
 package com.stock_management.controller;
 
-import com.stock_management.dto.CountProductsDto;
 import com.stock_management.dto.ProductDto;
 import com.stock_management.entity.Product;
 import com.stock_management.repository.ProductRepository;
@@ -16,9 +15,11 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
     private final ProductService productService;
+    private final ProductRepository productRepository;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, ProductRepository productRepository) {
         this.productService = productService;
+        this.productRepository = productRepository;
     }
 
     // GET GOES HERE
@@ -26,6 +27,9 @@ public class ProductController {
     public ResponseEntity<List<ProductDto>>getAllProducts(){
         return new ResponseEntity<>(productService.findAllProducts(), HttpStatus.OK);
     }
+//    public ResponseEntity<List<Product>>getAllProducts(){
+//        return new ResponseEntity<>(productRepository.findAll(), HttpStatus.OK);
+//    }
 
     @GetMapping("/countProduct")
     public ResponseEntity<Long>getNumberOfProducts(){
@@ -37,15 +41,15 @@ public class ProductController {
         return new ResponseEntity<>(productService.findProductById(productId), HttpStatus.OK);
     }
 
-    @GetMapping("/byStock/{stockId}")
-    public ResponseEntity<List<ProductDto>>getProductsByStockId(@PathVariable Long stockId){
-        return new ResponseEntity<>(productService.findProductsByStockId(stockId), HttpStatus.OK);
-    }
-
-    @GetMapping("/countProductsByStockId/{stockId}")
-    public ResponseEntity<Long>getNumberOfProductsByStockId(@PathVariable Long stockId){
-        return new ResponseEntity(productService.countProductsByStockId(stockId), HttpStatus.OK);
-    }
+//    @GetMapping("/byStock/{stockId}")
+//    public ResponseEntity<List<ProductDto>>getProductsByStockId(@PathVariable Long stockId){
+//        return new ResponseEntity<>(productService.findProductsByStockId(stockId), HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/countProductsByStockId/{stockId}")
+//    public ResponseEntity<Long>getNumberOfProductsByStockId(@PathVariable Long stockId){
+//        return new ResponseEntity(productService.countProductsByStockId(stockId), HttpStatus.OK);
+//    }
 
     // POST GOES HERE
     @PostMapping("/saveProduct")
@@ -59,5 +63,11 @@ public class ProductController {
     public ResponseEntity editProduct(@RequestBody ProductDto productDto){
         productService.editProduct(productDto);
         return new ResponseEntity<String>("Product edited successfully!", HttpStatus.OK);
+    }
+
+    @PutMapping("/manipulateProductQuantity")
+    public ResponseEntity manipulateProductQuantity(@RequestBody ProductDto productDto){
+        productService.editProduct(productDto);
+        return new ResponseEntity<String>("Quantity edited successfully!", HttpStatus.OK);
     }
 }

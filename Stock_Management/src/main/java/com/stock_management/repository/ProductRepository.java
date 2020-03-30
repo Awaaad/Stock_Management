@@ -9,8 +9,7 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 //    @Query("SELECT p FROM Product p INNER JOIN Stock s WHERE s.stockId =:stockId")
-    List<Product> findBystock_stockId(Long stockId);
-
-    Long countBystock_stockId(Long stockId);
-
+//    List<Product> findBystock_stockId(Long stockId);
+//
+//    Long countBystock_stockId(Long stockId);
 }

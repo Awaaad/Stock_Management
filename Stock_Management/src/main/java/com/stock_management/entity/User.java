@@ -16,26 +16,28 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue
-    @Column(name = "user_id")
+    @Column(name = "USER_ID")
     private Long userId;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
-    @Column(name = "age")
+    @Column(name = "AGE")
     private Integer age;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "EMAIL", nullable = false)
     private String email;
 
-    @Column(name = "phone", nullable = false)
+    @Column(name = "PHONE", nullable = false)
     private Integer phone;
+
+    @Column(name = "ROLE", nullable = false)
+    private String role;
 
 //    @OneToMany(targetEntity =  Stock.class, cascade = CascadeType.ALL)
 //    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
 //    private List<Stock> stocks;
-
 }

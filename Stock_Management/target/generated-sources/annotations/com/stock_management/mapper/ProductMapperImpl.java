@@ -1,18 +1,16 @@
 package com.stock_management.mapper;
 
 import com.stock_management.dto.ProductDto;
-import com.stock_management.dto.StockDto;
-import com.stock_management.dto.UserDto;
+import com.stock_management.dto.SupplierDto;
 import com.stock_management.entity.Product;
-import com.stock_management.entity.Stock;
-import com.stock_management.entity.User;
+import com.stock_management.entity.Supplier;
 import javax.annotation.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-02-29T14:32:40+0400",
-    comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.5 (Oracle Corporation)"
+    date = "2020-03-29T21:38:41+0400",
+    comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.6 (AdoptOpenJDK)"
 )
 @Component
 public class ProductMapperImpl implements ProductMapper {
@@ -28,100 +26,66 @@ public class ProductMapperImpl implements ProductMapper {
         productDto.setProductId( productEntity.getProductId() );
         productDto.setProductName( productEntity.getProductName() );
         productDto.setDescription( productEntity.getDescription() );
+        productDto.setDosage( productEntity.getDosage() );
         productDto.setCategory( productEntity.getCategory() );
-        productDto.setMakeDate( productEntity.getMakeDate() );
-        productDto.setExpiryDate( productEntity.getExpiryDate() );
-        productDto.setSupplier( productEntity.getSupplier() );
-        productDto.setPrice( productEntity.getPrice() );
-        productDto.setQuantity( productEntity.getQuantity() );
-        productDto.setStock( stockToStockDto( productEntity.getStock() ) );
+        productDto.setBox( productEntity.getBox() );
+        productDto.setUnitsPerBox( productEntity.getUnitsPerBox() );
+        productDto.setUnitsTotal( productEntity.getUnitsTotal() );
+        productDto.setPricePerBox( productEntity.getPricePerBox() );
+        productDto.setPricePerUnit( productEntity.getPricePerUnit() );
+        productDto.setRequirePrescription( productEntity.getRequirePrescription() );
+        productDto.setSupplier( supplierToSupplierDto( productEntity.getSupplier() ) );
 
         return productDto;
     }
 
     @Override
-    public Product mapProductDtoToEntity(ProductDto productDtoDto) {
-        if ( productDtoDto == null ) {
+    public Product mapProductDtoToEntity(ProductDto productDto) {
+        if ( productDto == null ) {
             return null;
         }
 
         Product product = new Product();
 
-        product.setProductId( productDtoDto.getProductId() );
-        product.setProductName( productDtoDto.getProductName() );
-        product.setDescription( productDtoDto.getDescription() );
-        product.setCategory( productDtoDto.getCategory() );
-        product.setMakeDate( productDtoDto.getMakeDate() );
-        product.setExpiryDate( productDtoDto.getExpiryDate() );
-        product.setSupplier( productDtoDto.getSupplier() );
-        product.setPrice( productDtoDto.getPrice() );
-        product.setQuantity( productDtoDto.getQuantity() );
-        product.setStock( stockDtoToStock( productDtoDto.getStock() ) );
+        product.setProductId( productDto.getProductId() );
+        product.setProductName( productDto.getProductName() );
+        product.setDescription( productDto.getDescription() );
+        product.setDosage( productDto.getDosage() );
+        product.setCategory( productDto.getCategory() );
+        product.setBox( productDto.getBox() );
+        product.setUnitsPerBox( productDto.getUnitsPerBox() );
+        product.setUnitsTotal( productDto.getUnitsTotal() );
+        product.setPricePerBox( productDto.getPricePerBox() );
+        product.setPricePerUnit( productDto.getPricePerUnit() );
+        product.setRequirePrescription( productDto.getRequirePrescription() );
+        product.setSupplier( supplierDtoToSupplier( productDto.getSupplier() ) );
 
         return product;
     }
 
-    protected UserDto userToUserDto(User user) {
-        if ( user == null ) {
+    protected SupplierDto supplierToSupplierDto(Supplier supplier) {
+        if ( supplier == null ) {
             return null;
         }
 
-        UserDto userDto = new UserDto();
+        SupplierDto supplierDto = new SupplierDto();
 
-        userDto.setUserId( user.getUserId() );
-        userDto.setFirstName( user.getFirstName() );
-        userDto.setLastName( user.getLastName() );
-        userDto.setAge( user.getAge() );
-        userDto.setEmail( user.getEmail() );
-        userDto.setPhone( user.getPhone() );
+        supplierDto.setSupplierId( supplier.getSupplierId() );
+        supplierDto.setSupplierName( supplier.getSupplierName() );
 
-        return userDto;
+        return supplierDto;
     }
 
-    protected StockDto stockToStockDto(Stock stock) {
-        if ( stock == null ) {
+    protected Supplier supplierDtoToSupplier(SupplierDto supplierDto) {
+        if ( supplierDto == null ) {
             return null;
         }
 
-        StockDto stockDto = new StockDto();
+        Supplier supplier = new Supplier();
 
-        stockDto.setStockId( stock.getStockId() );
-        stockDto.setStockName( stock.getStockName() );
-        stockDto.setDateAdded( stock.getDateAdded() );
-        stockDto.setUser( userToUserDto( stock.getUser() ) );
+        supplier.setSupplierId( supplierDto.getSupplierId() );
+        supplier.setSupplierName( supplierDto.getSupplierName() );
 
-        return stockDto;
-    }
-
-    protected User userDtoToUser(UserDto userDto) {
-        if ( userDto == null ) {
-            return null;
-        }
-
-        User user = new User();
-
-        user.setUserId( userDto.getUserId() );
-        user.setFirstName( userDto.getFirstName() );
-        user.setLastName( userDto.getLastName() );
-        user.setAge( userDto.getAge() );
-        user.setEmail( userDto.getEmail() );
-        user.setPhone( userDto.getPhone() );
-
-        return user;
-    }
-
-    protected Stock stockDtoToStock(StockDto stockDto) {
-        if ( stockDto == null ) {
-            return null;
-        }
-
-        Stock stock = new Stock();
-
-        stock.setStockId( stockDto.getStockId() );
-        stock.setStockName( stockDto.getStockName() );
-        stock.setDateAdded( stockDto.getDateAdded() );
-        stock.setUser( userDtoToUser( stockDto.getUser() ) );
-
-        return stock;
+        return supplier;
     }
 }

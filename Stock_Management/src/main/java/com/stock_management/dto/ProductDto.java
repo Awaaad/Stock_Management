@@ -1,20 +1,22 @@
 package com.stock_management.dto;
 
-import com.stock_management.entity.Stock;
 import lombok.Data;
 
-import java.util.Date;
+import java.util.List;
 
 @Data
 public class ProductDto {
     private Long productId;
     private String productName;
     private String description;
+    private String dosage;
     private String category;
-    private Date makeDate;
-    private Date expiryDate;
-    private String Supplier;
-    private Double price;
-    private Integer quantity;
-    private StockDto stock;
+    private Integer box;
+    private Integer unitsPerBox;
+    private Integer unitsTotal;
+    private Double pricePerBox;
+    private Double pricePerUnit;
+    private Boolean requirePrescription;
+//    private List<OrderDto> orders;
+    private SupplierDto supplier;
 }
