@@ -53,11 +53,10 @@ public class Product {
     @Column(name = "REQUIRE_PRESCRIPTION")
     private Boolean requirePrescription;
 
-    @ManyToOne(targetEntity = Supplier.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = Supplier.class, cascade = CascadeType.MERGE)
     @JoinColumn(name = "SUPPLIER_ID", referencedColumnName = "SUPPLIER_ID")
     private Supplier supplier;
 
-    @JsonIgnore
     @ManyToMany(mappedBy = "products")
     private List<Order> orders;
 }

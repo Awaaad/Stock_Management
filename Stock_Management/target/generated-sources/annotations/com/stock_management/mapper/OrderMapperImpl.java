@@ -8,13 +8,13 @@ import com.stock_management.entity.Product;
 import com.stock_management.entity.Supplier;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Generated;
+import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-03-29T21:38:41+0400",
-    comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.6 (AdoptOpenJDK)"
+    date = "2020-03-30T20:59:25+0400",
+    comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.5 (Oracle Corporation)"
 )
 @Component
 public class OrderMapperImpl implements OrderMapper {

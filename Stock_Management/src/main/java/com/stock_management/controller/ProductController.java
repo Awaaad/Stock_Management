@@ -1,13 +1,16 @@
 package com.stock_management.controller;
 
 import com.stock_management.dto.ProductDto;
+import com.stock_management.dto.ProductListDto;
 import com.stock_management.entity.Product;
 import com.stock_management.repository.ProductRepository;
 import com.stock_management.service.ProductService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @RestController
@@ -27,9 +30,11 @@ public class ProductController {
     public ResponseEntity<List<ProductDto>>getAllProducts(){
         return new ResponseEntity<>(productService.findAllProducts(), HttpStatus.OK);
     }
-//    public ResponseEntity<List<Product>>getAllProducts(){
-//        return new ResponseEntity<>(productRepository.findAll(), HttpStatus.OK);
-//    }
+
+    @GetMapping("filter")
+    public ResponseEntity<ProductListDto> getProductsViaFilter(@RequestParam String productName, @RequestParam String supplierName, @RequestParam String category, @RequestParam String sortOrder, @RequestParam String sortBy, @RequestParam Integer pageNumber, @RequestParam Integer pageSize){
+        return new ResponseEntity<>(productService.findListOfProductsByFilters(productName, supplierName, category, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
+    }
 
     @GetMapping("/countProduct")
     public ResponseEntity<Long>getNumberOfProducts(){
@@ -58,16 +63,16 @@ public class ProductController {
         return new ResponseEntity<String>("Product saved successfully!", HttpStatus.OK);
     }
 
+    @PostMapping("/saveProducts")
+    public ResponseEntity saveProducts(@RequestBody ProductListDto productListDto){
+        productService.saveProducts(productListDto);
+        return new ResponseEntity<String>("Products saved successfully!", HttpStatus.OK);
+    }
+
     // PUT GOES HERE
     @PutMapping("/editProduct")
     public ResponseEntity editProduct(@RequestBody ProductDto productDto){
         productService.editProduct(productDto);
         return new ResponseEntity<String>("Product edited successfully!", HttpStatus.OK);
-    }
-
-    @PutMapping("/manipulateProductQuantity")
-    public ResponseEntity manipulateProductQuantity(@RequestBody ProductDto productDto){
-        productService.editProduct(productDto);
-        return new ResponseEntity<String>("Quantity edited successfully!", HttpStatus.OK);
     }
 }

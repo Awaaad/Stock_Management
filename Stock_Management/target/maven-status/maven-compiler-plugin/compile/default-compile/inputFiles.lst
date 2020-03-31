@@ -2,8 +2,10 @@ C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\con
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\StockControlSystemApplication.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\mapper\ProductMapper.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\repository\SupplierRepository.java
+C:\Work\Stock_Management\Stock_Management\target\generated-sources\com\stock_management\entity\QProduct.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\controller\ProductController.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\implementation\SupplierServiceImplementation.java
+C:\Work\Stock_Management\Stock_Management\target\generated-sources\com\stock_management\entity\QSupplier.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\implementation\UserServiceImplementation.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\ProductService.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\mapper\SupplierMapper.java
@@ -14,6 +16,7 @@ C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\UserDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\mapper\OrderMapper.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\repository\UserRepository.java
+C:\Work\Stock_Management\Stock_Management\target\generated-sources\com\stock_management\entity\QOrder.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\repository\ProductRepository.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\entity\Product.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\entity\Supplier.java
@@ -21,9 +24,13 @@ C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\ent
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\controller\OrderController.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\controller\UserController.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\UserService.java
+C:\Work\Stock_Management\Stock_Management\target\generated-sources\com\stock_management\entity\QUser.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\ManipulateProductQuantityDto.java
+C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\PaginationDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\implementation\ProductServiceImplementation.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\OrderService.java
+C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\mapper\MultipleSaveProductMapper.java
+C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\ProductListDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\entity\Order.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\ProductDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\repository\OrderRepository.java

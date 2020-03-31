@@ -19,7 +19,7 @@ import java.util.List;
 @Table(name = "`Order`")
 public class Order {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ORDER_ID")
     private Long orderId;
 
@@ -44,7 +44,7 @@ public class Order {
     @Column(name = "TOTAL_PRICE", nullable = false)
     private Double totalPrice;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "Order_Product",
             joinColumns = { @JoinColumn (name = "ORDER_ID") },

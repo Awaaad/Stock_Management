@@ -1,16 +1,17 @@
 package com.stock_management.service;
 
 import com.stock_management.dto.CountProductsDto;
-import com.stock_management.dto.ManipulateProductQuantityDto;
 import com.stock_management.dto.ProductDto;
-import com.stock_management.dto.SaveMultipleProductsDto;
-import com.stock_management.entity.Product;
+import com.stock_management.dto.ProductListDto;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 public interface ProductService {
     // GET
     List<ProductDto> findAllProducts();
+
+    ProductListDto findAllProductList(Pageable pageable);
 
     CountProductsDto countAllProducts();
 
@@ -23,10 +24,10 @@ public interface ProductService {
     // POST
     void saveProduct(ProductDto productDto);
 
-    void saveMultipleProduct(SaveMultipleProductsDto saveMultipleProductsDto);
-
     // PUT
     void editProduct(ProductDto productDto);
 
-    void ManipulateProductQuantity(ProductDto productDto);
+    void saveProducts(ProductListDto productListDto);
+
+    ProductListDto findListOfProductsByFilters(String productName, String supplierName, String Category, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
 }

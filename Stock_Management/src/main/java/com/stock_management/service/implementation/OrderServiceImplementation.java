@@ -5,7 +5,6 @@ import com.stock_management.entity.Order;
 import com.stock_management.mapper.OrderMapper;
 import com.stock_management.repository.OrderRepository;
 import com.stock_management.service.OrderService;
-import lombok.var;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

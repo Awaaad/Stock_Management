@@ -5,7 +5,6 @@ import com.stock_management.entity.User;
 import com.stock_management.mapper.UserMapper;
 import com.stock_management.repository.UserRepository;
 import com.stock_management.service.UserService;
-import lombok.var;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;

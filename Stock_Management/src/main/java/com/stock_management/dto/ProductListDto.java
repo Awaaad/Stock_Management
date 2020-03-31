@@ -1,7 +1,10 @@
 package com.stock_management.dto;
 
+import lombok.Data;
+
 import java.util.List;
 
-public class SaveMultipleProductsDto {
+@Data
+public class ProductListDto extends PaginationDto{
     List<ProductDto> products;
 }
