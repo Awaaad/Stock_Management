@@ -28,13 +28,7 @@ public class QOrder extends EntityPathBase<Order> {
 
     public final NumberPath<Long> orderId = createNumber("orderId", Long.class);
 
-    public final StringPath productName = createString("productName");
-
-    public final ListPath<Product, QProduct> products = this.<Product, QProduct>createList("products", Product.class, QProduct.class, PathInits.DIRECT2);
-
-    public final NumberPath<Integer> quantityOrderedBox = createNumber("quantityOrderedBox", Integer.class);
-
-    public final NumberPath<Integer> quantityOrderedUnit = createNumber("quantityOrderedUnit", Integer.class);
+    public final ListPath<OrderProduct, QOrderProduct> orderProducts = this.<OrderProduct, QOrderProduct>createList("orderProducts", OrderProduct.class, QOrderProduct.class, PathInits.DIRECT2);
 
     public final NumberPath<Double> totalPrice = createNumber("totalPrice", Double.class);
 

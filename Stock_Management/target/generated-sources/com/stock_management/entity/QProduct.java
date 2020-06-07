@@ -30,7 +30,7 @@ public class QProduct extends EntityPathBase<Product> {
 
     public final StringPath dosage = createString("dosage");
 
-    public final ListPath<Order, QOrder> orders = this.<Order, QOrder>createList("orders", Order.class, QOrder.class, PathInits.DIRECT2);
+    public final ListPath<OrderProduct, QOrderProduct> orderProducts = this.<OrderProduct, QOrderProduct>createList("orderProducts", OrderProduct.class, QOrderProduct.class, PathInits.DIRECT2);
 
     public final NumberPath<Double> pricePerBox = createNumber("pricePerBox", Double.class);
 

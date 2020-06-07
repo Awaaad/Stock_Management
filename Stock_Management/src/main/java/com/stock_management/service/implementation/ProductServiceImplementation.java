@@ -23,9 +23,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImplementation implements ProductService {
-    public final ProductRepository productRepository;
-    public final ProductMapper productMapper;
-    public final MultipleSaveProductMapper multipleSaveProductMapper;
+    private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
+    private final MultipleSaveProductMapper multipleSaveProductMapper;
 
     public ProductServiceImplementation(ProductRepository productRepository, ProductMapper productMapper, MultipleSaveProductMapper multipleSaveProductMapper) {
         this.productRepository = productRepository;
@@ -108,7 +108,7 @@ public class ProductServiceImplementation implements ProductService {
 
     @Override
     public void saveProducts(ProductListDto productListDto) {
-        var saveMultipleProduct = productListDto.getProducts().stream().map(productMapper::mapProductDtoToEntity).collect(Collectors.toList());
+        var saveMultipleProduct = productListDto.getProductDtos().stream().map(productMapper::mapProductDtoToEntity).collect(Collectors.toList());
         productRepository.saveAll(saveMultipleProduct);
     }
 
@@ -120,7 +120,7 @@ public class ProductServiceImplementation implements ProductService {
         Page<Product> product = productRepository.findAll(predicate,pageRequest);
         List<ProductDto> productDtos = product.stream().map(productMapper::mapProductEntityToDto).collect(Collectors.toList());
         var productListDto = new ProductListDto();
-        productListDto.setProducts(productDtos);
+        productListDto.setProductDtos(productDtos);
         productListDto.setTotalElements(product.getNumberOfElements());
         productListDto.setTotalPages(product.getTotalPages());
         return productListDto;
@@ -151,7 +151,7 @@ public class ProductServiceImplementation implements ProductService {
         } else {
             List<ProductDto> productDto = product.stream().map(productMapper::mapProductEntityToDto).collect(Collectors.toList());
             ProductListDto productListDto = new ProductListDto();
-            productListDto.setProducts(productDto);
+            productListDto.setProductDtos(productDto);
             productListDto.setTotalElements(product.getNumberOfElements());
             productListDto.setTotalPages(product.getTotalPages());
             return productListDto;

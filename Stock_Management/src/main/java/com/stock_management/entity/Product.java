@@ -4,11 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -57,6 +54,9 @@ public class Product {
     @JoinColumn(name = "SUPPLIER_ID", referencedColumnName = "SUPPLIER_ID")
     private Supplier supplier;
 
-    @ManyToMany(mappedBy = "products")
-    private List<Order> orders;
+//    @ManyToMany(mappedBy = "products")
+//    private List<Order> orders;
+
+    @OneToMany(mappedBy = "product")
+    List<OrderProduct> orderProducts;
 }

@@ -43,9 +43,10 @@
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="8d70c01e-5b34-4311-8137-a0fc2b79d8f3" dataset="stockmanagement.product" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="8d70c01e-5b34-4311-8137-a0fc2b79d8f3" dataset="stockmanagement.order_product" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="8d70c01e-5b34-4311-8137-a0fc2b79d8f3" dataset="stockmanagement.supplier" active-filter-id="" />
+    <filter-actions connection-id="8d70c01e-5b34-4311-8137-a0fc2b79d8f3" dataset="stockmanagement.supplier" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="8d70c01e-5b34-4311-8137-a0fc2b79d8f3" dataset="stockmanagement.order_products" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="8d70c01e-5b34-4311-8137-a0fc2b79d8f3" dataset="stockmanagement.user" active-filter-id="" />
+    <filter-actions connection-id="8d70c01e-5b34-4311-8137-a0fc2b79d8f3" dataset="stockmanagement.order" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />

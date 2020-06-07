@@ -41,8 +41,8 @@ public class ProductController {
         return new ResponseEntity(productService.countAllProducts(), HttpStatus.OK);
     }
 
-    @GetMapping("/{productId}")
-    public ResponseEntity<ProductDto>getProductById(@PathVariable Long productId){
+    @GetMapping("/id")
+    public ResponseEntity<ProductDto>getProductById(@RequestParam Long productId){
         return new ResponseEntity<>(productService.findProductById(productId), HttpStatus.OK);
     }
 

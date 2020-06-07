@@ -1,11 +1,13 @@
 package com.stock_management.controller;
 
 import com.stock_management.dto.OrderDto;
+import com.stock_management.dto.OrderListDto;
 import com.stock_management.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -29,6 +31,10 @@ public class OrderController {
         return new ResponseEntity<>(orderService.findOrderById(orderId), HttpStatus.OK);
     }
 
+    @GetMapping("filter")
+    public ResponseEntity<OrderListDto> getProductsViaFilter(@RequestParam String customerName, @RequestParam String cashierName, @RequestParam String sortOrder, @RequestParam String sortBy, @RequestParam Integer pageNumber, @RequestParam Integer pageSize){
+        return new ResponseEntity<>(orderService.findListOfOrdersByFilters(customerName, cashierName, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
+    }
 
     // POST GOES HERE
     @PostMapping("/saveOrder")
