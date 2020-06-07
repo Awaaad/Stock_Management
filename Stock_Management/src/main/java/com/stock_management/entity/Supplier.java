@@ -23,4 +23,13 @@ public class Supplier {
 
     @Column(name = "SUPPLIER_NAME", nullable = false)
     private String supplierName;
+
+    @Column(name = "EMAIL", nullable = true)
+    private String email;
+
+    @Column(name = "TELEPHONE_NUMBER", nullable = true)
+    private Integer telephoneNumber;
+
+    @Column(name = "ADDRESS", nullable = true)
+    private String Address;
 }

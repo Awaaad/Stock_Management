@@ -26,6 +26,7 @@ com\stock_management\service\OrderService.class
 com\stock_management\service\implementation\ProductServiceImplementation.class
 com\stock_management\dto\UserDto.class
 com\stock_management\mapper\MultipleSaveProductMapper.class
+com\stock_management\dto\SupplierListDto.class
 com\stock_management\mapper\OrderMapperImpl.class
 com\stock_management\controller\UserController.class
 com\stock_management\mapper\SupplierMapper.class

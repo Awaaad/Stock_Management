@@ -32,7 +32,7 @@ public class OrderController {
     }
 
     @GetMapping("filter")
-    public ResponseEntity<OrderListDto> getProductsViaFilter(@RequestParam String customerName, @RequestParam String cashierName, @RequestParam String sortOrder, @RequestParam String sortBy, @RequestParam Integer pageNumber, @RequestParam Integer pageSize){
+    public ResponseEntity<OrderListDto> getOrdersViaFilter(@RequestParam String customerName, @RequestParam String cashierName, @RequestParam String sortOrder, @RequestParam String sortBy, @RequestParam Integer pageNumber, @RequestParam Integer pageSize){
         return new ResponseEntity<>(orderService.findListOfOrdersByFilters(customerName, cashierName, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
     }
 

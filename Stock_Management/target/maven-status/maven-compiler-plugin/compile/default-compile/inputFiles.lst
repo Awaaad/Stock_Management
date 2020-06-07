@@ -40,6 +40,7 @@ C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\map
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\controller\OrderProductController.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\ProductListDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\entity\Order.java
+C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\SupplierListDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\ProductDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\repository\OrderRepository.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\SupplierDto.java

@@ -24,10 +24,10 @@ public interface ProductService {
     // POST
     void saveProduct(ProductDto productDto);
 
+    void saveProducts(ProductListDto productListDto);
+
     // PUT
     void editProduct(ProductDto productDto);
-
-    void saveProducts(ProductListDto productListDto);
 
     ProductListDto findListOfProductsByFilters(String productName, String supplierName, String Category, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
 }
