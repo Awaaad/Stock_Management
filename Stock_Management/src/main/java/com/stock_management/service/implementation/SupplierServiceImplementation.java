@@ -33,6 +33,13 @@ public class SupplierServiceImplementation implements SupplierService{
     }
 
     @Override
+    public SupplierDto findSupplierById(Long supplierId) {
+        java.util.Optional<Supplier> supplier = supplierRepository.findById(supplierId);
+        var oneSupplier = supplier.orElse(null);
+        return supplierMapper.mapSupplierEntityToDto(oneSupplier);
+    }
+
+    @Override
     public SupplierListDto findListOfSuppliersByFilters(String supplierName, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
         Sort sort = Sort.by("ASC".equals(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sort);
@@ -67,5 +74,19 @@ public class SupplierServiceImplementation implements SupplierService{
     public void saveSupplier(SupplierListDto supplierListDto) {
         var saveMultipleSuppliers = supplierListDto.getSupplierDtos().stream().map(supplierMapper::mapSupplierDtoToEntity).collect(Collectors.toList());
         supplierRepository.saveAll(saveMultipleSuppliers);
+    }
+
+    @Override
+    public void editSupplier(SupplierDto supplierDto) {
+        var supplier = findSupplierById(supplierDto.getSupplierId());
+        if (supplier != null) {
+            supplier.setSupplierName(supplier.getSupplierName());
+            supplier.setEmail(supplier.getEmail());
+            supplier.setAddress(supplier.getAddress());
+            supplier.setTelephoneNumber(supplier.getTelephoneNumber());
+            supplierRepository.save(supplierMapper.mapSupplierDtoToEntity(supplier));
+        } else {
+            System.out.println("Supplier Not Found!");
+        }
     }
 }

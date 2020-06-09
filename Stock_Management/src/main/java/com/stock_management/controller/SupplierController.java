@@ -32,10 +32,22 @@ public class SupplierController {
         return new ResponseEntity<>(supplierService.findListOfSuppliersByFilters(supplierName, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
     }
 
+    @GetMapping("/id")
+    public ResponseEntity<SupplierDto>getSupplierById(@RequestParam Long supplierId){
+        return new ResponseEntity<>(supplierService.findSupplierById(supplierId), HttpStatus.OK);
+    }
+
     // POST GOES HERE
     @PostMapping("/saveSuppliers")
     public ResponseEntity saveSuppliers(@RequestBody SupplierListDto supplierListDto){
         supplierService.saveSupplier(supplierListDto);
         return new ResponseEntity<String>("Suppliers saved successfully!", HttpStatus.OK);
+    }
+
+    // PUT GOES HERE
+    @PutMapping("/editSupplier")
+    public ResponseEntity editSupplier(@RequestBody SupplierDto supplierDto){
+        supplierService.editSupplier(supplierDto);
+        return new ResponseEntity<String>("Supplier edited successfully!", HttpStatus.OK);
     }
 }
