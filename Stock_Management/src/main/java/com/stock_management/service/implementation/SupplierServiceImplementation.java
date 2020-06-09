@@ -80,10 +80,10 @@ public class SupplierServiceImplementation implements SupplierService{
     public void editSupplier(SupplierDto supplierDto) {
         var supplier = findSupplierById(supplierDto.getSupplierId());
         if (supplier != null) {
-            supplier.setSupplierName(supplier.getSupplierName());
-            supplier.setEmail(supplier.getEmail());
-            supplier.setAddress(supplier.getAddress());
-            supplier.setTelephoneNumber(supplier.getTelephoneNumber());
+            supplier.setSupplierName(supplierDto.getSupplierName());
+            supplier.setEmail(supplierDto.getEmail());
+            supplier.setAddress(supplierDto.getAddress());
+            supplier.setTelephoneNumber(supplierDto.getTelephoneNumber());
             supplierRepository.save(supplierMapper.mapSupplierDtoToEntity(supplier));
         } else {
             System.out.println("Supplier Not Found!");

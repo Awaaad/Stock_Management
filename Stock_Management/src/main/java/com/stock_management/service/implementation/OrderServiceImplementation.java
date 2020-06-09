@@ -123,4 +123,15 @@ public class OrderServiceImplementation implements OrderService {
 //        productRepository.saveAll(productEntities);
 //        orderRepository.save(saveOrderDetails);
 //    }
+
+    @Override
+    public void editOrder(OrderDto orderDto) {
+        var order = findOrderById(orderDto.getOrderId());
+        if (order != null) {
+            order.setPaid(orderDto.getPaid());
+            orderRepository.save(orderMapper.mapOrderDtoToEntity(order));
+        } else {
+            System.out.println("Order Not Found!");
+        }
+    }
 }

@@ -42,4 +42,11 @@ public class OrderController {
         orderService.saveOrder(orderDto);
         return new ResponseEntity<String>("Order saved successfully!", HttpStatus.OK);
     }
+
+    // PUT GOES HERE
+    @PutMapping("/editOrder")
+    public ResponseEntity editOrder(@RequestBody OrderDto orderDto){
+        orderService.editOrder(orderDto);
+        return new ResponseEntity<String>("Order edited successfully!", HttpStatus.OK);
+    }
 }

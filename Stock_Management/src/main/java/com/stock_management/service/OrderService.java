@@ -17,5 +17,8 @@ public interface OrderService {
     // POST
     void saveOrder(OrderDto orderDto);
 
+    // PUT
+    void editOrder(OrderDto orderDto);
+
 }
 
