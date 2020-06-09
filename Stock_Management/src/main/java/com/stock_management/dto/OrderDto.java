@@ -12,4 +12,5 @@ public class OrderDto {
     private LocalDateTime orderDate;
     private List<OrderProductDto> orderProductDtos;
     private Double totalPrice;
+    private Boolean paid;
 }

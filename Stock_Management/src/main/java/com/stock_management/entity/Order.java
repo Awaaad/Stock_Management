@@ -36,6 +36,9 @@ public class Order {
     @Column(name = "TOTAL_PRICE", nullable = false)
     private Double totalPrice;
 
+    @Column(name = "PAID", nullable = false)
+    private Boolean paid;
+
     @OneToMany(mappedBy = "order")
     List<OrderProduct> orderProducts;
 

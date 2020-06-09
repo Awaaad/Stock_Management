@@ -30,6 +30,8 @@ public class QOrder extends EntityPathBase<Order> {
 
     public final ListPath<OrderProduct, QOrderProduct> orderProducts = this.<OrderProduct, QOrderProduct>createList("orderProducts", OrderProduct.class, QOrderProduct.class, PathInits.DIRECT2);
 
+    public final BooleanPath paid = createBoolean("paid");
+
     public final NumberPath<Double> totalPrice = createNumber("totalPrice", Double.class);
 
     public QOrder(String variable) {

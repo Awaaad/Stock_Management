@@ -50,7 +50,7 @@ public class Product {
     @Column(name = "REQUIRE_PRESCRIPTION")
     private Boolean requirePrescription;
 
-    @ManyToOne(targetEntity = Supplier.class, cascade = CascadeType.MERGE)
+    @ManyToOne(targetEntity = Supplier.class)
     @JoinColumn(name = "SUPPLIER_ID", referencedColumnName = "SUPPLIER_ID")
     private Supplier supplier;
 

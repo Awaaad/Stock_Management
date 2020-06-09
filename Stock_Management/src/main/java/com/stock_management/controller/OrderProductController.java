@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "*", maxAge = 10000)
 @RequestMapping("/orderProduct")
@@ -18,10 +20,8 @@ public class OrderProductController {
         this.orderProductService = orderProductService;
     }
 
-//     POST GOES HERE
-    @PostMapping("/saveOrderProduct")
-    public ResponseEntity<String> saveOrder(@RequestBody OrderProductDto orderProductDto){
-        orderProductService.saveOrderProduct(orderProductDto);
-        return new ResponseEntity<String>("Order saved successfully!", HttpStatus.OK);
+    @GetMapping("/orderId/{orderId}")
+    public ResponseEntity<List<OrderProductDto>>getProductsByStockId(@PathVariable Long orderId){
+        return new ResponseEntity<>(orderProductService.findOrderProductsByOrderId(orderId), HttpStatus.OK);
     }
 }
