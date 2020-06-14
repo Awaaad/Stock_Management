@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,6 +63,12 @@ public class OrderServiceImplementation implements OrderService {
         BooleanBuilder predicate = buildProductPredicate(customerName, cashierName);
         Page<Order> orders = orderRepository.findAll(predicate,pageRequest);
         List<OrderDto> orderDtos = orders.stream().map(orderMapper::mapOrderEntityToDto).collect(Collectors.toList());
+
+        List<OrderDto> list = new ArrayList<>();
+        for (Order o : orders) {
+            list.add(orderMapper.mapOrderEntityToDto(o));
+        }
+
         var orderListDto = new OrderListDto();
         orderListDto.setOrderDtos(orderDtos);
         orderListDto.setTotalElements(orders.getNumberOfElements());
@@ -82,6 +89,7 @@ public class OrderServiceImplementation implements OrderService {
     }
 
     @Override
+    @org.springframework.transaction.annotation.Transactional
     public void saveOrder(OrderDto orderDto) {
 
         var order = orderMapper.mapOrderDtoToEntity(orderDto);

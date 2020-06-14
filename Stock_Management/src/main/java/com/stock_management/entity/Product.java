@@ -33,21 +33,21 @@ public class Product {
     private String category;
 
     @Column(name = "BOX", nullable = false)
-    private Integer box;
+    private Double box;
 
     @Column(name = "UNITS_PER_BOX")
     private Integer unitsPerBox;
 
     @Column(name = "UNITS_TOTAL")
-    private Integer unitsTotal;
+    private Double unitsTotal;
 
     @Column(name = "PRICE_PER_BOX", nullable = false)
     private Double pricePerBox;
 
-    @Column(name = "PRICE_PER_UNIT")
+    @Column(name = "PRICE_PER_UNIT", nullable = false)
     private Double pricePerUnit;
 
-    @Column(name = "REQUIRE_PRESCRIPTION")
+    @Column(name = "REQUIRE_PRESCRIPTION", nullable = false)
     private Boolean requirePrescription;
 
     @ManyToOne(targetEntity = Supplier.class)

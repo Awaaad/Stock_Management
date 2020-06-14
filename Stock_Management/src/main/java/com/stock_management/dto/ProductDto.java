@@ -11,9 +11,9 @@ public class ProductDto {
     private String description;
     private String dosage;
     private String category;
-    private Integer box;
+    private Double box;
     private Integer unitsPerBox;
-    private Integer unitsTotal;
+    private Double unitsTotal;
     private Double pricePerBox;
     private Double pricePerUnit;
     private Boolean requirePrescription;

@@ -10,8 +10,8 @@ import org.mapstruct.Mapping;
         ProductMapper.class
 })
 public interface OrderProductMapper {
-    @Mapping(source = "orderProductEntity.product.productId", target = "productDto.productId")
-    @Mapping(source = "orderProductEntity.order.orderId", target = "orderDto.orderId")
+    @Mapping(source = "orderProductEntity.product", target = "productDto")
+    @Mapping(source = "orderProductEntity.order", target = "orderDto")
     OrderProductDto mapOrderProductEntityToDto (OrderProduct orderProductEntity);
     @InheritInverseConfiguration
     OrderProduct mapOrderProductDtoToEntity (OrderProductDto orderProductDto);

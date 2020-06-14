@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-06-07T21:31:30+0400",
-    comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.6 (AdoptOpenJDK)"
+    date = "2020-06-13T12:32:14+0400",
+    comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.5 (Oracle Corporation)"
 )
 @Component
 public class MultipleSaveProductMapperImpl implements MultipleSaveProductMapper {
