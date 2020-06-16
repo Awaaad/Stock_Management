@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.awt.print.Pageable;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -104,6 +105,25 @@ public class ProductServiceImplementation implements ProductService {
         } else {
             System.out.println("Product Not Found!");
         }
+    }
+
+    @Override
+    public void quickStockControl(ProductListDto productListDto) {
+        productRepository.saveAll(productListDto.getProductDtos().stream().map(productDto ->
+                mapProduct(productDto)).filter(Objects::isNull).collect(Collectors.toList()));
+    }
+
+    private Product mapProduct(ProductDto productDto) {
+        var product = productRepository.findById(productDto.getProductId());
+        if (product.isPresent()) {
+            var productEntity = product.get();
+            var currentStock = productEntity.getBox();
+            productEntity.setBox(currentStock + productDto.getBox());
+            return productEntity;
+        } else {
+            System.out.println("Product Not Found!");
+        }
+        return null;
     }
 
     @Override

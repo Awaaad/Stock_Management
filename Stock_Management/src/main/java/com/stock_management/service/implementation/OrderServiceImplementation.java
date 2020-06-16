@@ -94,7 +94,8 @@ public class OrderServiceImplementation implements OrderService {
 
         var order = orderMapper.mapOrderDtoToEntity(orderDto);
         var savedOrder = orderRepository.save(order);
-        orderProductRepository.saveAll(orderDto.getOrderProductDtos().stream().map(orderProductDto -> mapOrderProduct(orderProductDto, savedOrder)).collect(Collectors.toList()));
+        orderProductRepository.saveAll(orderDto.getOrderProductDtos().stream().map(orderProductDto ->
+                mapOrderProduct(orderProductDto, savedOrder)).collect(Collectors.toList()));
 
     }
 

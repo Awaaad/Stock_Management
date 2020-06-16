@@ -75,4 +75,10 @@ public class ProductController {
         productService.editProduct(productDto);
         return new ResponseEntity<String>("Product edited successfully!", HttpStatus.OK);
     }
+
+    @PutMapping("/quickStockControl")
+    public ResponseEntity quickStockControl(@RequestBody ProductListDto productListDto){
+        productService.quickStockControl(productListDto);
+        return new ResponseEntity<String>("Product stock successfully increased!", HttpStatus.OK);
+    }
 }

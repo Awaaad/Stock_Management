@@ -29,5 +29,7 @@ public interface ProductService {
     // PUT
     void editProduct(ProductDto productDto);
 
+    void quickStockControl(ProductListDto productListDto);
+
     ProductListDto findListOfProductsByFilters(String productName, String supplierName, String Category, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
 }
