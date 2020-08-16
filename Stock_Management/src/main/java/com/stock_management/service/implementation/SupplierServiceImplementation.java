@@ -1,10 +1,13 @@
 package com.stock_management.service.implementation;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.stock_management.dto.CountProductsDto;
+import com.stock_management.dto.OrderDto;
 import com.stock_management.dto.SupplierDto;
 import com.stock_management.dto.SupplierListDto;
-import com.stock_management.entity.QSupplier;
-import com.stock_management.entity.Supplier;
+import com.stock_management.entity.*;
+import com.stock_management.mapper.OrderMapper;
 import com.stock_management.repository.SupplierRepository;
 import com.stock_management.service.SupplierService;
 import org.springframework.data.domain.Page;
@@ -13,18 +16,26 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.stock_management.mapper.SupplierMapper;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class SupplierServiceImplementation implements SupplierService{
+    @PersistenceContext
+    private EntityManager entityManager;
+
     private final SupplierRepository supplierRepository;
     private final SupplierMapper supplierMapper;
+    private final OrderMapper orderMapper;
 
-    public SupplierServiceImplementation(SupplierRepository supplierRepository, SupplierMapper supplierMapper) {
+    public SupplierServiceImplementation(SupplierRepository supplierRepository, SupplierMapper supplierMapper, OrderMapper orderMapper) {
         this.supplierRepository = supplierRepository;
         this.supplierMapper = supplierMapper;
+        this.orderMapper = orderMapper;
     }
+
 
     @Override
     public List<SupplierDto> findAllSuppliers() {
@@ -62,13 +73,6 @@ public class SupplierServiceImplementation implements SupplierService{
         return booleanBuilder;
     }
 
-    // GET
-//    @Override
-//    public List<SupplierDto> findAllSuppliers() {
-//        List<Supplier> suppliers = supplierRepository.findAll();
-//        return suppliers.stream().map()
-//    }
-
     // POST
     @Override
     public void saveSupplier(SupplierListDto supplierListDto) {
@@ -87,6 +91,27 @@ public class SupplierServiceImplementation implements SupplierService{
             supplierRepository.save(supplierMapper.mapSupplierDtoToEntity(supplier));
         } else {
             System.out.println("Supplier Not Found!");
+        }
+    }
+
+    @Override
+    public List<OrderDto> findSupplierByOrderId(Long supplierId) {
+        CountProductsDto countProductsDto = new CountProductsDto();
+        var qSupplier = QSupplier.supplier;
+        var qProduct = QProduct.product;
+        var qOrderProduct = QOrderProduct.orderProduct;
+        var qOrder = QOrder.order;
+        JPAQuery<Supplier> query = new JPAQuery<>(entityManager);
+
+        if (supplierId != null) {
+            var orderList = query.select(qOrder).distinct().from(qOrder).
+                    innerJoin(qOrderProduct).on(qOrder.orderId.eq(qOrderProduct.order.orderId)).
+                    innerJoin(qProduct).on(qOrderProduct.product.productId.eq(qProduct.productId)).
+                    innerJoin(qSupplier).on(qProduct.supplier.supplierId.eq(qSupplier.supplierId)).where(qSupplier.supplierId.eq(supplierId)).fetch();
+//            countProductsDto.setNumberOfProducts((long) supplierList.size());
+            return orderList.stream().map(orderMapper::mapOrderEntityToDto).collect(Collectors.toList());
+        } else {
+            return null;
         }
     }
 }

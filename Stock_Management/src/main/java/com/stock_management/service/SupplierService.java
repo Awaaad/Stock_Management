@@ -1,8 +1,7 @@
 package com.stock_management.service;
 
-import com.stock_management.dto.ProductDto;
-import com.stock_management.dto.SupplierDto;
-import com.stock_management.dto.SupplierListDto;
+import com.stock_management.dto.*;
+import com.stock_management.entity.Supplier;
 
 import java.util.List;
 
@@ -19,4 +18,6 @@ public interface SupplierService {
 
     // PUT
     void editSupplier(SupplierDto supplierDto);
+
+    List<OrderDto> findSupplierByOrderId(Long supplierId);
 }

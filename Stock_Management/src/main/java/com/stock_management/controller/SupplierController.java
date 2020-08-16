@@ -1,9 +1,7 @@
 package com.stock_management.controller;
 
-import com.stock_management.dto.ProductDto;
-import com.stock_management.dto.ProductListDto;
-import com.stock_management.dto.SupplierDto;
-import com.stock_management.dto.SupplierListDto;
+import com.stock_management.dto.*;
+import com.stock_management.entity.Supplier;
 import com.stock_management.service.SupplierService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +35,10 @@ public class SupplierController {
         return new ResponseEntity<>(supplierService.findSupplierById(supplierId), HttpStatus.OK);
     }
 
+    @GetMapping("orderId/{orderId}")
+    public ResponseEntity<List<OrderDto>>getSupplierByOrderId(@PathVariable Long orderId){
+        return new ResponseEntity<>(supplierService.findSupplierByOrderId(orderId), HttpStatus.ACCEPTED);
+    }
     // POST GOES HERE
     @PostMapping("/saveSuppliers")
     public ResponseEntity saveSuppliers(@RequestBody SupplierListDto supplierListDto){

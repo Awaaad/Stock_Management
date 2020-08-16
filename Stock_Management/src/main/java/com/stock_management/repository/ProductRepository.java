@@ -10,4 +10,5 @@ public interface ProductRepository extends JpaRepository<Product, Long>, Queryds
 //    List<Product> findBystock_stockId(Long stockId);
 //
 //    Long countBystock_stockId(Long stockId);
+
 }
