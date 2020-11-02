@@ -24,12 +24,6 @@
   <component name="ChangeListManager">
     <list default="true" id="745d19a2-2adc-45d2-bc63-2f4d4e916644" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/MultipleSaveProductMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/MultipleSaveProductMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/OrderMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/OrderMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/OrderProductMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/OrderProductMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/ProductMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/ProductMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/SupplierMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/SupplierMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/UserMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/UserMapperImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,6 +152,14 @@
       <workItem from="1604152360931" duration="1201000" />
       <workItem from="1604217585863" duration="1140000" />
     </task>
+    <task id="LOCAL-00001" summary="init commit">
+      <created>1604322794122</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1604322794122</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -175,6 +177,10 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="init commit" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="586" y="198" key="#Inspections" timestamp="1597516048353">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -188,6 +194,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1597515152341" />
+    <state x="1014" y="94" key="CommitChangelistDialog2" timestamp="1604322792731">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1014" y="94" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1604322792731" />
     <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1595700753283">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -232,6 +242,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="680" y="222" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597565686211" />
+    <state x="1032" y="243" key="Vcs.Push.Dialog.v2" timestamp="1604322829564">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1032" y="243" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1604322829564" />
     <state x="390" y="248" width="1139" height="593" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1597516955058">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
