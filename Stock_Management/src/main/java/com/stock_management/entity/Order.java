@@ -4,13 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,16 +37,6 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     List<OrderProduct> orderProducts;
-
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(
-//            name = "Order_Product",
-//            joinColumns = { @JoinColumn (name = "ORDER_ID") },
-//            inverseJoinColumns = { @JoinColumn (name = "PRODUCT_ID")}
-//    )
-//    private List<Product> products;
-
-
 }
 
 

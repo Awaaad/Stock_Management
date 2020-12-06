@@ -4,6 +4,7 @@ com\stock_management\service\UserService.class
 com\stock_management\controller\ProductController.class
 com\stock_management\dto\OrderDto.class
 com\stock_management\entity\Order.class
+com\stock_management\dto\ProductQuantityPriceDto.class
 com\stock_management\service\SupplierService.class
 com\stock_management\dto\OrderListDto.class
 com\stock_management\mapper\MultipleSaveProductMapperImpl.class
@@ -26,11 +27,14 @@ com\stock_management\service\OrderService.class
 com\stock_management\service\implementation\ProductServiceImplementation.class
 com\stock_management\dto\UserDto.class
 com\stock_management\mapper\MultipleSaveProductMapper.class
+com\stock_management\mapper\ReceiptMapperImpl.class
 com\stock_management\dto\SupplierListDto.class
 com\stock_management\mapper\OrderMapperImpl.class
 com\stock_management\controller\UserController.class
+com\stock_management\mapper\ReceiptMapper.class
 com\stock_management\mapper\SupplierMapper.class
 com\stock_management\StockControlSystemApplication.class
+com\stock_management\dto\CustomerReceiptDto.class
 com\stock_management\entity\QOrder.class
 com\stock_management\mapper\UserMapper.class
 com\stock_management\dto\ManipulateProductQuantityDto.class

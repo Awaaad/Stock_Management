@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -53,9 +51,6 @@ public class Product {
     @ManyToOne(targetEntity = Supplier.class)
     @JoinColumn(name = "SUPPLIER_ID", referencedColumnName = "SUPPLIER_ID")
     private Supplier supplier;
-
-//    @ManyToMany(mappedBy = "products")
-//    private List<Order> orders;
 
     @OneToMany(mappedBy = "product")
     List<OrderProduct> orderProducts;

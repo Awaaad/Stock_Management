@@ -1,5 +1,6 @@
 package com.stock_management.service;
 
+import com.stock_management.dto.CustomerReceiptDto;
 import com.stock_management.dto.OrderDto;
 import com.stock_management.dto.OrderListDto;
 
@@ -13,6 +14,8 @@ public interface OrderService {
     OrderDto findOrderById(Long OrderId);
 
     OrderListDto findListOfOrdersByFilters(String customerName, String cashierName, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
+
+    CustomerReceiptDto findCustomerReceiptDetails(Long orderId);
 
     // POST
     void saveOrder(OrderDto orderDto);

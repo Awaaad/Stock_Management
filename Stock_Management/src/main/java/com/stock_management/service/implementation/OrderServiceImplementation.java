@@ -1,14 +1,19 @@
 package com.stock_management.service.implementation;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.stock_management.dto.CustomerReceiptDto;
 import com.stock_management.dto.OrderDto;
 import com.stock_management.dto.OrderListDto;
 import com.stock_management.dto.OrderProductDto;
 import com.stock_management.entity.Order;
 import com.stock_management.entity.OrderProduct;
 import com.stock_management.entity.QOrder;
+import com.stock_management.entity.QOrderProduct;
+import com.stock_management.entity.QProduct;
 import com.stock_management.mapper.OrderMapper;
 import com.stock_management.mapper.OrderProductMapper;
+import com.stock_management.mapper.ReceiptMapper;
 import com.stock_management.repository.OrderProductRepository;
 import com.stock_management.repository.OrderRepository;
 import com.stock_management.repository.ProductRepository;
@@ -18,26 +23,33 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImplementation implements OrderService {
+    @PersistenceContext
+    private EntityManager entityManager;
+
     public final OrderRepository orderRepository;
     public final OrderMapper orderMapper;
     private final OrderProductMapper orderProductMapper;
     public final ProductRepository productRepository;
     private final OrderProductRepository orderProductRepository;
+    private final ReceiptMapper receiptMapper;
 
-    public OrderServiceImplementation(OrderRepository orderRepository, OrderMapper orderMapper, OrderProductMapper orderProductMapper, ProductRepository productRepository, OrderProductRepository orderProductRepository) {
+    public OrderServiceImplementation(OrderRepository orderRepository, OrderMapper orderMapper, OrderProductMapper orderProductMapper, ProductRepository productRepository, OrderProductRepository orderProductRepository, ReceiptMapper receiptMapper) {
         this.orderRepository = orderRepository;
         this.orderMapper = orderMapper;
         this.orderProductMapper = orderProductMapper;
         this.productRepository = productRepository;
         this.orderProductRepository = orderProductRepository;
+        this.receiptMapper = receiptMapper;
     }
 
     // GET
@@ -74,6 +86,38 @@ public class OrderServiceImplementation implements OrderService {
         orderListDto.setTotalElements(orders.getNumberOfElements());
         orderListDto.setTotalPages(orders.getTotalPages());
         return orderListDto;
+    }
+
+    @Override
+    public CustomerReceiptDto findCustomerReceiptDetails(Long orderId) {
+        var qOrder = QOrder.order;
+        var qOrderProduct = QOrderProduct.orderProduct;
+        var qProduct = QProduct.product;
+
+        if (Objects.nonNull(orderId)) {
+            var customerReceipt = new JPAQuery<OrderProduct>(entityManager).select(
+                    qOrder.orderId.as("orderId"),
+                    qOrder.cashierName.as("cashierName"),
+                    qOrder.customerName.as("CustomerName"),
+                    qOrder.orderDate.as("orderDate"),
+                    qOrder.totalPrice.as("totalPrice"),
+                    qOrderProduct.product.productName.as("productName"),
+                    qOrderProduct.boxesOrdered.as("boxesOrdered"),
+                    qOrderProduct.unitsOrdered.as("unitsOrdered"),
+                    qOrderProduct.totalPrice.as("price"),
+                    qProduct.pricePerBox.as("pricePerBox"),
+                    qProduct.pricePerUnit.as("pricePerUnit"),
+                    qProduct.unitsPerBox.as("unitsPerBox"))
+                    .from(qOrderProduct)
+                    .leftJoin(qOrderProduct.order, qOrder)
+                    .leftJoin(qOrderProduct.product, qProduct)
+                    .where(qOrder.orderId.eq(orderId))
+                    .fetchResults().getResults();
+
+            return receiptMapper.mapCustomerReceiptDtoEntityToDto(customerReceipt);
+        } else {
+            return null;
+        }
     }
 
     private BooleanBuilder buildProductPredicate(String customerName, String cashierName) {
@@ -137,7 +181,7 @@ public class OrderServiceImplementation implements OrderService {
     public void editOrder(OrderDto orderDto) {
         var order = findOrderById(orderDto.getOrderId());
         if (order != null) {
-            order.setPaid(orderDto.getPaid());
+            order.setPaid(true);
             orderRepository.save(orderMapper.mapOrderDtoToEntity(order));
         } else {
             System.out.println("Order Not Found!");

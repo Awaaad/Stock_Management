@@ -26,12 +26,10 @@ import java.util.stream.Collectors;
 public class ProductServiceImplementation implements ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
-    private final MultipleSaveProductMapper multipleSaveProductMapper;
 
-    public ProductServiceImplementation(ProductRepository productRepository, ProductMapper productMapper, MultipleSaveProductMapper multipleSaveProductMapper) {
+    public ProductServiceImplementation(ProductRepository productRepository, ProductMapper productMapper) {
         this.productRepository = productRepository;
         this.productMapper = productMapper;
-        this.multipleSaveProductMapper = multipleSaveProductMapper;
     }
 
     // GET

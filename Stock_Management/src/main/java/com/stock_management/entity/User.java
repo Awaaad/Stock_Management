@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,8 +35,4 @@ public class User {
 
     @Column(name = "ROLE", nullable = false)
     private String role;
-
-//    @OneToMany(targetEntity =  Stock.class, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-//    private List<Stock> stocks;
 }

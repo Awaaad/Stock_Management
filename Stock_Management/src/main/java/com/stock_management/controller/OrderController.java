@@ -1,5 +1,6 @@
 package com.stock_management.controller;
 
+import com.stock_management.dto.CustomerReceiptDto;
 import com.stock_management.dto.OrderDto;
 import com.stock_management.dto.OrderListDto;
 import com.stock_management.service.OrderService;
@@ -29,6 +30,11 @@ public class OrderController {
     @GetMapping("/{orderId}")
     public ResponseEntity<OrderDto> getOrderById(@PathVariable Long orderId){
         return new ResponseEntity<>(orderService.findOrderById(orderId), HttpStatus.OK);
+    }
+
+    @GetMapping("/customerReceipt/{orderId}")
+    public ResponseEntity<CustomerReceiptDto> getCustomerReceipt(@PathVariable Long orderId){
+        return new ResponseEntity<>(orderService.findCustomerReceiptDetails(orderId), HttpStatus.OK);
     }
 
     @GetMapping("filter")
