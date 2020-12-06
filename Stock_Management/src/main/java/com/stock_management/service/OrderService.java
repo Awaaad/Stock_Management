@@ -1,9 +1,11 @@
 package com.stock_management.service;
 
 import com.stock_management.dto.CustomerReceiptDto;
+import com.stock_management.dto.EODSalesAmountDto;
 import com.stock_management.dto.OrderDto;
 import com.stock_management.dto.OrderListDto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,6 +18,8 @@ public interface OrderService {
     OrderListDto findListOfOrdersByFilters(String customerName, String cashierName, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
 
     CustomerReceiptDto findCustomerReceiptDetails(Long orderId);
+
+    EODSalesAmountDto findEODSalesAmount(LocalDate dateTime);
 
     // POST
     void saveOrder(OrderDto orderDto);

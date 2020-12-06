@@ -3,6 +3,7 @@ package com.stock_management.service.implementation;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.stock_management.dto.CustomerReceiptDto;
+import com.stock_management.dto.EODSalesAmountDto;
 import com.stock_management.dto.OrderDto;
 import com.stock_management.dto.OrderListDto;
 import com.stock_management.dto.OrderProductDto;
@@ -26,6 +27,8 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -118,6 +121,17 @@ public class OrderServiceImplementation implements OrderService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public EODSalesAmountDto findEODSalesAmount(LocalDate dateTime) {
+
+        EODSalesAmountDto eodSalesAmountDto = new EODSalesAmountDto();
+        var order = orderRepository.findAll();
+        Double amount = order.stream().filter(order1 -> dateTime.equals(order1.getOrderDate().toLocalDate())).mapToDouble(Order::getTotalPrice).sum();
+        eodSalesAmountDto.setTotalAmount(amount);
+        return  eodSalesAmountDto;
+
     }
 
     private BooleanBuilder buildProductPredicate(String customerName, String cashierName) {
