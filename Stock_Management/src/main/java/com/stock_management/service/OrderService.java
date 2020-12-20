@@ -1,7 +1,7 @@
 package com.stock_management.service;
 
 import com.stock_management.dto.CustomerReceiptDto;
-import com.stock_management.dto.EODSalesAmountDto;
+import com.stock_management.dto.MonthlySalesDto;
 import com.stock_management.dto.OrderDto;
 import com.stock_management.dto.OrderListDto;
 
@@ -15,11 +15,15 @@ public interface OrderService {
 
     OrderDto findOrderById(Long OrderId);
 
-    OrderListDto findListOfOrdersByFilters(String customerName, String cashierName, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
+    OrderListDto findListOfOrdersByFilters(String customerName, String cashierName, LocalDateTime orderDateTime, Boolean paid, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
 
     CustomerReceiptDto findCustomerReceiptDetails(Long orderId);
 
-    EODSalesAmountDto findEODSalesAmount(LocalDate dateTime);
+    Double findEODSalesAmount(LocalDate dateTime);
+
+    Double findMonthSalesAmount(LocalDate month, LocalDate year);
+
+    MonthlySalesDto findSalesForEachMonth(LocalDate year);
 
     // POST
     void saveOrder(OrderDto orderDto);

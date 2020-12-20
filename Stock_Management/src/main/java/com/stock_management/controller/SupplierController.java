@@ -40,14 +40,14 @@ public class SupplierController {
         return new ResponseEntity<>(supplierService.findSupplierByOrderId(orderId), HttpStatus.ACCEPTED);
     }
     // POST GOES HERE
-    @PostMapping("/saveSuppliers")
+    @PostMapping("/save-suppliers")
     public ResponseEntity saveSuppliers(@RequestBody SupplierListDto supplierListDto){
         supplierService.saveSupplier(supplierListDto);
         return new ResponseEntity<String>("Suppliers saved successfully!", HttpStatus.OK);
     }
 
     // PUT GOES HERE
-    @PutMapping("/editSupplier")
+    @PutMapping("/edit-supplier")
     public ResponseEntity editSupplier(@RequestBody SupplierDto supplierDto){
         supplierService.editSupplier(supplierDto);
         return new ResponseEntity<String>("Supplier edited successfully!", HttpStatus.OK);

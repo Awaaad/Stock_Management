@@ -3,6 +3,7 @@ package com.stock_management.service;
 import com.stock_management.dto.CountProductsDto;
 import com.stock_management.dto.ProductDto;
 import com.stock_management.dto.ProductListDto;
+import com.stock_management.dto.UpdateStockAmountDto;
 
 import java.awt.print.Pageable;
 import java.util.List;
@@ -17,6 +18,8 @@ public interface ProductService {
 
     ProductDto findProductById(Long productId);
 
+    Long findNumberOfProductsLowInStock();
+
 //    List<ProductDto> findProductsByStockId(Long stockId);
 
 //    CountProductsDto countProductsByStockId(Long stockId);
@@ -29,7 +32,7 @@ public interface ProductService {
     // PUT
     void editProduct(ProductDto productDto);
 
-    void quickStockControl(ProductListDto productListDto);
+    void quickStockControl(List<UpdateStockAmountDto> updateStockAmountDto);
 
     ProductListDto findListOfProductsByFilters(String productName, String supplierName, String Category, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
 }

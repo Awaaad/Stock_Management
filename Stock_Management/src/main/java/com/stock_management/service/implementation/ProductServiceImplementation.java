@@ -4,13 +4,14 @@ import com.querydsl.core.BooleanBuilder;
 import com.stock_management.dto.CountProductsDto;
 import com.stock_management.dto.ProductDto;
 import com.stock_management.dto.ProductListDto;
+import com.stock_management.dto.UpdateStockAmountDto;
 import com.stock_management.entity.Product;
 import com.stock_management.entity.QProduct;
-import com.stock_management.mapper.MultipleSaveProductMapper;
 import com.stock_management.mapper.ProductMapper;
 import com.stock_management.repository.ProductRepository;
 import com.stock_management.service.ProductService;
-import org.hibernate.query.QueryProducer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -18,15 +19,16 @@ import org.springframework.stereotype.Service;
 
 import java.awt.print.Pageable;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 
 @Service
+@EnableAutoConfiguration
 public class ProductServiceImplementation implements ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
+    @Autowired
     public ProductServiceImplementation(ProductRepository productRepository, ProductMapper productMapper) {
         this.productRepository = productRepository;
         this.productMapper = productMapper;
@@ -60,6 +62,14 @@ public class ProductServiceImplementation implements ProductService {
             var oneProduct = product.orElse(null);
             return productMapper.mapProductEntityToDto(oneProduct);
     }
+
+    @Override
+    public Long findNumberOfProductsLowInStock() {
+        List<Product> products = productRepository.findAll();
+        Long numberOfProductsLowInStock = products.stream().filter(product -> product.getBox() <= 3).count();
+        return numberOfProductsLowInStock;
+    }
+
 
 //    @Override
 //    public List<ProductDto> findProductsByStockId(Long stockId) {
@@ -98,6 +108,7 @@ public class ProductServiceImplementation implements ProductService {
             product.setPricePerBox(productDto.getPricePerBox());
             product.setPricePerUnit(productDto.getPricePerUnit());
             product.setRequirePrescription(productDto.getRequirePrescription());
+            product.setSlot(productDto.getSlot());
             product.setSupplier(productDto.getSupplier());
             productRepository.save(productMapper.mapProductDtoToEntity(product));
         } else {
@@ -106,17 +117,19 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     @Override
-    public void quickStockControl(ProductListDto productListDto) {
-        productRepository.saveAll(productListDto.getProductDtos().stream().map(productDto ->
-                mapProduct(productDto)).filter(Objects::isNull).collect(Collectors.toList()));
+    public void quickStockControl(List<UpdateStockAmountDto> updateStockAmountDto) {
+        productRepository.saveAll((updateStockAmountDto.stream().map(this::mapProduct).collect(Collectors.toList()))
+        );
     }
 
-    private Product mapProduct(ProductDto productDto) {
-        var product = productRepository.findById(productDto.getProductId());
+    private Product mapProduct(UpdateStockAmountDto updateStockAmountDto) {
+        var product = productRepository.findById(updateStockAmountDto.getId());
         if (product.isPresent()) {
             var productEntity = product.get();
-            var currentStock = productEntity.getBox();
-            productEntity.setBox(currentStock + productDto.getBox());
+            var currentBoxStock = productEntity.getBox();
+            var currentUnitStock = productEntity.getUnitsTotal();
+            productEntity.setBox(currentBoxStock + updateStockAmountDto.getAmount());
+            productEntity.setUnitsTotal(updateStockAmountDto.getAmount() * productEntity.getUnitsPerBox() + currentUnitStock);
             return productEntity;
         } else {
             System.out.println("Product Not Found!");

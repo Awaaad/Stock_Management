@@ -2,6 +2,7 @@ package com.stock_management.controller;
 
 import com.stock_management.dto.ProductDto;
 import com.stock_management.dto.ProductListDto;
+import com.stock_management.dto.UpdateStockAmountDto;
 import com.stock_management.entity.Product;
 import com.stock_management.repository.ProductRepository;
 import com.stock_management.service.ProductService;
@@ -36,7 +37,7 @@ public class ProductController {
         return new ResponseEntity<>(productService.findListOfProductsByFilters(productName, supplierName, category, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
     }
 
-    @GetMapping("/countProduct")
+    @GetMapping("/count-product")
     public ResponseEntity<Long>getNumberOfProducts(){
         return new ResponseEntity(productService.countAllProducts(), HttpStatus.OK);
     }
@@ -44,6 +45,11 @@ public class ProductController {
     @GetMapping("/id")
     public ResponseEntity<ProductDto>getProductById(@RequestParam Long productId){
         return new ResponseEntity<>(productService.findProductById(productId), HttpStatus.OK);
+    }
+
+    @GetMapping("/product-low-stock-count")
+    public ResponseEntity<Long>getNumberOfProductsLowInStock(){
+        return new ResponseEntity<Long>(productService.findNumberOfProductsLowInStock(), HttpStatus.OK);
     }
 
 //    @GetMapping("/byStock/{stockId}")
@@ -57,28 +63,28 @@ public class ProductController {
 //    }
 
     // POST GOES HERE
-    @PostMapping("/saveProduct")
+    @PostMapping("/save-product")
     public ResponseEntity saveProduct(@RequestBody ProductDto productDto){
         productService.saveProduct(productDto);
         return new ResponseEntity<String>("Product saved successfully!", HttpStatus.OK);
     }
 
-    @PostMapping("/saveProducts")
+    @PostMapping("/save-products")
     public ResponseEntity saveProducts(@RequestBody ProductListDto productListDto){
         productService.saveProducts(productListDto);
         return new ResponseEntity<String>("Products saved successfully!", HttpStatus.OK);
     }
 
     // PUT GOES HERE
-    @PutMapping("/editProduct")
+    @PutMapping("/edit-product")
     public ResponseEntity editProduct(@RequestBody ProductDto productDto){
         productService.editProduct(productDto);
         return new ResponseEntity<String>("Product edited successfully!", HttpStatus.OK);
     }
 
-    @PutMapping("/quickStockControl")
-    public ResponseEntity quickStockControl(@RequestBody ProductListDto productListDto){
-        productService.quickStockControl(productListDto);
+    @PutMapping("/quick-stock-control")
+    public ResponseEntity quickStockControl(@RequestBody List<UpdateStockAmountDto> updateStockAmountDto){
+        productService.quickStockControl(updateStockAmountDto);
         return new ResponseEntity<String>("Product stock successfully increased!", HttpStatus.OK);
     }
 }

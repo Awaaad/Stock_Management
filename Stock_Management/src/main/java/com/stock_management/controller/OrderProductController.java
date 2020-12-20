@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 10000)
-@RequestMapping("/orderProduct")
+@RequestMapping("/order-product")
 public class OrderProductController {
     @Autowired
     private final OrderProductService orderProductService;

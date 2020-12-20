@@ -1,7 +1,7 @@
 package com.stock_management.controller;
 
 import com.stock_management.dto.CustomerReceiptDto;
-import com.stock_management.dto.EODSalesAmountDto;
+import com.stock_management.dto.MonthlySalesDto;
 import com.stock_management.dto.OrderDto;
 import com.stock_management.dto.OrderListDto;
 import com.stock_management.service.OrderService;
@@ -35,32 +35,42 @@ public class OrderController {
         return new ResponseEntity<>(orderService.findOrderById(orderId), HttpStatus.OK);
     }
 
-    @GetMapping("/customerReceipt/{orderId}")
+    @GetMapping("/customer-receipt/{orderId}")
     public ResponseEntity<CustomerReceiptDto> getCustomerReceipt(@PathVariable Long orderId){
         return new ResponseEntity<>(orderService.findCustomerReceiptDetails(orderId), HttpStatus.OK);
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<OrderListDto> getOrdersViaFilter(@RequestParam String customerName, @RequestParam String cashierName, @RequestParam String sortOrder, @RequestParam String sortBy, @RequestParam Integer pageNumber, @RequestParam Integer pageSize){
-        return new ResponseEntity<>(orderService.findListOfOrdersByFilters(customerName, cashierName, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
+    public ResponseEntity<OrderListDto> getOrdersViaFilter(@RequestParam String customerName, @RequestParam String cashierName, @RequestParam("orderDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime orderDateTime, @RequestParam Boolean paid, @RequestParam String sortOrder, @RequestParam String sortBy, @RequestParam Integer pageNumber, @RequestParam Integer pageSize){
+        return new ResponseEntity<>(orderService.findListOfOrdersByFilters(customerName, cashierName, orderDateTime, paid, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
     }
 
-    @GetMapping("/getEODSalesAmount")
-    public ResponseEntity<EODSalesAmountDto> getEODSalesAmount(@RequestParam("localDate")
+    @GetMapping("/get-eod-sales-amount")
+    public ResponseEntity<Double> getEODSalesAmount(@RequestParam("localDate")
                                                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate orderDate) {
-        return new ResponseEntity<EODSalesAmountDto>(orderService.findEODSalesAmount(orderDate), HttpStatus.OK);
+        return new ResponseEntity<Double>(orderService.findEODSalesAmount(orderDate), HttpStatus.OK);
+    }
+
+    @GetMapping("/get-month-sales-amount")
+    public ResponseEntity<Double> getMonthSalesAmount(@RequestParam("month") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate month, @RequestParam("year") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate year) {
+        return new ResponseEntity<Double>(orderService.findMonthSalesAmount(month, year), HttpStatus.OK);
+    }
+
+    @GetMapping("/get-each-month-sales-amount")
+    public ResponseEntity<MonthlySalesDto> getEachMonthSalesAmount(@RequestParam("year") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate year) {
+        return new ResponseEntity<MonthlySalesDto>(orderService.findSalesForEachMonth(year), HttpStatus.OK);
     }
 
 
     // POST GOES HERE
-    @PostMapping("/saveOrder")
+    @PostMapping("/save-order")
     public ResponseEntity saveOrder(@RequestBody OrderDto orderDto){
         orderService.saveOrder(orderDto);
         return new ResponseEntity<String>("Order saved successfully!", HttpStatus.OK);
     }
 
     // PUT GOES HERE
-    @PutMapping("/editOrder")
+    @PutMapping("/edit-order")
     public ResponseEntity editOrder(@RequestBody OrderDto orderDto){
         orderService.editOrder(orderDto);
         return new ResponseEntity<String>("Order edited successfully!", HttpStatus.OK);

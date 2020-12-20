@@ -3,7 +3,7 @@ package com.stock_management.service.implementation;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.stock_management.dto.CustomerReceiptDto;
-import com.stock_management.dto.EODSalesAmountDto;
+import com.stock_management.dto.MonthlySalesDto;
 import com.stock_management.dto.OrderDto;
 import com.stock_management.dto.OrderListDto;
 import com.stock_management.dto.OrderProductDto;
@@ -19,6 +19,7 @@ import com.stock_management.repository.OrderProductRepository;
 import com.stock_management.repository.OrderRepository;
 import com.stock_management.repository.ProductRepository;
 import com.stock_management.service.OrderService;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -34,6 +35,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@EnableAutoConfiguration
 @Service
 public class OrderServiceImplementation implements OrderService {
     @PersistenceContext
@@ -72,10 +74,10 @@ public class OrderServiceImplementation implements OrderService {
     // filter DSL
     @Override
     @Transactional
-    public OrderListDto findListOfOrdersByFilters(String customerName, String cashierName, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
+    public OrderListDto findListOfOrdersByFilters(String customerName, String cashierName, LocalDateTime orderDateTime, Boolean paid, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
         Sort sort = Sort.by("ASC".equals(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sort);
-        BooleanBuilder predicate = buildProductPredicate(customerName, cashierName);
+        BooleanBuilder predicate = buildProductPredicate(customerName, cashierName, orderDateTime, paid);
         Page<Order> orders = orderRepository.findAll(predicate,pageRequest);
         List<OrderDto> orderDtos = orders.stream().map(orderMapper::mapOrderEntityToDto).collect(Collectors.toList());
 
@@ -124,17 +126,44 @@ public class OrderServiceImplementation implements OrderService {
     }
 
     @Override
-    public EODSalesAmountDto findEODSalesAmount(LocalDate dateTime) {
-
-        EODSalesAmountDto eodSalesAmountDto = new EODSalesAmountDto();
+    public Double findEODSalesAmount(LocalDate dateTime) {
         var order = orderRepository.findAll();
-        Double amount = order.stream().filter(order1 -> dateTime.equals(order1.getOrderDate().toLocalDate())).mapToDouble(Order::getTotalPrice).sum();
-        eodSalesAmountDto.setTotalAmount(amount);
-        return  eodSalesAmountDto;
-
+        return order.stream().filter(order1 -> dateTime.equals(order1.getOrderDate().toLocalDate())).mapToDouble(Order::getTotalPrice).sum();
     }
 
-    private BooleanBuilder buildProductPredicate(String customerName, String cashierName) {
+    @Override
+    public Double findMonthSalesAmount(LocalDate month, LocalDate year) {
+        var order = orderRepository.findAll();
+        return order.stream().filter(order1 ->
+                month.getMonth().equals(order1.getOrderDate().toLocalDate().getMonth()) &&
+                        (year.getYear() == (order1.getOrderDate().toLocalDate().getYear())))
+                .mapToDouble(Order::getTotalPrice).sum();
+    }
+
+    @Override
+    public MonthlySalesDto findSalesForEachMonth(LocalDate year) {
+        MonthlySalesDto monthlySalesDto = new MonthlySalesDto();
+        var order = orderRepository.findAll();
+        monthlySalesDto.setJan(computeSumForOrder(order, year, 1));
+        monthlySalesDto.setFeb(computeSumForOrder(order, year, 2));
+        monthlySalesDto.setMar(computeSumForOrder(order, year, 3));
+        monthlySalesDto.setApr(computeSumForOrder(order, year, 4));
+        monthlySalesDto.setMay(computeSumForOrder(order, year, 5));
+        monthlySalesDto.setJun(computeSumForOrder(order, year, 6));
+        monthlySalesDto.setJul(computeSumForOrder(order, year, 7));
+        monthlySalesDto.setAug(computeSumForOrder(order, year, 8));
+        monthlySalesDto.setSep(computeSumForOrder(order, year, 9));
+        monthlySalesDto.setOct(computeSumForOrder(order, year, 10));
+        monthlySalesDto.setNov(computeSumForOrder(order, year, 11));
+        monthlySalesDto.setDec(computeSumForOrder(order, year, 12));
+        return monthlySalesDto;
+    }
+
+    private Double computeSumForOrder(List<Order> order, LocalDate year, int month) {
+        return order.stream().filter(order1 -> year.getYear() == order1.getOrderDate().getYear() && order1.getOrderDate().getMonthValue() == month).mapToDouble(Order::getTotalPrice).sum();
+    }
+
+    private BooleanBuilder buildProductPredicate(String customerName, String cashierName, LocalDateTime orderDateTime, Boolean paid) {
         var qOrder = QOrder.order;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if(!customerName.equals("")) {
@@ -142,6 +171,12 @@ public class OrderServiceImplementation implements OrderService {
         }
         if(!cashierName.equals("All")) {
             booleanBuilder.and(qOrder.cashierName.eq(cashierName));
+        }
+        if(Objects.nonNull(orderDateTime)) {
+            booleanBuilder.and(qOrder.orderDate.eq(orderDateTime));
+        }
+        if(Objects.nonNull(paid)) {
+            booleanBuilder.and(qOrder.paid.eq(paid));
         }
         return booleanBuilder;
     }
