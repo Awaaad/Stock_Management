@@ -17,6 +17,6 @@ public class ProductDto {
     private Double pricePerBox;
     private Double pricePerUnit;
     private Boolean requirePrescription;
-//    private List<OrderDto> orders;
+    private String slot;
     private SupplierDto supplier;
 }

@@ -48,6 +48,9 @@ public class Product {
     @Column(name = "REQUIRE_PRESCRIPTION", nullable = false)
     private Boolean requirePrescription;
 
+    @Column(name = "SLOT")
+    private String slot;
+
     @ManyToOne(targetEntity = Supplier.class)
     @JoinColumn(name = "SUPPLIER_ID", referencedColumnName = "SUPPLIER_ID")
     private Supplier supplier;

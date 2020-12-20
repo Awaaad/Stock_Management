@@ -20,6 +20,8 @@ public class QOrder extends EntityPathBase<Order> {
 
     public static final QOrder order = new QOrder("order1");
 
+    public final NumberPath<Double> amountPaid = createNumber("amountPaid", Double.class);
+
     public final StringPath cashierName = createString("cashierName");
 
     public final StringPath customerName = createString("customerName");

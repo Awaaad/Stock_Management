@@ -23,11 +23,13 @@ C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\rep
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\OrderDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\StockControlSystemApplication.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\mapper\ProductMapper.java
+C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\MonthlySalesDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\implementation\SupplierServiceImplementation.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\OrderListDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\entity\OrderProduct.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\mapper\UserMapper.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\implementation\OrderServiceImplementation.java
+C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\UpdateStockAmountDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\repository\OrderProductRepository.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\CountProductsDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\UserDto.java

@@ -6,13 +6,11 @@ import com.stock_management.entity.Product;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.context.annotation.Configuration;
 
 @Mapper(componentModel = "spring", uses = OrderMapper.class)
 public interface ProductMapper {
-//    @Mapping(target = "orders", source = "orders")
     ProductDto mapProductEntityToDto (Product productEntity);
     @InheritInverseConfiguration
     Product mapProductDtoToEntity (ProductDto productDto);
-
-//    Product mapManipulateProductQuantityDtoToEntity (ManipulateProductQuantityDto manipulateProductQuantityDto);
 }

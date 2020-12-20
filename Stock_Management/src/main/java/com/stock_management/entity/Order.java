@@ -32,6 +32,9 @@ public class Order {
     @Column(name = "TOTAL_PRICE", nullable = false)
     private Double totalPrice;
 
+    @Column(name = "AMOUNT_PAID", nullable = false)
+    private Double amountPaid;
+
     @Column(name = "PAID", nullable = false)
     private Boolean paid;
 

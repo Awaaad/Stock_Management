@@ -42,6 +42,8 @@ public class QProduct extends EntityPathBase<Product> {
 
     public final BooleanPath requirePrescription = createBoolean("requirePrescription");
 
+    public final StringPath slot = createString("slot");
+
     public final QSupplier supplier;
 
     public final NumberPath<Integer> unitsPerBox = createNumber("unitsPerBox", Integer.class);

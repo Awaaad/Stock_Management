@@ -1,6 +1,7 @@
 com\stock_management\repository\OrderProductRepository.class
 com\stock_management\mapper\ProductMapper.class
 com\stock_management\service\UserService.class
+com\stock_management\dto\MonthlySalesDto.class
 com\stock_management\controller\ProductController.class
 com\stock_management\dto\OrderDto.class
 com\stock_management\entity\Order.class
@@ -31,6 +32,7 @@ com\stock_management\mapper\ReceiptMapperImpl.class
 com\stock_management\dto\SupplierListDto.class
 com\stock_management\mapper\OrderMapperImpl.class
 com\stock_management\controller\UserController.class
+com\stock_management\dto\UpdateStockAmountDto.class
 com\stock_management\mapper\ReceiptMapper.class
 com\stock_management\mapper\SupplierMapper.class
 com\stock_management\StockControlSystemApplication.class
