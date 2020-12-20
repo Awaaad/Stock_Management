@@ -231,6 +231,7 @@ public class OrderServiceImplementation implements OrderService {
         var order = findOrderById(orderDto.getOrderId());
         if (order != null) {
             order.setPaid(true);
+            order.setAmountPaid(orderDto.getAmountPaid());
             orderRepository.save(orderMapper.mapOrderDtoToEntity(order));
         } else {
             System.out.println("Order Not Found!");

@@ -184,7 +184,7 @@
       <workItem from="1608309183735" duration="4054000" />
       <workItem from="1608316037702" duration="2325000" />
       <workItem from="1608356194967" duration="5136000" />
-      <workItem from="1608445631945" duration="2737000" />
+      <workItem from="1608445631945" duration="3101000" />
     </task>
     <task id="LOCAL-00001" summary="init commit">
       <created>1604322794122</created>
@@ -205,6 +205,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="SHOW_OTHER_BRANCHES" value="true" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
