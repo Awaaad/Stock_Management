@@ -2,6 +2,7 @@ package com.stock_management.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.DecimalMax;
 import java.util.List;
 
 @Data

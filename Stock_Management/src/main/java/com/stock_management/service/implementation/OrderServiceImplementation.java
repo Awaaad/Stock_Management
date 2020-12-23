@@ -167,10 +167,10 @@ public class OrderServiceImplementation implements OrderService {
         var qOrder = QOrder.order;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if(!customerName.equals("")) {
-            booleanBuilder.and(qOrder.customerName.contains(customerName));
+            booleanBuilder.and(qOrder.customerName.toLowerCase().contains(customerName.toLowerCase()));
         }
         if(!cashierName.equals("All")) {
-            booleanBuilder.and(qOrder.cashierName.eq(cashierName));
+            booleanBuilder.and(qOrder.cashierName.toLowerCase().eq(cashierName.toLowerCase()));
         }
         if(Objects.nonNull(orderDateTime)) {
             booleanBuilder.and(qOrder.orderDate.eq(orderDateTime));

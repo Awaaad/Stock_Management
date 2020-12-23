@@ -3,15 +3,12 @@ package com.stock_management.controller;
 import com.stock_management.dto.ProductDto;
 import com.stock_management.dto.ProductListDto;
 import com.stock_management.dto.UpdateStockAmountDto;
-import com.stock_management.entity.Product;
-import com.stock_management.repository.ProductRepository;
 import com.stock_management.service.ProductService;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.awt.print.Pageable;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -19,11 +16,9 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
     private final ProductService productService;
-    private final ProductRepository productRepository;
 
-    public ProductController(ProductService productService, ProductRepository productRepository) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
-        this.productRepository = productRepository;
     }
 
     // GET GOES HERE
@@ -33,8 +28,8 @@ public class ProductController {
     }
 
     @GetMapping("filter")
-    public ResponseEntity<ProductListDto> getProductsViaFilter(@RequestParam String productName, @RequestParam String supplierName, @RequestParam String category, @RequestParam String sortOrder, @RequestParam String sortBy, @RequestParam Integer pageNumber, @RequestParam Integer pageSize){
-        return new ResponseEntity<>(productService.findListOfProductsByFilters(productName, supplierName, category, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
+    public ResponseEntity<ProductListDto> getProductsViaFilter(@RequestParam String productName, @RequestParam Long supplierId, @RequestParam String category, @RequestParam String sortOrder, @RequestParam String sortBy, @RequestParam Integer pageNumber, @RequestParam Integer pageSize){
+        return new ResponseEntity<>(productService.findListOfProductsByFilters(productName, supplierId, category, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
     }
 
     @GetMapping("/count-product")
@@ -52,16 +47,6 @@ public class ProductController {
         return new ResponseEntity<Long>(productService.findNumberOfProductsLowInStock(), HttpStatus.OK);
     }
 
-//    @GetMapping("/byStock/{stockId}")
-//    public ResponseEntity<List<ProductDto>>getProductsByStockId(@PathVariable Long stockId){
-//        return new ResponseEntity<>(productService.findProductsByStockId(stockId), HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/countProductsByStockId/{stockId}")
-//    public ResponseEntity<Long>getNumberOfProductsByStockId(@PathVariable Long stockId){
-//        return new ResponseEntity(productService.countProductsByStockId(stockId), HttpStatus.OK);
-//    }
-
     // POST GOES HERE
     @PostMapping("/save-product")
     public ResponseEntity saveProduct(@RequestBody ProductDto productDto){
@@ -73,6 +58,17 @@ public class ProductController {
     public ResponseEntity saveProducts(@RequestBody ProductListDto productListDto){
         productService.saveProducts(productListDto);
         return new ResponseEntity<String>("Products saved successfully!", HttpStatus.OK);
+    }
+
+    @PostMapping("/upload-csv-product")
+    public void uploadProduct(@RequestParam("file")MultipartFile file) throws IOException {
+        if (productService.hasExcelFormat(file)) {
+            try {
+                productService.upload(file);
+            } catch (Exception e) {
+                return;
+            }
+        }
     }
 
     // PUT GOES HERE

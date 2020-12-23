@@ -19,6 +19,7 @@ import com.stock_management.mapper.SupplierMapper;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -64,11 +65,18 @@ public class SupplierServiceImplementation implements SupplierService{
         return supplierListDto;
     }
 
+    @Override
+    public SupplierDto findSupplierByName(String supplierName) {
+        Optional<Supplier> supplier = Optional.ofNullable(supplierRepository.findSupplierBySupplierName(supplierName));
+        var oneSupplier = supplier.orElse(null);
+        return supplierMapper.mapSupplierEntityToDto(oneSupplier);
+    }
+
     private BooleanBuilder buildProductPredicate(String supplierName) {
         var qSupplier = QSupplier.supplier;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if(!supplierName.equals("")) {
-            booleanBuilder.and(qSupplier.supplierName.contains(supplierName));
+            booleanBuilder.and(qSupplier.supplierName.toLowerCase().contains(supplierName.toLowerCase()));
         }
         return booleanBuilder;
     }

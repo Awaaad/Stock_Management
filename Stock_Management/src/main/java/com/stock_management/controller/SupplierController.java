@@ -35,6 +35,11 @@ public class SupplierController {
         return new ResponseEntity<>(supplierService.findSupplierById(supplierId), HttpStatus.OK);
     }
 
+    @GetMapping("/supplier-name")
+    public ResponseEntity<SupplierDto>getSupplierByName(@RequestParam String supplierName){
+        return new ResponseEntity<>(supplierService.findSupplierByName(supplierName), HttpStatus.OK);
+    }
+
     @GetMapping("orderId/{orderId}")
     public ResponseEntity<List<OrderDto>>getSupplierByOrderId(@PathVariable Long orderId){
         return new ResponseEntity<>(supplierService.findSupplierByOrderId(orderId), HttpStatus.ACCEPTED);

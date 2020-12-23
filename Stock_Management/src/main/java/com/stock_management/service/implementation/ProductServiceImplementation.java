@@ -9,16 +9,28 @@ import com.stock_management.entity.Product;
 import com.stock_management.entity.QProduct;
 import com.stock_management.mapper.ProductMapper;
 import com.stock_management.repository.ProductRepository;
+import com.stock_management.repository.SupplierRepository;
 import com.stock_management.service.ProductService;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.print.Pageable;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -27,12 +39,18 @@ import java.util.stream.Collectors;
 public class ProductServiceImplementation implements ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
+    private final SupplierRepository supplierRepository;
 
     @Autowired
-    public ProductServiceImplementation(ProductRepository productRepository, ProductMapper productMapper) {
+    public ProductServiceImplementation(ProductRepository productRepository, ProductMapper productMapper, SupplierRepository supplierRepository) {
         this.productRepository = productRepository;
         this.productMapper = productMapper;
+        this.supplierRepository = supplierRepository;
     }
+
+    public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+    static String[] HEADERs = {"productName", "description", "dosage", "category", "box", "unitsPerBox", "unitsTotal", "pricePerBox", "pricePerUnit", "requirePrescription", "slot", "supplier"};
+    static String SHEET = "Product_Import";
 
     // GET
     @Override
@@ -144,10 +162,20 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     @Override
-    public ProductListDto findListOfProductsByFilters(String productName, String supplierName, String category, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
+    public void upload(MultipartFile file) throws IOException {
+        try {
+            List<Product> products = excelToProducts(file.getInputStream());
+            productRepository.saveAll(products);
+        } catch (IOException e) {
+            throw new RuntimeException("fail to store excel data: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public ProductListDto findListOfProductsByFilters(String productName, Long supplierId, String category, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
         Sort sort = Sort.by("ASC".equals(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sort);
-        BooleanBuilder predicate = buildProductPredicate(productName, supplierName, category);
+        BooleanBuilder predicate = buildProductPredicate(productName, supplierId, category);
         Page<Product> product = productRepository.findAll(predicate,pageRequest);
         List<ProductDto> productDtos = product.stream().map(productMapper::mapProductEntityToDto).collect(Collectors.toList());
         var productListDto = new ProductListDto();
@@ -157,20 +185,20 @@ public class ProductServiceImplementation implements ProductService {
         return productListDto;
     }
 
-    private BooleanBuilder buildProductPredicate(String productName, String supplierName, String category) {
+    private BooleanBuilder buildProductPredicate(String productName, Long supplierId, String category) {
         var qProduct = QProduct.product;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if(!productName.equals("")) {
-            booleanBuilder.and(qProduct.productName.contains(productName));
+            booleanBuilder.and(qProduct.productName.toLowerCase().contains(productName.toLowerCase()));
         }
-        if(!supplierName.equals("All")) {
-            booleanBuilder.and(qProduct.supplier.supplierName.eq(supplierName));
+        if(Objects.nonNull(supplierId) && supplierId != 0) {
+            booleanBuilder.and(qProduct.supplier.supplierId.eq(supplierId));
         }
 //        if(!requirePrescription.equals(null)) {
 //            booleanBuilder.and(qProduct.requirePrescription.eq(requirePrescription));
 //        }
         if(!category.equals("All")) {
-            booleanBuilder.and(qProduct.category.eq(category));
+            booleanBuilder.and(qProduct.category.toLowerCase().eq(category.toLowerCase()));
         }
         return booleanBuilder;
     }
@@ -186,6 +214,117 @@ public class ProductServiceImplementation implements ProductService {
             productListDto.setTotalElements(product.getNumberOfElements());
             productListDto.setTotalPages(product.getTotalPages());
             return productListDto;
+        }
+    }
+
+    public boolean hasExcelFormat(MultipartFile file) {
+
+        if (!TYPE.equals(file.getContentType())) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public List<Product> excelToProducts(InputStream is) {
+        try {
+            Workbook workbook = new XSSFWorkbook(is);
+
+            Sheet sheet = workbook.getSheetAt(0);
+            Iterator<Row> rows = sheet.iterator();
+
+            List<Product> products = new ArrayList<Product>();
+
+            int rowNumber = 0;
+            while (rows.hasNext()) {
+                Row currentRow = rows.next();
+
+                // skip header
+                if (rowNumber == 0) {
+                    rowNumber++;
+                    continue;
+                }
+
+                Iterator<Cell> cellsInRow = currentRow.iterator();
+
+                Product product = new Product();
+
+                int cellIdx = 0;
+                while (cellsInRow.hasNext()) {
+                    Cell currentCell = cellsInRow.next();
+
+                    switch (cellIdx) {
+                        case 0:
+                            product.setProductName(currentCell.getStringCellValue());
+                            break;
+
+                        case 1:
+                            if (currentCell.getStringCellValue().equals("NULL")) {
+                                product.setDescription("");
+                            } else {
+                                product.setDescription(currentCell.getStringCellValue());
+                            }
+                            break;
+
+                        case 2:
+                            if (currentCell.getStringCellValue().equals("NULL")) {
+                                product.setDosage("0");
+                            } else {
+                                product.setDosage(currentCell.getStringCellValue());
+                            }
+                            break;
+
+                        case 3:
+                            product.setCategory(currentCell.getStringCellValue());
+                            break;
+
+                        case 4:
+                            product.setBox((double) currentCell.getNumericCellValue());
+                            break;
+
+                        case 5:
+                            product.setUnitsPerBox((int) currentCell.getNumericCellValue());
+                            break;
+
+                        case 6:
+                            product.setUnitsTotal((double) currentCell.getNumericCellValue());
+                            break;
+
+                        case 7:
+                            product.setPricePerBox((double) currentCell.getNumericCellValue());
+                            break;
+
+                        case 8:
+                            product.setPricePerUnit((double) currentCell.getNumericCellValue());
+                            break;
+
+                        case 9:
+                            product.setRequirePrescription(currentCell.getBooleanCellValue());
+                            break;
+
+                        case 10:
+                            product.setSlot(currentCell.getStringCellValue());
+                            break;
+
+                        case 11:
+                            var supplier = supplierRepository.findSupplierBySupplierName(currentCell.getStringCellValue());
+                            product.setSupplier(supplier);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    cellIdx++;
+                }
+
+                products.add(product);
+            }
+
+            workbook.close();
+
+            return products;
+        } catch (IOException e) {
+            throw new RuntimeException("fail to parse Excel file: " + e.getMessage());
         }
     }
 }

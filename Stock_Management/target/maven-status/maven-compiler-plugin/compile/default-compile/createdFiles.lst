@@ -8,6 +8,7 @@ com\stock_management\entity\Order.class
 com\stock_management\dto\ProductQuantityPriceDto.class
 com\stock_management\service\SupplierService.class
 com\stock_management\dto\OrderListDto.class
+com\stock_management\security\SecurityConfiguration.class
 com\stock_management\mapper\MultipleSaveProductMapperImpl.class
 com\stock_management\dto\ProductListDto.class
 com\stock_management\entity\User.class

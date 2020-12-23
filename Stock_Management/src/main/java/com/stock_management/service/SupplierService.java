@@ -13,6 +13,8 @@ public interface SupplierService {
 
     SupplierListDto findListOfSuppliersByFilters(String supplierName, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
 
+    SupplierDto findSupplierByName(String supplierName);
+
     // POST
     void saveSupplier(SupplierListDto supplierListDto);
 

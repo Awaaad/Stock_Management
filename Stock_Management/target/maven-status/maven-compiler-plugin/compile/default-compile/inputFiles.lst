@@ -30,6 +30,7 @@ C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\ent
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\mapper\UserMapper.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\implementation\OrderServiceImplementation.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\UpdateStockAmountDto.java
+C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\security\SecurityConfiguration.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\repository\OrderProductRepository.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\CountProductsDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\UserDto.java

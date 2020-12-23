@@ -4,8 +4,10 @@ import com.stock_management.dto.CountProductsDto;
 import com.stock_management.dto.ProductDto;
 import com.stock_management.dto.ProductListDto;
 import com.stock_management.dto.UpdateStockAmountDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.print.Pageable;
+import java.io.IOException;
 import java.util.List;
 
 public interface ProductService {
@@ -20,19 +22,21 @@ public interface ProductService {
 
     Long findNumberOfProductsLowInStock();
 
-//    List<ProductDto> findProductsByStockId(Long stockId);
+    ProductListDto findListOfProductsByFilters(String productName, Long supplierId, String Category, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
 
-//    CountProductsDto countProductsByStockId(Long stockId);
 
     // POST
     void saveProduct(ProductDto productDto);
 
     void saveProducts(ProductListDto productListDto);
 
+    void upload(MultipartFile file) throws IOException;
+
+    boolean hasExcelFormat(MultipartFile file);
+
     // PUT
     void editProduct(ProductDto productDto);
 
     void quickStockControl(List<UpdateStockAmountDto> updateStockAmountDto);
 
-    ProductListDto findListOfProductsByFilters(String productName, String supplierName, String Category, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
 }
