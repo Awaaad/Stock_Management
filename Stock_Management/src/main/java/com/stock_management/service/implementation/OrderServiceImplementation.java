@@ -206,26 +206,6 @@ public class OrderServiceImplementation implements OrderService {
         return orderProduct;
     }
 
-
-    // POST
-//    @Override
-//    public void saveOrder(OrderDto orderDto) {
-//        ProductDto productDto = new ProductDto();
-//        Order order = new Order();
-//        var saveOrderDetails = orderMapper.mapOrderDtoToEntity(orderDto);
-//        var productEntities = saveOrderDetails.getProducts().stream().map(product -> {
-//            var productEntity = productRepository.findById(product.getProductId());
-//            if (productEntity.isPresent()){
-//                productEntity.get().setBox(product.getBox());
-//                productEntity.get().setUnitsTotal(product.getUnitsTotal());
-//                return productEntity.get();
-//            }
-//            return null;
-//        }).filter(Objects::nonNull).collect(Collectors.toList());
-//        productRepository.saveAll(productEntities);
-//        orderRepository.save(saveOrderDetails);
-//    }
-
     @Override
     public void editOrder(OrderDto orderDto) {
         var order = findOrderById(orderDto.getOrderId());

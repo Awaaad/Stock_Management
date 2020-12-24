@@ -1,6 +1,7 @@
 package com.stock_management.service.implementation;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.stock_management.dto.CountProductsDto;
 import com.stock_management.dto.ProductDto;
 import com.stock_management.dto.ProductListDto;
@@ -24,6 +25,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.awt.print.Pageable;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,6 +40,9 @@ import java.util.stream.Collectors;
 @Service
 @EnableAutoConfiguration
 public class ProductServiceImplementation implements ProductService {
+    @PersistenceContext
+    private EntityManager entityManager;
+
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
     private final SupplierRepository supplierRepository;
@@ -87,21 +93,6 @@ public class ProductServiceImplementation implements ProductService {
         Long numberOfProductsLowInStock = products.stream().filter(product -> product.getBox() <= 3).count();
         return numberOfProductsLowInStock;
     }
-
-
-//    @Override
-//    public List<ProductDto> findProductsByStockId(Long stockId) {
-//        List<Product> products = productRepository.findBystock_stockId(stockId);
-//        return products.stream().map(productMapper::mapProductEntityToDto).collect(Collectors.toList());
-//    }
-
-//    @Override
-//    public CountProductsDto countProductsByStockId(Long stockId) {
-//        Long numberOfProducts = productRepository.countBystock_stockId(stockId);
-//        CountProductsDto countProductsDto = new CountProductsDto();
-//        countProductsDto.setNumberOfProducts(numberOfProducts);
-//        return countProductsDto;
-//    }
 
     // POST
     @Override
@@ -172,10 +163,10 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     @Override
-    public ProductListDto findListOfProductsByFilters(String productName, Long supplierId, String category, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
+    public ProductListDto findListOfProductsByFilters(String productName, Long supplierId, String category, String slot, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
         Sort sort = Sort.by("ASC".equals(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sort);
-        BooleanBuilder predicate = buildProductPredicate(productName, supplierId, category);
+        BooleanBuilder predicate = buildProductPredicate(productName, supplierId, category, slot);
         Page<Product> product = productRepository.findAll(predicate,pageRequest);
         List<ProductDto> productDtos = product.stream().map(productMapper::mapProductEntityToDto).collect(Collectors.toList());
         var productListDto = new ProductListDto();
@@ -185,7 +176,8 @@ public class ProductServiceImplementation implements ProductService {
         return productListDto;
     }
 
-    private BooleanBuilder buildProductPredicate(String productName, Long supplierId, String category) {
+
+    private BooleanBuilder buildProductPredicate(String productName, Long supplierId, String category, String slot) {
         var qProduct = QProduct.product;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if(!productName.equals("")) {
@@ -194,6 +186,9 @@ public class ProductServiceImplementation implements ProductService {
         if(Objects.nonNull(supplierId) && supplierId != 0) {
             booleanBuilder.and(qProduct.supplier.supplierId.eq(supplierId));
         }
+        if(!slot.equals("All")) {
+            booleanBuilder.and(qProduct.slot.eq(slot));
+        }
 //        if(!requirePrescription.equals(null)) {
 //            booleanBuilder.and(qProduct.requirePrescription.eq(requirePrescription));
 //        }
@@ -201,6 +196,20 @@ public class ProductServiceImplementation implements ProductService {
             booleanBuilder.and(qProduct.category.toLowerCase().eq(category.toLowerCase()));
         }
         return booleanBuilder;
+    }
+
+    @Override
+    public List<String> findAllSlots() {
+        var qProduct = QProduct.product;
+        var slots = new JPAQuery<Product>(entityManager).select(
+                qProduct.slot).distinct().from(qProduct).fetchResults().getResults();
+
+        List<String> list = new ArrayList<>();
+        for (String s : slots) {
+            list.add(s);
+        }
+
+        return list;
     }
 
     private ProductListDto getProductListDto(Page<Product> product) {

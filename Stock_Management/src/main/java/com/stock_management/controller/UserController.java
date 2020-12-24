@@ -1,10 +1,10 @@
 package com.stock_management.controller;
 
 import com.stock_management.dto.UserDto;
-import com.stock_management.entity.User;
 import com.stock_management.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,15 +25,21 @@ public class UserController {
         return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("userId/{userId}")
     public ResponseEntity<UserDto>getUserById(@PathVariable Long userId){
         return new ResponseEntity<>(userService.findUserById(userId), HttpStatus.OK);
     }
 
+    @GetMapping("login")
+    public ResponseEntity<UserDto>getUserByUsername(@RequestParam String username, @RequestParam String password){
+        return new ResponseEntity<>(userService.findUserByUsernameAndPassword(username, password), HttpStatus.OK);
+    }
+
     // POST GOES HERE
+//    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/saveUser")
-    public ResponseEntity saveUser(@RequestBody UserDto userDto){
+    public ResponseEntity<String> saveUser(@RequestBody UserDto userDto){
         userService.saveUser(userDto);
-        return new ResponseEntity<String>("User saved successfully!", HttpStatus.OK);
+        return new ResponseEntity<>("User saved successfully!", HttpStatus.OK);
     }
 }

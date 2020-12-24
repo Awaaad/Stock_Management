@@ -22,9 +22,9 @@ public interface ProductService {
 
     Long findNumberOfProductsLowInStock();
 
-    ProductListDto findListOfProductsByFilters(String productName, Long supplierId, String Category, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
+    ProductListDto findListOfProductsByFilters(String productName, Long supplierId, String Category, String slot, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
 
-
+    List<String> findAllSlots();
     // POST
     void saveProduct(ProductDto productDto);
 

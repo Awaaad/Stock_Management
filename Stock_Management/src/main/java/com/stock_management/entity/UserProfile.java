@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -14,7 +13,7 @@ import java.util.Set;
 @ToString
 @Data
 @Entity
-public class User {
+public class UserProfile {
     @Id
     @GeneratedValue
     @Column(name = "USER_ID")
@@ -41,7 +40,6 @@ public class User {
     @Column(name = "PHONE", nullable = false)
     private Integer phone;
 
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"));
-//    private Set<Role> roles;
+    @ManyToMany
+    private Set<Role> roles;
 }

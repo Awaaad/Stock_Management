@@ -1,7 +1,6 @@
 package com.stock_management.controller;
 
 import com.stock_management.dto.*;
-import com.stock_management.entity.Supplier;
 import com.stock_management.service.SupplierService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,45 +1,49 @@
 //package com.stock_management.security;
 //
+//import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
 //import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+//import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 //import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 //import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-//import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //
-//@SuppressWarnings("deprecation")
 //@Configuration
+//@EnableWebSecurity
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 //public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+//
+//    @Autowired
+//    private UserDetailsService userDetailsService;
 //
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication().withUser("Awad").password("29234280").roles("ADMIN");
-//        auth.inMemoryAuthentication().withUser("Hanaa").password("12345678").roles("CASHIER");
+//        auth.userDetailsService(userDetailsService).passwordEncoder(encodePassword());
 //    }
 //
-////    security for all apis
-////    @Override
-////    protected void configure(HttpSecurity http) throws Exception {
-////        http.csrf().disable();
-////        http.authorizeRequests().anyRequest().fullyAuthenticated().and().httpBasic();
-////    }
-//
-////    security based on url
-////    @Override
-////    protected void configure(HttpSecurity http) throws Exception {
-////        http.csrf().disable();
-////        http.authorizeRequests().antMatchers("/product/**").fullyAuthenticated().and().httpBasic();
-////    }
-//
-////    security based on role
-////    @Override
-////    protected void configure(HttpSecurity http) throws Exception {
-////        http.csrf().disable();
-////        http.authorizeRequests().antMatchers("/product/**").hasAnyRole("ADMIN").anyRequest().fullyAuthenticated().and().httpBasic();
-////    }
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.cors();
+//        http.csrf().disable();
+//        http
+//                .httpBasic()
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/").permitAll()
+////                .and()
+////                .authorizeRequests()
+////                .antMatchers("/user/saveUser").hasRole("ADMIN")
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .permitAll();
+//    }
 //
 //    @Bean
-//    public static NoOpPasswordEncoder passwordEncoder() {
-//        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+//    public BCryptPasswordEncoder encodePassword() {
+//        return new BCryptPasswordEncoder();
 //    }
 //}

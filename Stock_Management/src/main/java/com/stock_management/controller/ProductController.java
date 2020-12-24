@@ -28,8 +28,8 @@ public class ProductController {
     }
 
     @GetMapping("filter")
-    public ResponseEntity<ProductListDto> getProductsViaFilter(@RequestParam String productName, @RequestParam Long supplierId, @RequestParam String category, @RequestParam String sortOrder, @RequestParam String sortBy, @RequestParam Integer pageNumber, @RequestParam Integer pageSize){
-        return new ResponseEntity<>(productService.findListOfProductsByFilters(productName, supplierId, category, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
+    public ResponseEntity<ProductListDto> getProductsViaFilter(@RequestParam String productName, @RequestParam Long supplierId, @RequestParam String category, @RequestParam String slot, @RequestParam String sortOrder, @RequestParam String sortBy, @RequestParam Integer pageNumber, @RequestParam Integer pageSize){
+        return new ResponseEntity<>(productService.findListOfProductsByFilters(productName, supplierId, category, slot, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
     }
 
     @GetMapping("/count-product")
@@ -45,6 +45,11 @@ public class ProductController {
     @GetMapping("/product-low-stock-count")
     public ResponseEntity<Long>getNumberOfProductsLowInStock(){
         return new ResponseEntity<Long>(productService.findNumberOfProductsLowInStock(), HttpStatus.OK);
+    }
+
+    @GetMapping("/slots")
+    public ResponseEntity<List<String>>getAllSlots(){
+        return new ResponseEntity<>(productService.findAllSlots(), HttpStatus.OK);
     }
 
     // POST GOES HERE
