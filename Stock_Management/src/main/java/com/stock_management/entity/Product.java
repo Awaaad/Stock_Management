@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @AllArgsConstructor
@@ -39,6 +40,9 @@ public class Product {
     @Column(name = "UNITS_TOTAL")
     private Double unitsTotal;
 
+    @Column(name = "OLD_PRICE_PER_BOX", nullable = false)
+    private Double oldPricePerBox;
+
     @Column(name = "PRICE_PER_BOX", nullable = false)
     private Double pricePerBox;
 
@@ -50,6 +54,9 @@ public class Product {
 
     @Column(name = "SLOT")
     private String slot;
+
+    @Column(name = "EXPIRY_DATE")
+    private LocalDate expiryDate;
 
     @ManyToOne(targetEntity = Supplier.class)
     @JoinColumn(name = "SUPPLIER_ID", referencedColumnName = "SUPPLIER_ID")

@@ -25,8 +25,11 @@ public class OrderProduct {
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
 
-    @Column(name = "PRODUCT_NAME", nullable = false)
-    private String productName;
+    @Column(name = "PRICE_PER_BOX", nullable = false)
+    private Double pricePerBox;
+
+    @Column(name = "PRICE_PER_UNIT", nullable = false)
+    private Double pricePerUnit;
 
     @Column(name = "BOXES_ORDERED")
     private Integer boxesOrdered;

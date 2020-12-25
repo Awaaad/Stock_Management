@@ -7,6 +7,7 @@ import com.stock_management.dto.MonthlySalesDto;
 import com.stock_management.dto.OrderDto;
 import com.stock_management.dto.OrderListDto;
 import com.stock_management.dto.OrderProductDto;
+import com.stock_management.dto.UpdateStockAmountDto;
 import com.stock_management.entity.Order;
 import com.stock_management.entity.OrderProduct;
 import com.stock_management.entity.QOrder;
@@ -184,7 +185,12 @@ public class OrderServiceImplementation implements OrderService {
     @Override
     @org.springframework.transaction.annotation.Transactional
     public void saveOrder(OrderDto orderDto) {
-
+        List<OrderProductDto> orderProductDtos = new ArrayList<>();
+        for (OrderProductDto orderProductDto : orderDto.getOrderProductDtos()) {
+            if (!orderProductDto.getBoxesOrdered().equals(0) && !orderProductDto.getUnitsOrdered().equals(0))
+                orderProductDtos.add(orderProductDto);
+        }
+        orderDto.setOrderProductDtos(orderProductDtos);
         var order = orderMapper.mapOrderDtoToEntity(orderDto);
         var savedOrder = orderRepository.save(order);
         orderProductRepository.saveAll(orderDto.getOrderProductDtos().stream().map(orderProductDto ->

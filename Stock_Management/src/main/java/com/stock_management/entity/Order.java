@@ -38,6 +38,15 @@ public class Order {
     @Column(name = "PAID", nullable = false)
     private Boolean paid;
 
+    @Column(name = "PAYMENT_MODE", nullable = false)
+    private String paymentMode;
+
+    @Column(name = "PRESCRIPTION", nullable = false)
+    private Boolean prescription;
+
+    @Column(name = "DOCTOR_NAME", nullable = false)
+    private String doctorName;
+
     @OneToMany(mappedBy = "order")
     List<OrderProduct> orderProducts;
 }

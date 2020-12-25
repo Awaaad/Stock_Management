@@ -3,9 +3,11 @@ package com.stock_management.service.implementation;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.stock_management.dto.CountProductsDto;
+import com.stock_management.dto.OrderDto;
 import com.stock_management.dto.ProductDto;
 import com.stock_management.dto.ProductListDto;
 import com.stock_management.dto.UpdateStockAmountDto;
+import com.stock_management.entity.Order;
 import com.stock_management.entity.Product;
 import com.stock_management.entity.QProduct;
 import com.stock_management.mapper.ProductMapper;
@@ -97,6 +99,8 @@ public class ProductServiceImplementation implements ProductService {
     // POST
     @Override
     public void saveProduct(ProductDto productDto) {
+        productDto.setUnitsTotal(productDto.getBox() * productDto.getUnitsPerBox());
+        productDto.setPricePerUnit(productDto.getPricePerBox() / productDto.getUnitsPerBox());
         var saveProductInformation = productMapper.mapProductDtoToEntity(productDto);
         productRepository.save(saveProductInformation);
     }
@@ -113,11 +117,13 @@ public class ProductServiceImplementation implements ProductService {
             product.setBox(productDto.getBox());
             product.setDosage(productDto.getDosage());
             product.setUnitsPerBox(productDto.getUnitsPerBox());
-            product.setUnitsTotal(productDto.getUnitsTotal());
+            product.setUnitsTotal(productDto.getBox() * productDto.getUnitsPerBox());
+            product.setOldPricePerBox(productDto.getOldPricePerBox());
             product.setPricePerBox(productDto.getPricePerBox());
-            product.setPricePerUnit(productDto.getPricePerUnit());
+            product.setPricePerUnit(productDto.getPricePerBox() / productDto.getUnitsPerBox());
             product.setRequirePrescription(productDto.getRequirePrescription());
             product.setSlot(productDto.getSlot());
+            product.setExpiryDate(productDto.getExpiryDate());
             product.setSupplier(productDto.getSupplier());
             productRepository.save(productMapper.mapProductDtoToEntity(product));
         } else {
@@ -127,7 +133,12 @@ public class ProductServiceImplementation implements ProductService {
 
     @Override
     public void quickStockControl(List<UpdateStockAmountDto> updateStockAmountDto) {
-        productRepository.saveAll((updateStockAmountDto.stream().map(this::mapProduct).collect(Collectors.toList()))
+        List<UpdateStockAmountDto> updateStockAmountDtos = new ArrayList<>();
+        for (UpdateStockAmountDto usad : updateStockAmountDto) {
+            if (!Objects.equals(usad.getAmount(), 0))
+            updateStockAmountDtos.add(usad);
+        }
+        productRepository.saveAll((updateStockAmountDtos.stream().map(this::mapProduct).collect(Collectors.toList()))
         );
     }
 
@@ -139,6 +150,10 @@ public class ProductServiceImplementation implements ProductService {
             var currentUnitStock = productEntity.getUnitsTotal();
             productEntity.setBox(currentBoxStock + updateStockAmountDto.getAmount());
             productEntity.setUnitsTotal(updateStockAmountDto.getAmount() * productEntity.getUnitsPerBox() + currentUnitStock);
+            if (Objects.nonNull(updateStockAmountDto.getNewPrice())) {
+                productEntity.setOldPricePerBox(productEntity.getPricePerBox());
+                productEntity.setPricePerBox(updateStockAmountDto.getNewPrice());
+            }
             return productEntity;
         } else {
             System.out.println("Product Not Found!");
@@ -148,6 +163,11 @@ public class ProductServiceImplementation implements ProductService {
 
     @Override
     public void saveProducts(ProductListDto productListDto) {
+        for (ProductDto productDto: productListDto.getProductDtos()) {
+            productDto.setOldPricePerBox(0D);
+            productDto.setUnitsTotal(productDto.getBox() * productDto.getUnitsPerBox());
+            productDto.setPricePerUnit(productDto.getPricePerBox() / productDto.getUnitsPerBox());
+        }
         var saveMultipleProduct = productListDto.getProductDtos().stream().map(productMapper::mapProductDtoToEntity).collect(Collectors.toList());
         productRepository.saveAll(saveMultipleProduct);
     }
@@ -300,22 +320,30 @@ public class ProductServiceImplementation implements ProductService {
                             break;
 
                         case 7:
-                            product.setPricePerBox((double) currentCell.getNumericCellValue());
+                            product.setOldPricePerBox((double) currentCell.getNumericCellValue());
                             break;
 
                         case 8:
-                            product.setPricePerUnit((double) currentCell.getNumericCellValue());
+                            product.setPricePerBox((double) currentCell.getNumericCellValue());
                             break;
 
                         case 9:
-                            product.setRequirePrescription(currentCell.getBooleanCellValue());
+                            product.setPricePerUnit((double) currentCell.getNumericCellValue());
                             break;
 
                         case 10:
-                            product.setSlot(currentCell.getStringCellValue());
+                            product.setRequirePrescription(currentCell.getBooleanCellValue());
                             break;
 
                         case 11:
+                            product.setSlot(currentCell.getStringCellValue());
+                            break;
+
+                        case 12:
+                            product.setExpiryDate(currentCell.getLocalDateTimeCellValue().toLocalDate());
+                            break;
+
+                        case 13:
                             var supplier = supplierRepository.findSupplierBySupplierName(currentCell.getStringCellValue());
                             product.setSupplier(supplier);
                             break;

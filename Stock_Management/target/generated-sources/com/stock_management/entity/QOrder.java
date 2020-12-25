@@ -26,6 +26,8 @@ public class QOrder extends EntityPathBase<Order> {
 
     public final StringPath customerName = createString("customerName");
 
+    public final StringPath doctorName = createString("doctorName");
+
     public final DateTimePath<java.time.LocalDateTime> orderDate = createDateTime("orderDate", java.time.LocalDateTime.class);
 
     public final NumberPath<Long> orderId = createNumber("orderId", Long.class);
@@ -33,6 +35,10 @@ public class QOrder extends EntityPathBase<Order> {
     public final ListPath<OrderProduct, QOrderProduct> orderProducts = this.<OrderProduct, QOrderProduct>createList("orderProducts", OrderProduct.class, QOrderProduct.class, PathInits.DIRECT2);
 
     public final BooleanPath paid = createBoolean("paid");
+
+    public final StringPath paymentMode = createString("paymentMode");
+
+    public final BooleanPath prescription = createBoolean("prescription");
 
     public final NumberPath<Double> totalPrice = createNumber("totalPrice", Double.class);
 

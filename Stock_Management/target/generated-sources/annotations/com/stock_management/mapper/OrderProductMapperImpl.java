@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-12-24T22:58:30+0400",
+    date = "2020-12-25T23:46:47+0400",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.6 (AdoptOpenJDK)"
 )
 @Component
@@ -30,7 +30,8 @@ public class OrderProductMapperImpl implements OrderProductMapper {
         orderProductDto.setOrderDto( orderToOrderDto( orderProductEntity.getOrder() ) );
         orderProductDto.setProductDto( productMapper.mapProductEntityToDto( orderProductEntity.getProduct() ) );
         orderProductDto.setOrderProductId( orderProductEntity.getOrderProductId() );
-        orderProductDto.setProductName( orderProductEntity.getProductName() );
+        orderProductDto.setPricePerBox( orderProductEntity.getPricePerBox() );
+        orderProductDto.setPricePerUnit( orderProductEntity.getPricePerUnit() );
         orderProductDto.setBoxesOrdered( orderProductEntity.getBoxesOrdered() );
         orderProductDto.setUnitsOrdered( orderProductEntity.getUnitsOrdered() );
         orderProductDto.setTotalPrice( orderProductEntity.getTotalPrice() );
@@ -49,7 +50,8 @@ public class OrderProductMapperImpl implements OrderProductMapper {
         orderProduct.setOrder( orderDtoToOrder( orderProductDto.getOrderDto() ) );
         orderProduct.setProduct( productMapper.mapProductDtoToEntity( orderProductDto.getProductDto() ) );
         orderProduct.setOrderProductId( orderProductDto.getOrderProductId() );
-        orderProduct.setProductName( orderProductDto.getProductName() );
+        orderProduct.setPricePerBox( orderProductDto.getPricePerBox() );
+        orderProduct.setPricePerUnit( orderProductDto.getPricePerUnit() );
         orderProduct.setBoxesOrdered( orderProductDto.getBoxesOrdered() );
         orderProduct.setUnitsOrdered( orderProductDto.getUnitsOrdered() );
         orderProduct.setTotalPrice( orderProductDto.getTotalPrice() );
@@ -71,6 +73,9 @@ public class OrderProductMapperImpl implements OrderProductMapper {
         orderDto.setTotalPrice( order.getTotalPrice() );
         orderDto.setAmountPaid( order.getAmountPaid() );
         orderDto.setPaid( order.getPaid() );
+        orderDto.setPaymentMode( order.getPaymentMode() );
+        orderDto.setPrescription( order.getPrescription() );
+        orderDto.setDoctorName( order.getDoctorName() );
 
         return orderDto;
     }
@@ -89,6 +94,9 @@ public class OrderProductMapperImpl implements OrderProductMapper {
         order.setTotalPrice( orderDto.getTotalPrice() );
         order.setAmountPaid( orderDto.getAmountPaid() );
         order.setPaid( orderDto.getPaid() );
+        order.setPaymentMode( orderDto.getPaymentMode() );
+        order.setPrescription( orderDto.getPrescription() );
+        order.setDoctorName( orderDto.getDoctorName() );
 
         return order;
     }

@@ -28,9 +28,11 @@ public class QOrderProduct extends EntityPathBase<OrderProduct> {
 
     public final NumberPath<Long> orderProductId = createNumber("orderProductId", Long.class);
 
-    public final QProduct product;
+    public final NumberPath<Double> pricePerBox = createNumber("pricePerBox", Double.class);
 
-    public final StringPath productName = createString("productName");
+    public final NumberPath<Double> pricePerUnit = createNumber("pricePerUnit", Double.class);
+
+    public final QProduct product;
 
     public final NumberPath<Double> totalPrice = createNumber("totalPrice", Double.class);
 

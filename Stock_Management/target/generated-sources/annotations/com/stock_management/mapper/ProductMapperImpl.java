@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-12-24T22:58:30+0400",
+    date = "2020-12-25T23:46:47+0400",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.6 (AdoptOpenJDK)"
 )
 @Component
@@ -31,10 +31,12 @@ public class ProductMapperImpl implements ProductMapper {
         productDto.setBox( productEntity.getBox() );
         productDto.setUnitsPerBox( productEntity.getUnitsPerBox() );
         productDto.setUnitsTotal( productEntity.getUnitsTotal() );
+        productDto.setOldPricePerBox( productEntity.getOldPricePerBox() );
         productDto.setPricePerBox( productEntity.getPricePerBox() );
         productDto.setPricePerUnit( productEntity.getPricePerUnit() );
         productDto.setRequirePrescription( productEntity.getRequirePrescription() );
         productDto.setSlot( productEntity.getSlot() );
+        productDto.setExpiryDate( productEntity.getExpiryDate() );
         productDto.setSupplier( supplierToSupplierDto( productEntity.getSupplier() ) );
 
         return productDto;
@@ -56,10 +58,12 @@ public class ProductMapperImpl implements ProductMapper {
         product.setBox( productDto.getBox() );
         product.setUnitsPerBox( productDto.getUnitsPerBox() );
         product.setUnitsTotal( productDto.getUnitsTotal() );
+        product.setOldPricePerBox( productDto.getOldPricePerBox() );
         product.setPricePerBox( productDto.getPricePerBox() );
         product.setPricePerUnit( productDto.getPricePerUnit() );
         product.setRequirePrescription( productDto.getRequirePrescription() );
         product.setSlot( productDto.getSlot() );
+        product.setExpiryDate( productDto.getExpiryDate() );
         product.setSupplier( supplierDtoToSupplier( productDto.getSupplier() ) );
 
         return product;

@@ -14,6 +14,7 @@ C:\Work\Stock_Management\Stock_Management\target\generated-sources\com\stock_man
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\SupplierService.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\ProductQuantityPriceDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\implementation\UserRoleDetails.java
+C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\entity\PurchaseInvoice.java
 C:\Work\Stock_Management\Stock_Management\target\generated-sources\com\stock_management\entity\QUserProfile.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\mapper\RoleMapper.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\repository\UserRepository.java
@@ -42,7 +43,6 @@ C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\rep
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\CountProductsDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\UserDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\mapper\OrderMapper.java
-C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\SlotDto.java
 C:\Work\Stock_Management\Stock_Management\target\generated-sources\com\stock_management\entity\QOrder.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\repository\ProductRepository.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\entity\Product.java

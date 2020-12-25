@@ -30,7 +30,7 @@ public class OrderController {
         return new ResponseEntity<>(orderService.findAllOrders(), HttpStatus.OK);
     }
 
-    @GetMapping("/{orderId}")
+    @GetMapping("orderId/{orderId}")
     public ResponseEntity<OrderDto> getOrderById(@PathVariable Long orderId){
         return new ResponseEntity<>(orderService.findOrderById(orderId), HttpStatus.OK);
     }

@@ -39,6 +39,7 @@ com\stock_management\controller\UserController.class
 com\stock_management\dto\UpdateStockAmountDto.class
 com\stock_management\mapper\ReceiptMapper.class
 com\stock_management\mapper\SupplierMapper.class
+com\stock_management\entity\PurchaseInvoice.class
 com\stock_management\StockControlSystemApplication.class
 com\stock_management\dto\CustomerReceiptDto.class
 com\stock_management\entity\QOrder.class
@@ -59,7 +60,6 @@ com\stock_management\entity\QOrderProduct.class
 com\stock_management\mapper\OrderProductMapper.class
 com\stock_management\controller\OrderController.class
 com\stock_management\entity\QSupplier.class
-com\stock_management\dto\SlotDto.class
 com\stock_management\entity\QRole.class
 com\stock_management\controller\RoleController.class
 com\stock_management\mapper\UserMapperImpl.class

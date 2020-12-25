@@ -14,4 +14,7 @@ public class OrderDto {
     private Double totalPrice;
     private Double amountPaid;
     private Boolean paid;
+    private String paymentMode;
+    private Boolean prescription;
+    private String doctorName;
 }
