@@ -132,8 +132,11 @@ public class ProductServiceImplementation implements ProductService {
     public void quickStockControl(List<UpdateStockAmountDto> updateStockAmountDto) {
         List<UpdateStockAmountDto> updateStockAmountDtos = new ArrayList<>();
         for (UpdateStockAmountDto usad : updateStockAmountDto) {
-            if (!Objects.equals(usad.getAmount(), 0))
-            updateStockAmountDtos.add(usad);
+            if (!Objects.equals(usad.getAmount(), 0)) {
+                if (Objects.nonNull(usad.getAmount()) ){
+                    updateStockAmountDtos.add(usad);
+                }
+            }
         }
         productRepository.saveAll((updateStockAmountDtos.stream().map(this::mapProduct).collect(Collectors.toList()))
         );
