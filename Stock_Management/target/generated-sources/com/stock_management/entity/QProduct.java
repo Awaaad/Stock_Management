@@ -44,6 +44,8 @@ public class QProduct extends EntityPathBase<Product> {
 
     public final StringPath productName = createString("productName");
 
+    public final ListPath<PurchaseInvoiceProduct, QPurchaseInvoiceProduct> purchaseInvoiceProducts = this.<PurchaseInvoiceProduct, QPurchaseInvoiceProduct>createList("purchaseInvoiceProducts", PurchaseInvoiceProduct.class, QPurchaseInvoiceProduct.class, PathInits.DIRECT2);
+
     public final BooleanPath requirePrescription = createBoolean("requirePrescription");
 
     public final StringPath slot = createString("slot");

@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class RoleServiceImplementation implements RoleService {
-    public final RoleRepository roleRepository;
-    public final RoleMapper roleMapper;
+    private final RoleRepository roleRepository;
+    private final RoleMapper roleMapper;
 
     public RoleServiceImplementation(RoleRepository roleRepository, RoleMapper roleMapper) {
         this.roleRepository = roleRepository;

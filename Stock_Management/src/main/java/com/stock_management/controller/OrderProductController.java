@@ -20,7 +20,7 @@ public class OrderProductController {
         this.orderProductService = orderProductService;
     }
 
-    @GetMapping("/orderId/{orderId}")
+    @GetMapping("orderId/{orderId}")
     public ResponseEntity<List<OrderProductDto>>getProductsByStockId(@PathVariable Long orderId){
         return new ResponseEntity<>(orderProductService.findOrderProductsByOrderId(orderId), HttpStatus.OK);
     }

@@ -37,7 +37,7 @@ public class UserController {
 
     // POST GOES HERE
 //    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/saveUser")
+    @PostMapping("saveUser")
     public ResponseEntity<String> saveUser(@RequestBody UserDto userDto){
         userService.saveUser(userDto);
         return new ResponseEntity<>("User saved successfully!", HttpStatus.OK);

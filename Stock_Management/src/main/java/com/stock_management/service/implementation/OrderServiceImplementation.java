@@ -7,7 +7,6 @@ import com.stock_management.dto.MonthlySalesDto;
 import com.stock_management.dto.OrderDto;
 import com.stock_management.dto.OrderListDto;
 import com.stock_management.dto.OrderProductDto;
-import com.stock_management.dto.UpdateStockAmountDto;
 import com.stock_management.entity.Order;
 import com.stock_management.entity.OrderProduct;
 import com.stock_management.entity.QOrder;
@@ -42,10 +41,10 @@ public class OrderServiceImplementation implements OrderService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public final OrderRepository orderRepository;
-    public final OrderMapper orderMapper;
+    private final OrderRepository orderRepository;
+    private final OrderMapper orderMapper;
     private final OrderProductMapper orderProductMapper;
-    public final ProductRepository productRepository;
+    private final ProductRepository productRepository;
     private final OrderProductRepository orderProductRepository;
     private final ReceiptMapper receiptMapper;
 
@@ -92,6 +91,24 @@ public class OrderServiceImplementation implements OrderService {
         orderListDto.setTotalElements(orders.getNumberOfElements());
         orderListDto.setTotalPages(orders.getTotalPages());
         return orderListDto;
+    }
+
+    private BooleanBuilder buildProductPredicate(String customerName, String cashierName, LocalDateTime orderDateTime, Boolean paid) {
+        var qOrder = QOrder.order;
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        if(!customerName.equals("")) {
+            booleanBuilder.and(qOrder.customerName.toLowerCase().contains(customerName.toLowerCase()));
+        }
+        if(!cashierName.equals("All")) {
+            booleanBuilder.and(qOrder.cashierName.toLowerCase().eq(cashierName.toLowerCase()));
+        }
+        if(Objects.nonNull(orderDateTime)) {
+            booleanBuilder.and(qOrder.orderDate.eq(orderDateTime));
+        }
+        if(Objects.nonNull(paid)) {
+            booleanBuilder.and(qOrder.paid.eq(paid));
+        }
+        return booleanBuilder;
     }
 
     @Override
@@ -162,24 +179,6 @@ public class OrderServiceImplementation implements OrderService {
 
     private Double computeSumForOrder(List<Order> order, LocalDate year, int month) {
         return order.stream().filter(order1 -> year.getYear() == order1.getOrderDate().getYear() && order1.getOrderDate().getMonthValue() == month).mapToDouble(Order::getTotalPrice).sum();
-    }
-
-    private BooleanBuilder buildProductPredicate(String customerName, String cashierName, LocalDateTime orderDateTime, Boolean paid) {
-        var qOrder = QOrder.order;
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
-        if(!customerName.equals("")) {
-            booleanBuilder.and(qOrder.customerName.toLowerCase().contains(customerName.toLowerCase()));
-        }
-        if(!cashierName.equals("All")) {
-            booleanBuilder.and(qOrder.cashierName.toLowerCase().eq(cashierName.toLowerCase()));
-        }
-        if(Objects.nonNull(orderDateTime)) {
-            booleanBuilder.and(qOrder.orderDate.eq(orderDateTime));
-        }
-        if(Objects.nonNull(paid)) {
-            booleanBuilder.and(qOrder.paid.eq(paid));
-        }
-        return booleanBuilder;
     }
 
     @Override

@@ -32,40 +32,40 @@ public class ProductController {
         return new ResponseEntity<>(productService.findListOfProductsByFilters(productName, supplierId, category, slot, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
     }
 
-    @GetMapping("/count-product")
+    @GetMapping("count-product")
     public ResponseEntity<Long>getNumberOfProducts(){
         return new ResponseEntity(productService.countAllProducts(), HttpStatus.OK);
     }
 
-    @GetMapping("/id")
+    @GetMapping("id")
     public ResponseEntity<ProductDto>getProductById(@RequestParam Long productId){
         return new ResponseEntity<>(productService.findProductById(productId), HttpStatus.OK);
     }
 
-    @GetMapping("/product-low-stock-count")
+    @GetMapping("product-low-stock-count")
     public ResponseEntity<Long>getNumberOfProductsLowInStock(){
         return new ResponseEntity<Long>(productService.findNumberOfProductsLowInStock(), HttpStatus.OK);
     }
 
-    @GetMapping("/slots")
+    @GetMapping("slots")
     public ResponseEntity<List<String>>getAllSlots(){
         return new ResponseEntity<>(productService.findAllSlots(), HttpStatus.OK);
     }
 
     // POST GOES HERE
-    @PostMapping("/save-product")
+    @PostMapping("save-product")
     public ResponseEntity saveProduct(@RequestBody ProductDto productDto){
         productService.saveProduct(productDto);
         return new ResponseEntity<String>("Product saved successfully!", HttpStatus.OK);
     }
 
-    @PostMapping("/save-products")
-    public ResponseEntity saveProducts(@RequestBody ProductListDto productListDto){
+    @PostMapping("save-products")
+    public ResponseEntity<String> saveProducts(@RequestBody ProductListDto productListDto){
         productService.saveProducts(productListDto);
         return new ResponseEntity<String>("Products saved successfully!", HttpStatus.OK);
     }
 
-    @PostMapping("/upload-csv-product")
+    @PostMapping("upload-csv-product")
     public void uploadProduct(@RequestParam("file")MultipartFile file) throws IOException {
         if (productService.hasExcelFormat(file)) {
             try {
@@ -77,14 +77,14 @@ public class ProductController {
     }
 
     // PUT GOES HERE
-    @PutMapping("/edit-product")
-    public ResponseEntity editProduct(@RequestBody ProductDto productDto){
+    @PutMapping("edit-product")
+    public ResponseEntity<String> editProduct(@RequestBody ProductDto productDto){
         productService.editProduct(productDto);
         return new ResponseEntity<String>("Product edited successfully!", HttpStatus.OK);
     }
 
-    @PutMapping("/quick-stock-control")
-    public ResponseEntity quickStockControl(@RequestBody List<UpdateStockAmountDto> updateStockAmountDto){
+    @PutMapping("quick-stock-control")
+    public ResponseEntity<String> quickStockControl(@RequestBody List<UpdateStockAmountDto> updateStockAmountDto){
         productService.quickStockControl(updateStockAmountDto);
         return new ResponseEntity<String>("Product stock successfully increased!", HttpStatus.OK);
     }

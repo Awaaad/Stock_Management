@@ -29,7 +29,7 @@ public class RoleController {
         return new ResponseEntity<>(roleService.findAllRoles(), HttpStatus.OK);
     }
 
-    @PostMapping("/saveRole")
+    @PostMapping("saveRole")
     public ResponseEntity<String> saveUser(@RequestBody RoleDto roleDto){
         roleService.saveRole(roleDto);
         return new ResponseEntity<>("Role saved successfully!", HttpStatus.OK);

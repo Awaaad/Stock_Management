@@ -20,18 +20,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class OrderProductServiceImplementation implements OrderProductService {
-    public final OrderProductRepository orderProductRepository;
-    public final OrderRepository orderRepository;
-    public final ProductRepository productRepository;
-    public final OrderProductMapper orderProductMapper;
-    public final OrderMapper orderMapper;
+    private final OrderProductRepository orderProductRepository;
+    private final OrderProductMapper orderProductMapper;
 
-    public OrderProductServiceImplementation(OrderProductRepository orderProductRepository, OrderRepository orderRepository, ProductRepository productRepository, OrderProductMapper orderProductMapper, OrderMapper orderMapper) {
+    public OrderProductServiceImplementation(OrderProductRepository orderProductRepository, OrderProductMapper orderProductMapper) {
         this.orderProductRepository = orderProductRepository;
-        this.orderRepository = orderRepository;
-        this.productRepository = productRepository;
         this.orderProductMapper = orderProductMapper;
-        this.orderMapper = orderMapper;
     }
 
     @Override

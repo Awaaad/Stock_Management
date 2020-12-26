@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImplementation implements UserService {
-    public final UserRepository userRepository;
-    public final UserMapper userMapper;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 //    @Autowired
 //    private BCryptPasswordEncoder passwordEncoder;
 

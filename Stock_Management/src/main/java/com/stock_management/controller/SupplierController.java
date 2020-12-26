@@ -29,12 +29,12 @@ public class SupplierController {
         return new ResponseEntity<>(supplierService.findListOfSuppliersByFilters(supplierName, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
     }
 
-    @GetMapping("/id")
+    @GetMapping("id")
     public ResponseEntity<SupplierDto>getSupplierById(@RequestParam Long supplierId){
         return new ResponseEntity<>(supplierService.findSupplierById(supplierId), HttpStatus.OK);
     }
 
-    @GetMapping("/supplier-name")
+    @GetMapping("supplier-name")
     public ResponseEntity<SupplierDto>getSupplierByName(@RequestParam String supplierName){
         return new ResponseEntity<>(supplierService.findSupplierByName(supplierName), HttpStatus.OK);
     }
@@ -44,15 +44,15 @@ public class SupplierController {
         return new ResponseEntity<>(supplierService.findSupplierByOrderId(orderId), HttpStatus.ACCEPTED);
     }
     // POST GOES HERE
-    @PostMapping("/save-suppliers")
-    public ResponseEntity saveSuppliers(@RequestBody SupplierListDto supplierListDto){
+    @PostMapping("save-suppliers")
+    public ResponseEntity<String> saveSuppliers(@RequestBody SupplierListDto supplierListDto){
         supplierService.saveSupplier(supplierListDto);
         return new ResponseEntity<String>("Suppliers saved successfully!", HttpStatus.OK);
     }
 
     // PUT GOES HERE
-    @PutMapping("/edit-supplier")
-    public ResponseEntity editSupplier(@RequestBody SupplierDto supplierDto){
+    @PutMapping("edit-supplier")
+    public ResponseEntity<String> editSupplier(@RequestBody SupplierDto supplierDto){
         supplierService.editSupplier(supplierDto);
         return new ResponseEntity<String>("Supplier edited successfully!", HttpStatus.OK);
     }

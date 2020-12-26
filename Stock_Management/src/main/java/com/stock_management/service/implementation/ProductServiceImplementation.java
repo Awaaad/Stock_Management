@@ -3,11 +3,9 @@ package com.stock_management.service.implementation;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.stock_management.dto.CountProductsDto;
-import com.stock_management.dto.OrderDto;
 import com.stock_management.dto.ProductDto;
 import com.stock_management.dto.ProductListDto;
 import com.stock_management.dto.UpdateStockAmountDto;
-import com.stock_management.entity.Order;
 import com.stock_management.entity.Product;
 import com.stock_management.entity.QProduct;
 import com.stock_management.mapper.ProductMapper;
@@ -36,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -84,7 +83,7 @@ public class ProductServiceImplementation implements ProductService {
     // find product by product_id in productDto
     @Override
     public ProductDto findProductById(Long productId) {
-            java.util.Optional<Product> product = productRepository.findById(productId);
+            Optional<Product> product = productRepository.findById(productId);
             var oneProduct = product.orElse(null);
             return productMapper.mapProductEntityToDto(oneProduct);
     }
@@ -104,8 +103,6 @@ public class ProductServiceImplementation implements ProductService {
         var saveProductInformation = productMapper.mapProductDtoToEntity(productDto);
         productRepository.save(saveProductInformation);
     }
-
-
 
     // PUT
     public void editProduct(ProductDto productDto) {
