@@ -8,6 +8,7 @@ com\stock_management\controller\ProductController.class
 com\stock_management\dto\OrderDto.class
 com\stock_management\entity\Order.class
 com\stock_management\dto\ProductQuantityPriceDto.class
+com\stock_management\dto\PurchaseInvoiceListDto.class
 com\stock_management\entity\PurchaseInvoiceProduct.class
 com\stock_management\service\SupplierService.class
 com\stock_management\dto\OrderListDto.class
