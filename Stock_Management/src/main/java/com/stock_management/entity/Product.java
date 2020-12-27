@@ -34,6 +34,9 @@ public class Product {
     @Column(name = "BOX", nullable = false)
     private Double box;
 
+    @Column(name = "MIN_STOCK_AMOUNT", nullable = false)
+    private Integer minStockAmount;
+
     @Column(name = "UNITS_PER_BOX")
     private Integer unitsPerBox;
 

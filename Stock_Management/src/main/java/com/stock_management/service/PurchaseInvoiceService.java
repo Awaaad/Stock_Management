@@ -13,5 +13,5 @@ public interface PurchaseInvoiceService {
 
     List<PurchaseInvoiceDto> findAllPurchaseInvoice();
 
-    PurchaseInvoiceListDto findPurchaseInvoiceByFilters(String supplierName, LocalDateTime invoiceDate, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
+    PurchaseInvoiceListDto findPurchaseInvoiceByFilters(String searchBox, LocalDateTime invoiceDate, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
 }

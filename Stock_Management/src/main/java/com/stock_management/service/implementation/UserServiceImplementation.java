@@ -42,6 +42,7 @@ public class UserServiceImplementation implements UserService {
     @Override
     public List<UserDto> findAllUsers() {
         List<UserProfile> userProfiles = userRepository.findAll();
+        userProfiles.forEach(userProfile -> userProfile.setPassword("********"));
         return userProfiles.stream().map(userMapper::mapUserEntityToDto).collect(Collectors.toList());
     }
 

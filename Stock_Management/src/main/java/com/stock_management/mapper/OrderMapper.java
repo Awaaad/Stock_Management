@@ -10,6 +10,7 @@ import org.mapstruct.Mapping;
         OrderProductMapper.class
 })
 public interface OrderMapper {
+    @Mapping(target = "userProfileDto", source = "userProfile")
     @Mapping(target = "orderProductDtos", source = "orderProducts")
     OrderDto mapOrderEntityToDto (Order orderEntity);
     @InheritInverseConfiguration

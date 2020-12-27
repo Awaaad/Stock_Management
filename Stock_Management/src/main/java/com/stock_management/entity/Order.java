@@ -20,8 +20,9 @@ public class Order {
     @Column(name = "ORDER_ID")
     private Long orderId;
 
-    @Column(name = "CASHIER_NAME", nullable = false)
-    private String cashierName;
+    @ManyToOne(targetEntity = UserProfile.class)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
+    private UserProfile userProfile;
 
     @Column(name = "CUSTOMER_NAME")
     private String customerName;

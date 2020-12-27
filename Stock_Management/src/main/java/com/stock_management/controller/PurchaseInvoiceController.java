@@ -38,8 +38,8 @@ public class PurchaseInvoiceController {
     }
 
     @GetMapping("filter")
-    public ResponseEntity<PurchaseInvoiceListDto> getPurchaseInvoicesViaFilter(@RequestParam String supplierName, @RequestParam("invoiceDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime invoiceDate, @RequestParam String sortOrder, @RequestParam String sortBy, @RequestParam Integer pageNumber, @RequestParam Integer pageSize){
-        return new ResponseEntity<>(purchaseInvoiceService.findPurchaseInvoiceByFilters(supplierName, invoiceDate, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
+    public ResponseEntity<PurchaseInvoiceListDto> getPurchaseInvoicesViaFilter(@RequestParam String searchBox, @RequestParam("invoiceDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime invoiceDate, @RequestParam String sortOrder, @RequestParam String sortBy, @RequestParam Integer pageNumber, @RequestParam Integer pageSize){
+        return new ResponseEntity<>(purchaseInvoiceService.findPurchaseInvoiceByFilters(searchBox, invoiceDate, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
     }
 
     @GetMapping("purchase-invoice-id/{purchaseInvoiceId}")

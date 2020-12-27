@@ -14,7 +14,6 @@
           <node kind="schema">
             <name qname="@" />
             <name qname="stockmanagement" />
-            <name qname="somedico" />
           </node>
         </introspection-scope>
       </schema-mapping>

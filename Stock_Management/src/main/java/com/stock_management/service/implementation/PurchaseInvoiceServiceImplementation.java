@@ -98,10 +98,10 @@ public class PurchaseInvoiceServiceImplementation implements PurchaseInvoiceServ
     }
 
     @Override
-    public PurchaseInvoiceListDto findPurchaseInvoiceByFilters(String supplierName, LocalDateTime invoiceDate, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
+    public PurchaseInvoiceListDto findPurchaseInvoiceByFilters(String searchBox, LocalDateTime invoiceDate, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
         Sort sort = Sort.by("ASC".equals(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sort);
-        BooleanBuilder predicate = buildProductPredicate(supplierName, invoiceDate);
+        BooleanBuilder predicate = buildProductPredicate(searchBox, invoiceDate);
         Page<PurchaseInvoice> purchaseInvoices = purchaseInvoiceRepository.findAll(predicate,pageRequest);
         List<PurchaseInvoiceDto> purchaseInvoiceDtos = purchaseInvoices.stream().map(this::mapPurchaseInvoiceEntityToDto).collect(Collectors.toList());
 
@@ -112,11 +112,12 @@ public class PurchaseInvoiceServiceImplementation implements PurchaseInvoiceServ
         return purchaseInvoiceListDto;
     }
 
-    private BooleanBuilder buildProductPredicate(String supplierName, LocalDateTime invoiceDate) {
+    private BooleanBuilder buildProductPredicate(String searchBox, LocalDateTime invoiceDate) {
         var qPurchaseInvoice = QPurchaseInvoice.purchaseInvoice;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
-        if(!supplierName.equals("")) {
-            booleanBuilder.and(qPurchaseInvoice.supplier.supplierName.toLowerCase().contains(supplierName.toLowerCase()));
+        if(!searchBox.equals("")) {
+            booleanBuilder.and(qPurchaseInvoice.supplier.supplierName.toLowerCase().contains(searchBox.toLowerCase()))
+            .or(qPurchaseInvoice.invoiceNumber.toLowerCase().contains(searchBox.toLowerCase()));
         }
         if(Objects.nonNull(invoiceDate)) {
             booleanBuilder.and(qPurchaseInvoice.invoiceDate.eq(invoiceDate));

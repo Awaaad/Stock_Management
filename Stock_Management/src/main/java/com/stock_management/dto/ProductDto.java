@@ -14,6 +14,7 @@ public class ProductDto {
     private String dosage;
     private String category;
     private Double box;
+    private Integer minStockAmount;
     private Integer unitsPerBox;
     private Double unitsTotal;
     private Double oldPricePerBox;

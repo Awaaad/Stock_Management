@@ -30,6 +30,7 @@ import javax.persistence.PersistenceContext;
 import java.awt.print.Pageable;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -67,9 +68,43 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     @Override
+    public ProductListDto findAllProductLessThanMinStockAmount(Pageable pageable) {
+        Page<Product> products = productRepository.findAll((org.springframework.data.domain.Pageable) pageable);
+        return getProductListLessThanMinStockAmountDto(products);
+    }
+
+    private ProductListDto getProductListLessThanMinStockAmountDto(Page<Product> product) {
+        if (product == null) {
+            System.out.println("Product Not Found!");
+            return null;
+        } else {
+            List<ProductDto> productDto = product.stream().filter(product1 -> product1.getBox() < product1.getMinStockAmount()).map(productMapper::mapProductEntityToDto).collect(Collectors.toList());
+            ProductListDto productListDto = new ProductListDto();
+            productListDto.setProductDtos(productDto);
+            productListDto.setTotalElements(product.getNumberOfElements());
+            productListDto.setTotalPages(product.getTotalPages());
+            return productListDto;
+        }
+    }
+
+    @Override
     public ProductListDto findAllProductList(Pageable pageable) {
         Page<Product> products = productRepository.findAll((org.springframework.data.domain.Pageable) pageable);
         return getProductListDto(products);
+    }
+
+    private ProductListDto getProductListDto(Page<Product> product) {
+        if (product == null) {
+            System.out.println("Product Not Found!");
+            return null;
+        } else {
+            List<ProductDto> productDto = product.stream().map(productMapper::mapProductEntityToDto).collect(Collectors.toList());
+            ProductListDto productListDto = new ProductListDto();
+            productListDto.setProductDtos(productDto);
+            productListDto.setTotalElements(product.getNumberOfElements());
+            productListDto.setTotalPages(product.getTotalPages());
+            return productListDto;
+        }
     }
 
     @Override
@@ -91,7 +126,7 @@ public class ProductServiceImplementation implements ProductService {
     @Override
     public Long findNumberOfProductsLowInStock() {
         List<Product> products = productRepository.findAll();
-        Long numberOfProductsLowInStock = products.stream().filter(product -> product.getBox() <= 3).count();
+        Long numberOfProductsLowInStock = products.stream().filter(product -> product.getBox() <= product.getMinStockAmount()).count();
         return numberOfProductsLowInStock;
     }
 
@@ -183,10 +218,10 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     @Override
-    public ProductListDto findListOfProductsByFilters(String productName, Long supplierId, String category, String slot, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
+    public ProductListDto findListOfProductsByFilters(String productName, Long supplierId, String category, String slot, LocalDate expiryDate, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
         Sort sort = Sort.by("ASC".equals(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sort);
-        BooleanBuilder predicate = buildProductPredicate(productName, supplierId, category, slot);
+        BooleanBuilder predicate = buildProductPredicate(productName, supplierId, category, slot, expiryDate);
         Page<Product> product = productRepository.findAll(predicate,pageRequest);
         List<ProductDto> productDtos = product.stream().map(productMapper::mapProductEntityToDto).collect(Collectors.toList());
         var productListDto = new ProductListDto();
@@ -197,7 +232,7 @@ public class ProductServiceImplementation implements ProductService {
     }
 
 
-    private BooleanBuilder buildProductPredicate(String productName, Long supplierId, String category, String slot) {
+    private BooleanBuilder buildProductPredicate(String productName, Long supplierId, String category, String slot, LocalDate expiryDate) {
         var qProduct = QProduct.product;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if(!productName.equals("")) {
@@ -215,6 +250,9 @@ public class ProductServiceImplementation implements ProductService {
         if(!category.equals("All")) {
             booleanBuilder.and(qProduct.category.toLowerCase().eq(category.toLowerCase()));
         }
+        if(Objects.nonNull(expiryDate)) {
+            booleanBuilder.and(qProduct.expiryDate.before(expiryDate));
+        }
         return booleanBuilder;
     }
 
@@ -230,20 +268,6 @@ public class ProductServiceImplementation implements ProductService {
         }
 
         return list;
-    }
-
-    private ProductListDto getProductListDto(Page<Product> product) {
-        if (product == null) {
-            System.out.println("Product Not Found!");
-            return null;
-        } else {
-            List<ProductDto> productDto = product.stream().map(productMapper::mapProductEntityToDto).collect(Collectors.toList());
-            ProductListDto productListDto = new ProductListDto();
-            productListDto.setProductDtos(productDto);
-            productListDto.setTotalElements(product.getNumberOfElements());
-            productListDto.setTotalPages(product.getTotalPages());
-            return productListDto;
-        }
     }
 
     public boolean hasExcelFormat(MultipartFile file) {
@@ -347,6 +371,11 @@ public class ProductServiceImplementation implements ProductService {
                             var supplier = supplierRepository.findSupplierBySupplierName(currentCell.getStringCellValue());
                             product.setSupplier(supplier);
                             break;
+
+                        case 14:
+                            product.setMinStockAmount((int) currentCell.getNumericCellValue());
+                            break;
+
                         default:
                             break;
                     }
