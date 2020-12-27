@@ -155,6 +155,7 @@ public class ProductServiceImplementation implements ProductService {
             product.setPricePerUnit(productDto.getPricePerBox() / productDto.getUnitsPerBox());
             product.setRequirePrescription(productDto.getRequirePrescription());
             product.setSlot(productDto.getSlot());
+            product.setMinStockAmount(productDto.getMinStockAmount());
             product.setExpiryDate(productDto.getExpiryDate());
             product.setSupplier(productDto.getSupplier());
             productRepository.save(productMapper.mapProductDtoToEntity(product));

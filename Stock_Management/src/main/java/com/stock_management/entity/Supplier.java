@@ -31,5 +31,5 @@ public class Supplier {
     private Integer telephoneNumber;
 
     @Column(name = "ADDRESS", nullable = true)
-    private String Address;
+    private String address;
 }

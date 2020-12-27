@@ -186,8 +186,9 @@ public class OrderServiceImplementation implements OrderService {
     public void saveOrder(OrderDto orderDto) {
         List<OrderProductDto> orderProductDtos = new ArrayList<>();
         for (OrderProductDto orderProductDto : orderDto.getOrderProductDtos()) {
-            if (!orderProductDto.getBoxesOrdered().equals(0) && !orderProductDto.getUnitsOrdered().equals(0))
+            if (!orderProductDto.getBoxesOrdered().equals(0) || !orderProductDto.getUnitsOrdered().equals(0)) {
                 orderProductDtos.add(orderProductDto);
+            }
         }
         orderDto.setOrderProductDtos(orderProductDtos);
         var order = orderMapper.mapOrderDtoToEntity(orderDto);

@@ -18,11 +18,11 @@ public class QOrder extends EntityPathBase<Order> {
 
     private static final long serialVersionUID = -573750440L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QOrder order = new QOrder("order1");
 
     public final NumberPath<Double> amountPaid = createNumber("amountPaid", Double.class);
-
-    public final StringPath cashierName = createString("cashierName");
 
     public final StringPath customerName = createString("customerName");
 
@@ -42,16 +42,27 @@ public class QOrder extends EntityPathBase<Order> {
 
     public final NumberPath<Double> totalPrice = createNumber("totalPrice", Double.class);
 
+    public final QUserProfile userProfile;
+
     public QOrder(String variable) {
-        super(Order.class, forVariable(variable));
+        this(Order.class, forVariable(variable), INITS);
     }
 
     public QOrder(Path<? extends Order> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QOrder(PathMetadata metadata) {
-        super(Order.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QOrder(PathMetadata metadata, PathInits inits) {
+        this(Order.class, metadata, inits);
+    }
+
+    public QOrder(Class<? extends Order> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.userProfile = inits.isInitialized("userProfile") ? new QUserProfile(forProperty("userProfile")) : null;
     }
 
 }

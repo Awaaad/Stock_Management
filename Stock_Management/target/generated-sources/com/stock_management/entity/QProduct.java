@@ -32,6 +32,8 @@ public class QProduct extends EntityPathBase<Product> {
 
     public final DatePath<java.time.LocalDate> expiryDate = createDate("expiryDate", java.time.LocalDate.class);
 
+    public final NumberPath<Integer> minStockAmount = createNumber("minStockAmount", Integer.class);
+
     public final NumberPath<Double> oldPricePerBox = createNumber("oldPricePerBox", Double.class);
 
     public final ListPath<OrderProduct, QOrderProduct> orderProducts = this.<OrderProduct, QOrderProduct>createList("orderProducts", OrderProduct.class, QOrderProduct.class, PathInits.DIRECT2);
