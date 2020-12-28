@@ -74,10 +74,10 @@ public class OrderServiceImplementation implements OrderService {
     // filter DSL
     @Override
     @Transactional
-    public OrderListDto findListOfOrdersByFilters(String customerName, Long userId, LocalDateTime orderDateTime, Boolean paid, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
+    public OrderListDto findListOfOrdersByFilters(String customerName, Long userId, LocalDateTime orderDateTimeFrom, LocalDateTime orderDateTimeTo, Boolean paid, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
         Sort sort = Sort.by("ASC".equals(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sort);
-        BooleanBuilder predicate = buildProductPredicate(customerName, userId, orderDateTime, paid);
+        BooleanBuilder predicate = buildProductPredicate(customerName, userId, orderDateTimeFrom, orderDateTimeTo, paid);
         Page<Order> orders = orderRepository.findAll(predicate,pageRequest);
         List<OrderDto> orderDtos = orders.stream().map(orderMapper::mapOrderEntityToDto).collect(Collectors.toList());
 
@@ -93,7 +93,7 @@ public class OrderServiceImplementation implements OrderService {
         return orderListDto;
     }
 
-    private BooleanBuilder buildProductPredicate(String customerName, Long userId, LocalDateTime orderDateTime, Boolean paid) {
+    private BooleanBuilder buildProductPredicate(String customerName, Long userId, LocalDateTime orderDateTimeFrom, LocalDateTime orderDateTimeTo, Boolean paid) {
         var qOrder = QOrder.order;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if(!customerName.equals("")) {
@@ -102,8 +102,11 @@ public class OrderServiceImplementation implements OrderService {
         if(Objects.nonNull(userId) && userId != 0) {
             booleanBuilder.and(qOrder.userProfile.userId.eq(userId));
         }
-        if(Objects.nonNull(orderDateTime)) {
-            booleanBuilder.and(qOrder.orderDate.eq(LocalDateTime.from(orderDateTime.toLocalDate())));
+        if(Objects.nonNull(orderDateTimeFrom)) {
+            booleanBuilder.and(qOrder.orderDate.after(orderDateTimeFrom));
+        }
+        if(Objects.nonNull(orderDateTimeTo)) {
+            booleanBuilder.and(qOrder.orderDate.before(orderDateTimeTo));
         }
         if(Objects.nonNull(paid)) {
             booleanBuilder.and(qOrder.paid.eq(paid));
@@ -182,7 +185,7 @@ public class OrderServiceImplementation implements OrderService {
     }
 
     @Override
-    @org.springframework.transaction.annotation.Transactional
+    @Transactional
     public void saveOrder(OrderDto orderDto) {
         List<OrderProductDto> orderProductDtos = new ArrayList<>();
         for (OrderProductDto orderProductDto : orderDto.getOrderProductDtos()) {

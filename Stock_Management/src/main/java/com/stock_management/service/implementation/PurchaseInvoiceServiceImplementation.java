@@ -20,6 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -45,6 +46,7 @@ public class PurchaseInvoiceServiceImplementation implements PurchaseInvoiceServ
     }
 
     @Override
+    @Transactional
     public void savePurchaseInvoice(PurchaseInvoiceDto purchaseInvoiceDto) {
         var purchaseInvoiceToEntity = purchaseInvoiceMapper.mapPurchaseInvoiceDtoToEntity(purchaseInvoiceDto);
         var savedPurchaseInvoice = purchaseInvoiceRepository.save(purchaseInvoiceToEntity);
@@ -60,6 +62,12 @@ public class PurchaseInvoiceServiceImplementation implements PurchaseInvoiceServ
         if (product.isPresent()) {
             var productEntity = product.get();
             purchaseInvoiceProduct.setProduct(productEntity);
+            var boxesInStore = purchaseInvoiceProductDto.getBoxesReceived() + productEntity.getBox();
+            productEntity.setBox(boxesInStore);
+            if (!productEntity.getPricePerBox().equals(purchaseInvoiceProductDto.getPricePerBox()) && !purchaseInvoiceProductDto.getPricePerBox().equals(0D) ) {
+                productEntity.setOldPricePerBox(productEntity.getPricePerBox());
+                productEntity.setPricePerBox(purchaseInvoiceProductDto.getPricePerBox());
+            }
         }
         return purchaseInvoiceProduct;
     }
@@ -98,10 +106,10 @@ public class PurchaseInvoiceServiceImplementation implements PurchaseInvoiceServ
     }
 
     @Override
-    public PurchaseInvoiceListDto findPurchaseInvoiceByFilters(String searchBox, LocalDateTime invoiceDate, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
+    public PurchaseInvoiceListDto findPurchaseInvoiceByFilters(String searchBox, LocalDateTime invoiceDateFrom, LocalDateTime invoiceDateTo, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
         Sort sort = Sort.by("ASC".equals(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sort);
-        BooleanBuilder predicate = buildProductPredicate(searchBox, invoiceDate);
+        BooleanBuilder predicate = buildProductPredicate(searchBox, invoiceDateFrom, invoiceDateTo);
         Page<PurchaseInvoice> purchaseInvoices = purchaseInvoiceRepository.findAll(predicate,pageRequest);
         List<PurchaseInvoiceDto> purchaseInvoiceDtos = purchaseInvoices.stream().map(this::mapPurchaseInvoiceEntityToDto).collect(Collectors.toList());
 
@@ -112,15 +120,18 @@ public class PurchaseInvoiceServiceImplementation implements PurchaseInvoiceServ
         return purchaseInvoiceListDto;
     }
 
-    private BooleanBuilder buildProductPredicate(String searchBox, LocalDateTime invoiceDate) {
+    private BooleanBuilder buildProductPredicate(String searchBox, LocalDateTime invoiceDateFrom, LocalDateTime invoiceDateTo) {
         var qPurchaseInvoice = QPurchaseInvoice.purchaseInvoice;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if(!searchBox.equals("")) {
             booleanBuilder.and(qPurchaseInvoice.supplier.supplierName.toLowerCase().contains(searchBox.toLowerCase()))
             .or(qPurchaseInvoice.invoiceNumber.toLowerCase().contains(searchBox.toLowerCase()));
         }
-        if(Objects.nonNull(invoiceDate)) {
-            booleanBuilder.and(qPurchaseInvoice.invoiceDate.eq(invoiceDate));
+        if(Objects.nonNull(invoiceDateFrom)) {
+            booleanBuilder.and(qPurchaseInvoice.invoiceDate.after(invoiceDateFrom));
+        }
+        if(Objects.nonNull(invoiceDateTo)) {
+            booleanBuilder.and(qPurchaseInvoice.invoiceDate.before(invoiceDateTo));
         }
         return booleanBuilder;
     }

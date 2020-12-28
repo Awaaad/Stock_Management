@@ -36,6 +36,9 @@ public class Order {
     @Column(name = "AMOUNT_PAID", nullable = false)
     private Double amountPaid;
 
+    @Column(name = "DISCOUNT", nullable = false)
+    private Double discount;
+
     @Column(name = "PAID", nullable = false)
     private Boolean paid;
 

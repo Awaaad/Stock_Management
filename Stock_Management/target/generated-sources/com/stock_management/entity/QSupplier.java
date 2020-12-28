@@ -19,7 +19,7 @@ public class QSupplier extends EntityPathBase<Supplier> {
 
     public static final QSupplier supplier = new QSupplier("supplier");
 
-    public final StringPath Address = createString("Address");
+    public final StringPath address = createString("address");
 
     public final StringPath email = createString("email");
 

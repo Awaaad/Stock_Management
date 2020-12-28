@@ -14,6 +14,7 @@ public class OrderDto {
     private List<OrderProductDto> orderProductDtos;
     private Double totalPrice;
     private Double amountPaid;
+    private Double discount;
     private Boolean paid;
     private String paymentMode;
     private Boolean prescription;

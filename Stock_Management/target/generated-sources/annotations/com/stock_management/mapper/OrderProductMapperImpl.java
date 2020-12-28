@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-12-27T15:29:14+0400",
+    date = "2020-12-28T16:13:22+0400",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.6 (AdoptOpenJDK)"
 )
 @Component
@@ -71,6 +71,7 @@ public class OrderProductMapperImpl implements OrderProductMapper {
         orderDto.setOrderDate( order.getOrderDate() );
         orderDto.setTotalPrice( order.getTotalPrice() );
         orderDto.setAmountPaid( order.getAmountPaid() );
+        orderDto.setDiscount( order.getDiscount() );
         orderDto.setPaid( order.getPaid() );
         orderDto.setPaymentMode( order.getPaymentMode() );
         orderDto.setPrescription( order.getPrescription() );
@@ -91,6 +92,7 @@ public class OrderProductMapperImpl implements OrderProductMapper {
         order.setOrderDate( orderDto.getOrderDate() );
         order.setTotalPrice( orderDto.getTotalPrice() );
         order.setAmountPaid( orderDto.getAmountPaid() );
+        order.setDiscount( orderDto.getDiscount() );
         order.setPaid( orderDto.getPaid() );
         order.setPaymentMode( orderDto.getPaymentMode() );
         order.setPrescription( orderDto.getPrescription() );

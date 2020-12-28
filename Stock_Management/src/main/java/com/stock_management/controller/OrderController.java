@@ -41,8 +41,8 @@ public class OrderController {
     }
 
     @GetMapping("filter")
-    public ResponseEntity<OrderListDto> getOrdersViaFilter(@RequestParam String customerName, @RequestParam Long userId, @RequestParam("orderDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime orderDateTime, @RequestParam Boolean paid, @RequestParam String sortOrder, @RequestParam String sortBy, @RequestParam Integer pageNumber, @RequestParam Integer pageSize){
-        return new ResponseEntity<>(orderService.findListOfOrdersByFilters(customerName, userId, orderDateTime, paid, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
+    public ResponseEntity<OrderListDto> getOrdersViaFilter(@RequestParam String customerName, @RequestParam Long userId, @RequestParam("orderDateTimeFrom") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime orderDateTimeFrom, @RequestParam("orderDateTimeTo") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime orderDateTimeTo, @RequestParam Boolean paid, @RequestParam String sortOrder, @RequestParam String sortBy, @RequestParam Integer pageNumber, @RequestParam Integer pageSize){
+        return new ResponseEntity<>(orderService.findListOfOrdersByFilters(customerName, userId, orderDateTimeFrom, orderDateTimeTo, paid, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
     }
 
     @GetMapping("get-eod-sales-amount")

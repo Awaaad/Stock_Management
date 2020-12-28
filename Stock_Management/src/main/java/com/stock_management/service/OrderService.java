@@ -15,7 +15,7 @@ public interface OrderService {
 
     OrderDto findOrderById(Long OrderId);
 
-    OrderListDto findListOfOrdersByFilters(String customerName, Long userId, LocalDateTime orderDateTime, Boolean paid, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
+    OrderListDto findListOfOrdersByFilters(String customerName, Long userId, LocalDateTime orderDateTimeFrom, LocalDateTime orderDateTimeTo, Boolean paid, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
 
     CustomerReceiptDto findCustomerReceiptDetails(Long orderId);
 
