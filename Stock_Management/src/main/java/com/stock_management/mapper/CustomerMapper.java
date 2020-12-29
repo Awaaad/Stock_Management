@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface CustomerMapper {
-    Customer mapCustomerEntityToDto(CustomerDto customerDto);
+    CustomerDto mapCustomerEntityToDto(Customer customer);
     @InheritInverseConfiguration
-    CustomerDto mapCustomerDtoToEntity(Customer customer);
+    Customer mapCustomerDtoToEntity(CustomerDto customerDto);
 }

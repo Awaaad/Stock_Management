@@ -28,6 +28,7 @@ C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\rep
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\entity\Supplier.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\entity\PurchaseInvoiceProduct.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\controller\UserController.java
+C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\DoctorListDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\RoleDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\implementation\OrderProductServiceImplementation.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\PaginationDto.java
@@ -69,6 +70,7 @@ C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\con
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\controller\RoleController.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\repository\PurchaseInvoiceProductRepository.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\implementation\PurchaseInvoiceServiceImplementation.java
+C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\CustomerListDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\repository\DoctorRepository.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\UserService.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\mapper\PurchaseInvoiceProductMapper.java

@@ -19,6 +19,7 @@ import com.stock_management.mapper.SupplierMapper;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -65,13 +66,6 @@ public class SupplierServiceImplementation implements SupplierService{
         return supplierListDto;
     }
 
-    @Override
-    public SupplierDto findSupplierByName(String supplierName) {
-        Optional<Supplier> supplier = Optional.ofNullable(supplierRepository.findSupplierBySupplierName(supplierName));
-        var oneSupplier = supplier.orElse(null);
-        return supplierMapper.mapSupplierEntityToDto(oneSupplier);
-    }
-
     private BooleanBuilder buildProductPredicate(String supplierName) {
         var qSupplier = QSupplier.supplier;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -79,6 +73,14 @@ public class SupplierServiceImplementation implements SupplierService{
             booleanBuilder.and(qSupplier.supplierName.toLowerCase().contains(supplierName.toLowerCase()));
         }
         return booleanBuilder;
+    }
+
+
+    @Override
+    public SupplierDto findSupplierByName(String supplierName) {
+        Optional<Supplier> supplier = Optional.ofNullable(supplierRepository.findSupplierBySupplierName(supplierName));
+        var oneSupplier = supplier.orElse(null);
+        return supplierMapper.mapSupplierEntityToDto(oneSupplier);
     }
 
     // POST
@@ -91,7 +93,7 @@ public class SupplierServiceImplementation implements SupplierService{
     @Override
     public void editSupplier(SupplierDto supplierDto) {
         var supplier = findSupplierById(supplierDto.getSupplierId());
-        if (supplier != null) {
+        if (Objects.nonNull(supplier)) {
             supplier.setSupplierName(supplierDto.getSupplierName());
             supplier.setEmail(supplierDto.getEmail());
             supplier.setAddress(supplierDto.getAddress());

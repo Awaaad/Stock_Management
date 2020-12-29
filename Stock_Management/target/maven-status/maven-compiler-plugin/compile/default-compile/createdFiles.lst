@@ -79,6 +79,7 @@ com\stock_management\service\CustomerService.class
 com\stock_management\service\PurchaseInvoiceService.class
 com\stock_management\mapper\ReceiptMapper.class
 com\stock_management\entity\PurchaseInvoice.class
+com\stock_management\dto\DoctorListDto.class
 com\stock_management\repository\RoleRepository.class
 com\stock_management\mapper\RoleMapper.class
 com\stock_management\dto\CustomerDto.class
@@ -98,4 +99,5 @@ com\stock_management\dto\PurchaseInvoiceProductDto.class
 com\stock_management\entity\QProduct.class
 com\stock_management\entity\Doctor.class
 com\stock_management\mapper\RoleMapperImpl.class
+com\stock_management\dto\CustomerListDto.class
 com\stock_management\repository\CustomerRepository.class
