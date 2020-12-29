@@ -9,7 +9,8 @@ import java.util.List;
 public class OrderDto {
     private Long OrderId;
     private UserDto userProfileDto;
-    private String customerName;
+    private CustomerDto customerDto;
+    private DoctorDto doctorDto;
     private LocalDateTime orderDate;
     private List<OrderProductDto> orderProductDtos;
     private Double totalPrice;
@@ -18,5 +19,4 @@ public class OrderDto {
     private Boolean paid;
     private String paymentMode;
     private Boolean prescription;
-    private String doctorName;
 }

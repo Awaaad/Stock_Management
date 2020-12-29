@@ -24,9 +24,13 @@ public class QOrder extends EntityPathBase<Order> {
 
     public final NumberPath<Double> amountPaid = createNumber("amountPaid", Double.class);
 
+    public final QCustomer customer;
+
     public final StringPath customerName = createString("customerName");
 
     public final NumberPath<Double> discount = createNumber("discount", Double.class);
+
+    public final QDoctor doctor;
 
     public final StringPath doctorName = createString("doctorName");
 
@@ -64,6 +68,8 @@ public class QOrder extends EntityPathBase<Order> {
 
     public QOrder(Class<? extends Order> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.customer = inits.isInitialized("customer") ? new QCustomer(forProperty("customer")) : null;
+        this.doctor = inits.isInitialized("doctor") ? new QDoctor(forProperty("doctor")) : null;
         this.userProfile = inits.isInitialized("userProfile") ? new QUserProfile(forProperty("userProfile")) : null;
     }
 

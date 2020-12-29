@@ -15,7 +15,7 @@ public interface ProductService {
     // GET
     List<ProductDto> findAllProducts();
 
-    ProductListDto findAllProductLessThanMinStockAmount(Pageable pageable);
+    ProductListDto findAllProductLessThanMinStockAmount(org.springframework.data.domain.Pageable pageable);
 
     ProductListDto findAllProductList(Pageable pageable);
 
@@ -25,7 +25,7 @@ public interface ProductService {
 
     Long findNumberOfProductsLowInStock();
 
-    ProductListDto findListOfProductsByFilters(String productName, Long supplierId, String Category, String slot, LocalDate expiryDate, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
+    ProductListDto findListOfProductsByFilters(String productName, Long supplierId, String Category, String slot, LocalDate expiryDate, Boolean productLowInStock, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
 
     List<String> findAllSlots();
     // POST

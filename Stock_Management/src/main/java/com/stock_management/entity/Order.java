@@ -24,6 +24,14 @@ public class Order {
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
     private UserProfile userProfile;
 
+    @ManyToOne(targetEntity = Customer.class)
+    @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID")
+    private Customer customer;
+
+    @ManyToOne(targetEntity = Doctor.class)
+    @JoinColumn(name = "DOCTOR_ID", referencedColumnName = "DOCTOR_ID")
+    private Doctor doctor;
+
     @Column(name = "CUSTOMER_NAME")
     private String customerName;
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-12-28T16:13:22+0400",
+    date = "2020-12-29T15:45:37+0400",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.6 (AdoptOpenJDK)"
 )
 @Component
@@ -67,7 +67,6 @@ public class OrderProductMapperImpl implements OrderProductMapper {
         OrderDto orderDto = new OrderDto();
 
         orderDto.setOrderId( order.getOrderId() );
-        orderDto.setCustomerName( order.getCustomerName() );
         orderDto.setOrderDate( order.getOrderDate() );
         orderDto.setTotalPrice( order.getTotalPrice() );
         orderDto.setAmountPaid( order.getAmountPaid() );
@@ -75,7 +74,6 @@ public class OrderProductMapperImpl implements OrderProductMapper {
         orderDto.setPaid( order.getPaid() );
         orderDto.setPaymentMode( order.getPaymentMode() );
         orderDto.setPrescription( order.getPrescription() );
-        orderDto.setDoctorName( order.getDoctorName() );
 
         return orderDto;
     }
@@ -88,7 +86,6 @@ public class OrderProductMapperImpl implements OrderProductMapper {
         Order order = new Order();
 
         order.setOrderId( orderDto.getOrderId() );
-        order.setCustomerName( orderDto.getCustomerName() );
         order.setOrderDate( orderDto.getOrderDate() );
         order.setTotalPrice( orderDto.getTotalPrice() );
         order.setAmountPaid( orderDto.getAmountPaid() );
@@ -96,7 +93,6 @@ public class OrderProductMapperImpl implements OrderProductMapper {
         order.setPaid( orderDto.getPaid() );
         order.setPaymentMode( orderDto.getPaymentMode() );
         order.setPrescription( orderDto.getPrescription() );
-        order.setDoctorName( orderDto.getDoctorName() );
 
         return order;
     }

@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import java.awt.print.Pageable;
 import java.io.IOException;
 import java.io.InputStream;
@@ -68,7 +69,7 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     @Override
-    public ProductListDto findAllProductLessThanMinStockAmount(Pageable pageable) {
+    public ProductListDto findAllProductLessThanMinStockAmount(org.springframework.data.domain.Pageable pageable) {
         Page<Product> products = productRepository.findAll((org.springframework.data.domain.Pageable) pageable);
         return getProductListLessThanMinStockAmountDto(products);
     }
@@ -219,17 +220,26 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     @Override
-    public ProductListDto findListOfProductsByFilters(String productName, Long supplierId, String category, String slot, LocalDate expiryDate, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
+    public ProductListDto findListOfProductsByFilters(String productName, Long supplierId, String category, String slot, LocalDate expiryDate, Boolean productLowInStock, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
         Sort sort = Sort.by("ASC".equals(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sort);
         BooleanBuilder predicate = buildProductPredicate(productName, supplierId, category, slot, expiryDate);
         Page<Product> product = productRepository.findAll(predicate,pageRequest);
+        if (productLowInStock) {
+            List<ProductDto> productDtos = product.stream().filter(product1 -> product1.getBox() < product1.getMinStockAmount()).map(productMapper::mapProductEntityToDto).collect(Collectors.toList());
+            var productListDto = new ProductListDto();
+            productListDto.setProductDtos(productDtos);
+            productListDto.setTotalElements(product.getNumberOfElements());
+            productListDto.setTotalPages(product.getTotalPages());
+            return productListDto;
+        }
         List<ProductDto> productDtos = product.stream().map(productMapper::mapProductEntityToDto).collect(Collectors.toList());
         var productListDto = new ProductListDto();
         productListDto.setProductDtos(productDtos);
         productListDto.setTotalElements(product.getNumberOfElements());
         productListDto.setTotalPages(product.getTotalPages());
         return productListDto;
+
     }
 
 

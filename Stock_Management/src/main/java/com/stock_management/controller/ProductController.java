@@ -5,13 +5,13 @@ import com.stock_management.dto.ProductListDto;
 import com.stock_management.dto.UpdateStockAmountDto;
 import com.stock_management.service.ProductService;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.print.Pageable;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -39,8 +39,8 @@ public class ProductController {
     }
 
     @GetMapping("filter")
-    public ResponseEntity<ProductListDto> getProductsViaFilter(@RequestParam String productName, @RequestParam Long supplierId, @RequestParam String category, @RequestParam String slot, @RequestParam("expiryDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate expiryDate, @RequestParam String sortOrder, @RequestParam String sortBy, @RequestParam Integer pageNumber, @RequestParam Integer pageSize){
-        return new ResponseEntity<>(productService.findListOfProductsByFilters(productName, supplierId, category, slot, expiryDate, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
+    public ResponseEntity<ProductListDto> getProductsViaFilter(@RequestParam String productName, @RequestParam Long supplierId, @RequestParam String category, @RequestParam String slot, @RequestParam("expiryDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate expiryDate, @RequestParam Boolean productLowInStock, @RequestParam String sortOrder, @RequestParam String sortBy, @RequestParam Integer pageNumber, @RequestParam Integer pageSize){
+        return new ResponseEntity<>(productService.findListOfProductsByFilters(productName, supplierId, category, slot, expiryDate, productLowInStock, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
     }
 
     @GetMapping("count-product")
