@@ -19,4 +19,5 @@ public class OrderDto {
     private Boolean paid;
     private String paymentMode;
     private Boolean prescription;
+    private Boolean isNewCustomer;
 }

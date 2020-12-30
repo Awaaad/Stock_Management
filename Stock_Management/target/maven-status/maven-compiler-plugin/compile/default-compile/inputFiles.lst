@@ -38,6 +38,7 @@ C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\ser
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\ProductListDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\entity\Order.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\repository\OrderRepository.java
+C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\controller\DoctorController.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\CustomerDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\OrderDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\PurchaseInvoiceService.java
@@ -92,3 +93,4 @@ C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\PurchaseInvoiceProductDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\SupplierDto.java
 C:\Work\Stock_Management\Stock_Management\target\generated-sources\com\stock_management\entity\QOrderProduct.java
+C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\controller\CustomerController.java

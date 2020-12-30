@@ -45,8 +45,8 @@ public class CustomerServiceImplementation implements CustomerService {
         var qCustomer = QCustomer.customer;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if(!name.equals("")) {
-            booleanBuilder.and(qCustomer.firstName.toLowerCase().contains(name.toLowerCase())).
-                    or(qCustomer.lastName.toLowerCase().contains(name.toLowerCase()));
+            booleanBuilder.and(qCustomer.firstName.concat(" ").concat(qCustomer.lastName).toLowerCase().contains(name.toLowerCase()))
+            .or(qCustomer.lastName.concat(" ").concat(qCustomer.firstName).toLowerCase().contains(name.toLowerCase()));
         }
         return booleanBuilder;
     }

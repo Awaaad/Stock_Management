@@ -32,9 +32,6 @@ public class Order {
     @JoinColumn(name = "DOCTOR_ID", referencedColumnName = "DOCTOR_ID")
     private Doctor doctor;
 
-    @Column(name = "CUSTOMER_NAME")
-    private String customerName;
-
     @Column(name = "ORDER_DATE", nullable = false)
     private LocalDateTime orderDate;
 
@@ -55,9 +52,6 @@ public class Order {
 
     @Column(name = "PRESCRIPTION", nullable = false)
     private Boolean prescription;
-
-    @Column(name = "DOCTOR_NAME", nullable = false)
-    private String doctorName;
 
     @OneToMany(mappedBy = "order")
     List<OrderProduct> orderProducts;

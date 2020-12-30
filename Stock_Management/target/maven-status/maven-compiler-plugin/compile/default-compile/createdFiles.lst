@@ -1,3 +1,4 @@
+com\stock_management\controller\CustomerController.class
 com\stock_management\entity\Role.class
 com\stock_management\repository\OrderProductRepository.class
 com\stock_management\mapper\ProductMapper.class
@@ -94,6 +95,7 @@ com\stock_management\mapper\PurchaseInvoiceMapper.class
 com\stock_management\controller\OrderController.class
 com\stock_management\service\DoctorService.class
 com\stock_management\controller\RoleController.class
+com\stock_management\controller\DoctorController.class
 com\stock_management\dto\ProductDto.class
 com\stock_management\dto\PurchaseInvoiceProductDto.class
 com\stock_management\entity\QProduct.class

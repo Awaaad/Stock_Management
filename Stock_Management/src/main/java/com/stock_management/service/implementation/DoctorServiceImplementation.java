@@ -45,8 +45,8 @@ public class DoctorServiceImplementation implements DoctorService {
         var qDoctor = QDoctor.doctor;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if(!name.equals("")) {
-            booleanBuilder.and(qDoctor.firstName.toLowerCase().contains(name.toLowerCase())).
-                    or(qDoctor.lastName.toLowerCase().contains(name.toLowerCase()));
+            booleanBuilder.and(qDoctor.lastName.concat(" ").concat(qDoctor.firstName).toLowerCase().contains(name.toLowerCase()))
+            .or(qDoctor.firstName.concat(" ").concat(qDoctor.lastName).toLowerCase().contains(name.toLowerCase()));
         }
         return booleanBuilder;
     }

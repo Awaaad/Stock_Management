@@ -12,9 +12,13 @@ import com.stock_management.entity.OrderProduct;
 import com.stock_management.entity.QOrder;
 import com.stock_management.entity.QOrderProduct;
 import com.stock_management.entity.QProduct;
+import com.stock_management.mapper.CustomerMapper;
+import com.stock_management.mapper.DoctorMapper;
 import com.stock_management.mapper.OrderMapper;
 import com.stock_management.mapper.OrderProductMapper;
 import com.stock_management.mapper.ReceiptMapper;
+import com.stock_management.repository.CustomerRepository;
+import com.stock_management.repository.DoctorRepository;
 import com.stock_management.repository.OrderProductRepository;
 import com.stock_management.repository.OrderRepository;
 import com.stock_management.repository.ProductRepository;
@@ -47,14 +51,22 @@ public class OrderServiceImplementation implements OrderService {
     private final ProductRepository productRepository;
     private final OrderProductRepository orderProductRepository;
     private final ReceiptMapper receiptMapper;
+    private final DoctorRepository doctorRepository;
+    private final DoctorMapper doctorMapper;
+    private final CustomerRepository customerRepository;
+    private final CustomerMapper customerMapper;
 
-    public OrderServiceImplementation(OrderRepository orderRepository, OrderMapper orderMapper, OrderProductMapper orderProductMapper, ProductRepository productRepository, OrderProductRepository orderProductRepository, ReceiptMapper receiptMapper) {
+    public OrderServiceImplementation(OrderRepository orderRepository, OrderMapper orderMapper, OrderProductMapper orderProductMapper, ProductRepository productRepository, OrderProductRepository orderProductRepository, ReceiptMapper receiptMapper, DoctorRepository doctorRepository, DoctorMapper doctorMapper, CustomerRepository customerRepository, CustomerMapper customerMapper) {
         this.orderRepository = orderRepository;
         this.orderMapper = orderMapper;
         this.orderProductMapper = orderProductMapper;
         this.productRepository = productRepository;
         this.orderProductRepository = orderProductRepository;
         this.receiptMapper = receiptMapper;
+        this.doctorRepository = doctorRepository;
+        this.doctorMapper = doctorMapper;
+        this.customerRepository = customerRepository;
+        this.customerMapper = customerMapper;
     }
 
     // GET
@@ -97,7 +109,8 @@ public class OrderServiceImplementation implements OrderService {
         var qOrder = QOrder.order;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if(!customerName.equals("")) {
-            booleanBuilder.and(qOrder.customerName.toLowerCase().contains(customerName.toLowerCase()));
+            booleanBuilder.and(qOrder.customer.firstName.concat(" ").concat(qOrder.customer.lastName).toLowerCase().contains(customerName.toLowerCase())).
+                    or(qOrder.customer.lastName.concat(" ").concat(qOrder.customer.firstName).toLowerCase().contains(customerName.toLowerCase()));
         }
         if(Objects.nonNull(userId) && userId != 0) {
             booleanBuilder.and(qOrder.userProfile.userId.eq(userId));
@@ -124,7 +137,6 @@ public class OrderServiceImplementation implements OrderService {
             var customerReceipt = new JPAQuery<OrderProduct>(entityManager).select(
                     qOrder.orderId.as("orderId"),
                     qOrder.userProfile.firstName.as("cashierName"),
-                    qOrder.customerName.as("CustomerName"),
                     qOrder.orderDate.as("orderDate"),
                     qOrder.totalPrice.as("totalPrice"),
                     qOrderProduct.product.productName.as("productName"),
@@ -194,6 +206,22 @@ public class OrderServiceImplementation implements OrderService {
             }
         }
         orderDto.setOrderProductDtos(orderProductDtos);
+        if (orderDto.getIsNewCustomer().equals(true)) {
+            var savedCustomer = customerRepository.save(customerMapper.mapCustomerDtoToEntity(orderDto.getCustomerDto()));
+            orderDto.setCustomerDto(customerMapper.mapCustomerEntityToDto(savedCustomer));
+        } else if (!Objects.nonNull(orderDto.getCustomerDto().getCustomerId())) {
+            var spontaneousCustomer = customerRepository.findCustomerByLastName("anonymous");
+            orderDto.setCustomerDto(customerMapper.mapCustomerEntityToDto(spontaneousCustomer));
+        }
+        if (orderDto.getPrescription().equals(true)) {
+            if (!Objects.nonNull(orderDto.getDoctorDto().getDoctorId())) {
+                var savedDoctor = doctorRepository.save(doctorMapper.mapDoctorDtoToEntity(orderDto.getDoctorDto()));
+                orderDto.setDoctorDto(doctorMapper.mapDoctorEntityToDto(savedDoctor));
+            }
+        } else {
+            orderDto.setDoctorDto(null);
+
+        }
         var order = orderMapper.mapOrderDtoToEntity(orderDto);
         var savedOrder = orderRepository.save(order);
         orderProductRepository.saveAll(orderDto.getOrderProductDtos().stream().map(orderProductDto ->
