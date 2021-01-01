@@ -10,5 +10,5 @@ public interface DoctorService {
 
     void saveDoctor(List<DoctorDto> doctorDtoList);
 
-    void editDoctor(DoctorDto doctorDto);
+    void editDoctor(DoctorDto doctorDto) throws Exception;
 }

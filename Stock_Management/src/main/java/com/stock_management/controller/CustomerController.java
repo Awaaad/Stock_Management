@@ -39,7 +39,7 @@ public class CustomerController {
     }
 
     @PutMapping("edit-customer")
-    public ResponseEntity<String> editCustomer(@RequestBody CustomerDto customerDto){
+    public ResponseEntity<String> editCustomer(@RequestBody CustomerDto customerDto) throws Exception {
         customerService.editCustomer(customerDto);
         return new ResponseEntity<String>("Customer edited successfully!", HttpStatus.OK);
     }

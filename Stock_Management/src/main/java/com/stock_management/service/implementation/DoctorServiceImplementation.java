@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -52,12 +53,14 @@ public class DoctorServiceImplementation implements DoctorService {
     }
 
     @Override
+    @Transactional
     public void saveDoctor(List<DoctorDto> doctorDtoList) {
         doctorRepository.saveAll(doctorDtoList.stream().map(doctorMapper::mapDoctorDtoToEntity).collect(Collectors.toList()));
     }
 
     @Override
-    public void editDoctor(DoctorDto doctorDto) {
+    @Transactional
+    public void editDoctor(DoctorDto doctorDto) throws Exception {
         var optionalDoctor = doctorRepository.findById(doctorDto.getDoctorId());
         var doctor = optionalDoctor.orElse(null);
         if (Objects.nonNull(doctor)) {
@@ -67,7 +70,7 @@ public class DoctorServiceImplementation implements DoctorService {
             doctor.setTelephoneNumber(doctorDto.getTelephoneNumber());
             doctorRepository.save(doctor);
         } else {
-            System.out.println("Doctor not found!");
+            throw new Exception("doctor.not.found");
         }
 
     }

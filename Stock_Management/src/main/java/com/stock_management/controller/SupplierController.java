@@ -52,7 +52,7 @@ public class SupplierController {
 
     // PUT GOES HERE
     @PutMapping("edit-supplier")
-    public ResponseEntity<String> editSupplier(@RequestBody SupplierDto supplierDto){
+    public ResponseEntity<String> editSupplier(@RequestBody SupplierDto supplierDto) throws Exception {
         supplierService.editSupplier(supplierDto);
         return new ResponseEntity<String>("Supplier edited successfully!", HttpStatus.OK);
     }

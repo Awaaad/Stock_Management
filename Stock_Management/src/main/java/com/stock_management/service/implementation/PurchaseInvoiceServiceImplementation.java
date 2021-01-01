@@ -19,8 +19,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -61,7 +61,15 @@ public class PurchaseInvoiceServiceImplementation implements PurchaseInvoiceServ
         var product = productRepository.findById(purchaseInvoiceProductDto.getProductDto().getProductId());
         if (product.isPresent()) {
             var productEntity = product.get();
+            if (purchaseInvoiceProductDto.getProductDto().getExpiryDate().isAfter(productEntity.getExpiryDate())) {
+                productEntity.setExpiryDate(purchaseInvoiceProductDto.getProductDto().getExpiryDate().plusDays(1));
+            } else {
+                productEntity.setExpiryDate(productEntity.getExpiryDate().plusDays(1));
+            }
             purchaseInvoiceProduct.setProduct(productEntity);
+            var currentUnits = productEntity.getUnitsTotal();
+            var newUnits = purchaseInvoiceProductDto.getBoxesReceived() * productEntity.getUnitsPerBox();
+            productEntity.setUnitsTotal(currentUnits + newUnits);
             var boxesInStore = purchaseInvoiceProductDto.getBoxesReceived() + productEntity.getBox();
             productEntity.setBox(boxesInStore);
             if (!productEntity.getPricePerBox().equals(purchaseInvoiceProductDto.getPricePerBox()) && !purchaseInvoiceProductDto.getPricePerBox().equals(0D) ) {

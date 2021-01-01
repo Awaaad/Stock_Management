@@ -38,7 +38,7 @@ public interface ProductService {
     boolean hasExcelFormat(MultipartFile file);
 
     // PUT
-    void editProduct(ProductDto productDto);
+    void editProduct(ProductDto productDto) throws Exception;
 
     void quickStockControl(List<UpdateStockAmountDto> updateStockAmountDto);
 

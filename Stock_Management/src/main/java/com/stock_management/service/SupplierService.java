@@ -19,7 +19,7 @@ public interface SupplierService {
     void saveSupplier(SupplierListDto supplierListDto);
 
     // PUT
-    void editSupplier(SupplierDto supplierDto);
+    void editSupplier(SupplierDto supplierDto) throws Exception;
 
     List<OrderDto> findSupplierByOrderId(Long supplierId);
 }

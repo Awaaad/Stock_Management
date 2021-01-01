@@ -26,10 +26,10 @@ public interface OrderService {
     MonthlySalesDto findSalesForEachMonth(LocalDate year);
 
     // POST
-    void saveOrder(OrderDto orderDto);
+    void saveOrder(OrderDto orderDto) throws Exception;
 
     // PUT
-    void editOrder(OrderDto orderDto);
+    void editOrder(OrderDto orderDto) throws Exception;
 
 }
 

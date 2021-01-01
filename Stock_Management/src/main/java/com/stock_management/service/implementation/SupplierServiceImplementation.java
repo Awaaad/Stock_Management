@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.stock_management.mapper.SupplierMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -85,13 +86,15 @@ public class SupplierServiceImplementation implements SupplierService{
 
     // POST
     @Override
+    @Transactional
     public void saveSupplier(SupplierListDto supplierListDto) {
         var saveMultipleSuppliers = supplierListDto.getSupplierDtos().stream().map(supplierMapper::mapSupplierDtoToEntity).collect(Collectors.toList());
         supplierRepository.saveAll(saveMultipleSuppliers);
     }
 
     @Override
-    public void editSupplier(SupplierDto supplierDto) {
+    @Transactional
+    public void editSupplier(SupplierDto supplierDto) throws Exception {
         var supplier = findSupplierById(supplierDto.getSupplierId());
         if (Objects.nonNull(supplier)) {
             supplier.setSupplierName(supplierDto.getSupplierName());
@@ -100,7 +103,7 @@ public class SupplierServiceImplementation implements SupplierService{
             supplier.setTelephoneNumber(supplierDto.getTelephoneNumber());
             supplierRepository.save(supplierMapper.mapSupplierDtoToEntity(supplier));
         } else {
-            System.out.println("Supplier Not Found!");
+            throw new Exception("supplier.not.found");
         }
     }
 

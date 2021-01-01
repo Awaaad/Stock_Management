@@ -28,10 +28,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -198,7 +198,7 @@ public class OrderServiceImplementation implements OrderService {
 
     @Override
     @Transactional
-    public void saveOrder(OrderDto orderDto) {
+    public void saveOrder(OrderDto orderDto) throws Exception {
         List<OrderProductDto> orderProductDtos = new ArrayList<>();
         for (OrderProductDto orderProductDto : orderDto.getOrderProductDtos()) {
             if (!orderProductDto.getBoxesOrdered().equals(0) || !orderProductDto.getUnitsOrdered().equals(0)) {
@@ -206,6 +206,34 @@ public class OrderServiceImplementation implements OrderService {
             }
         }
         orderDto.setOrderProductDtos(orderProductDtos);
+
+        if (orderDto.getPrescription().equals(true)) {
+            if (orderDto.getIsNewCustomer().equals(true)) {
+                var savedCustomer = customerRepository.save(customerMapper.mapCustomerDtoToEntity(orderDto.getCustomerDto()));
+                orderDto.setCustomerDto(customerMapper.mapCustomerEntityToDto(savedCustomer));
+            } else if (Objects.nonNull(orderDto.getCustomerDto().getCustomerId())) {
+                var existingCustomer = customerRepository.findById(orderDto.getCustomerDto().getCustomerId()).orElse(null);
+                if (Objects.nonNull(existingCustomer)) {
+                    orderDto.setCustomerDto((customerMapper.mapCustomerEntityToDto(existingCustomer)));
+                }
+            } else {
+                throw new Exception("customer.not.provided");
+            }
+            if (orderDto.getIsNewDoctor().equals(true)) {
+                var savedDoctor = doctorRepository.save(doctorMapper.mapDoctorDtoToEntity(orderDto.getDoctorDto()));
+                orderDto.setDoctorDto(doctorMapper.mapDoctorEntityToDto(savedDoctor));
+            } else if (Objects.nonNull(orderDto.getDoctorDto().getDoctorId())) {
+               var existingDoctor = doctorRepository.findById(orderDto.getDoctorDto().getDoctorId()).orElse(null);
+               if (Objects.nonNull(existingDoctor)) {
+                   orderDto.setDoctorDto(doctorMapper.mapDoctorEntityToDto(existingDoctor));
+               }
+            } else {
+                throw new Exception("doctor.not.provided");
+            }
+        } else {
+            orderDto.setDoctorDto(null);
+        }
+
         if (orderDto.getIsNewCustomer().equals(true)) {
             var savedCustomer = customerRepository.save(customerMapper.mapCustomerDtoToEntity(orderDto.getCustomerDto()));
             orderDto.setCustomerDto(customerMapper.mapCustomerEntityToDto(savedCustomer));
@@ -213,45 +241,51 @@ public class OrderServiceImplementation implements OrderService {
             var spontaneousCustomer = customerRepository.findCustomerByLastName("anonymous");
             orderDto.setCustomerDto(customerMapper.mapCustomerEntityToDto(spontaneousCustomer));
         }
-        if (orderDto.getPrescription().equals(true)) {
-            if (!Objects.nonNull(orderDto.getDoctorDto().getDoctorId())) {
-                var savedDoctor = doctorRepository.save(doctorMapper.mapDoctorDtoToEntity(orderDto.getDoctorDto()));
-                orderDto.setDoctorDto(doctorMapper.mapDoctorEntityToDto(savedDoctor));
-            }
-        } else {
-            orderDto.setDoctorDto(null);
 
-        }
         var order = orderMapper.mapOrderDtoToEntity(orderDto);
         var savedOrder = orderRepository.save(order);
         orderProductRepository.saveAll(orderDto.getOrderProductDtos().stream().map(orderProductDto ->
-                mapOrderProduct(orderProductDto, savedOrder)).collect(Collectors.toList()));
-
+        {
+            try {
+                return mapOrderProduct(orderProductDto, savedOrder);
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+            return null;
+        }).collect(Collectors.toList()));
     }
 
-    private OrderProduct mapOrderProduct(OrderProductDto orderProductDto, Order order) {
+    private OrderProduct mapOrderProduct(OrderProductDto orderProductDto, Order order) throws Exception {
         var orderProduct = orderProductMapper.mapOrderProductDtoToEntity(orderProductDto);
         orderProduct.setOrder(order);
         var product = productRepository.findById(orderProductDto.getProductDto().getProductId());
         if (product.isPresent()) {
             var productEntity = product.get();
             orderProduct.setProduct(productEntity);
-            var currentUnits = productEntity.getUnitsTotal(); // 1000
-            productEntity.setUnitsTotal(currentUnits - (orderProductDto.getUnitsOrdered()));
-            productEntity.setBox(productEntity.getUnitsTotal()/productEntity.getUnitsPerBox());
+            var currentUnits = productEntity.getUnitsTotal();
+            if (order.getAmountPaid() > order.getTotalPrice()) {
+                throw new Exception("amount.paid.greater.than.total.price");
+            }
+            if (currentUnits - (orderProductDto.getUnitsOrdered()) < 0) {
+                throw new Exception("total.units.less.than.zero");
+            } else {
+                productEntity.setUnitsTotal(currentUnits - (orderProductDto.getUnitsOrdered()));
+                productEntity.setBox(productEntity.getUnitsTotal()/productEntity.getUnitsPerBox());
+            }
         }
         return orderProduct;
     }
 
     @Override
-    public void editOrder(OrderDto orderDto) {
+    @Transactional
+    public void editOrder(OrderDto orderDto) throws Exception {
         var order = findOrderById(orderDto.getOrderId());
         if (order != null) {
             order.setPaid(true);
             order.setAmountPaid(orderDto.getAmountPaid());
             orderRepository.save(orderMapper.mapOrderDtoToEntity(order));
         } else {
-            System.out.println("Order Not Found!");
+            throw new Exception("order.not.found");
         }
     }
 }

@@ -23,6 +23,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
@@ -76,7 +77,6 @@ public class ProductServiceImplementation implements ProductService {
 
     private ProductListDto getProductListLessThanMinStockAmountDto(Page<Product> product) {
         if (product == null) {
-            System.out.println("Product Not Found!");
             return null;
         } else {
             List<ProductDto> productDto = product.stream().filter(product1 -> product1.getBox() < product1.getMinStockAmount()).map(productMapper::mapProductEntityToDto).collect(Collectors.toList());
@@ -96,7 +96,6 @@ public class ProductServiceImplementation implements ProductService {
 
     private ProductListDto getProductListDto(Page<Product> product) {
         if (product == null) {
-            System.out.println("Product Not Found!");
             return null;
         } else {
             List<ProductDto> productDto = product.stream().map(productMapper::mapProductEntityToDto).collect(Collectors.toList());
@@ -133,6 +132,7 @@ public class ProductServiceImplementation implements ProductService {
 
     // POST
     @Override
+    @Transactional
     public void saveProduct(ProductDto productDto) {
         productDto.setUnitsTotal(productDto.getBox() * productDto.getUnitsPerBox());
         productDto.setPricePerUnit(productDto.getPricePerBox() / productDto.getUnitsPerBox());
@@ -141,7 +141,9 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     // PUT
-    public void editProduct(ProductDto productDto) {
+    @Override
+    @Transactional
+    public void editProduct(ProductDto productDto) throws Exception {
         var product = findProductById(productDto.getProductId());
         if (product != null) {
             product.setProductName(productDto.getProductName());
@@ -161,11 +163,12 @@ public class ProductServiceImplementation implements ProductService {
             product.setSupplier(productDto.getSupplier());
             productRepository.save(productMapper.mapProductDtoToEntity(product));
         } else {
-            System.out.println("Product Not Found!");
+            throw new Exception("product.not.found");
         }
     }
 
     @Override
+    @Transactional
     public void quickStockControl(List<UpdateStockAmountDto> updateStockAmountDto) {
         List<UpdateStockAmountDto> updateStockAmountDtos = new ArrayList<>();
         for (UpdateStockAmountDto usad : updateStockAmountDto) {
@@ -193,12 +196,12 @@ public class ProductServiceImplementation implements ProductService {
             }
             return productEntity;
         } else {
-            System.out.println("Product Not Found!");
+            return null;
         }
-        return null;
     }
 
     @Override
+    @Transactional
     public void saveProducts(ProductListDto productListDto) {
         for (ProductDto productDto: productListDto.getProductDtos()) {
             productDto.setOldPricePerBox(0D);
@@ -255,9 +258,6 @@ public class ProductServiceImplementation implements ProductService {
         if(!slot.equals("All")) {
             booleanBuilder.and(qProduct.slot.eq(slot));
         }
-//        if(!requirePrescription.equals(null)) {
-//            booleanBuilder.and(qProduct.requirePrescription.eq(requirePrescription));
-//        }
         if(!category.equals("All")) {
             booleanBuilder.and(qProduct.category.toLowerCase().eq(category.toLowerCase()));
         }

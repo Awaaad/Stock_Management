@@ -10,5 +10,5 @@ public interface CustomerService {
 
     void saveCustomer(List<CustomerDto> customerDtoList);
 
-    void editCustomer(CustomerDto customerDto);
+    void editCustomer(CustomerDto customerDto) throws Exception;
 }

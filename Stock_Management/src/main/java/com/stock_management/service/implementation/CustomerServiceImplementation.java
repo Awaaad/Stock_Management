@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -52,12 +53,14 @@ public class CustomerServiceImplementation implements CustomerService {
     }
 
     @Override
+    @Transactional
     public void saveCustomer(List<CustomerDto> customerDtoList) {
         customerRepository.saveAll(customerDtoList.stream().map(customerMapper::mapCustomerDtoToEntity).collect(Collectors.toList()));
     }
 
     @Override
-    public void editCustomer(CustomerDto customerDto) {
+    @Transactional
+    public void editCustomer(CustomerDto customerDto) throws Exception {
         var optionalCustomer = customerRepository.findById(customerDto.getCustomerId());
         var customer = optionalCustomer.orElse(null);
         if (Objects.nonNull(customer)) {
@@ -67,7 +70,7 @@ public class CustomerServiceImplementation implements CustomerService {
             customer.setTelephoneNumber(customerDto.getTelephoneNumber());
             customerRepository.save(customer);
         } else {
-            System.out.println("Customer not found!");
+            throw new Exception("customer.not.found");
         }
     }
 }

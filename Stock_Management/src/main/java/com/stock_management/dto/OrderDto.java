@@ -20,4 +20,5 @@ public class OrderDto {
     private String paymentMode;
     private Boolean prescription;
     private Boolean isNewCustomer;
+    private Boolean isNewDoctor;
 }

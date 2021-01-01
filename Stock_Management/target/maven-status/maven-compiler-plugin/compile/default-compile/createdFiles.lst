@@ -34,6 +34,7 @@ com\stock_management\StockControlSystemApplication.class
 com\stock_management\dto\CustomerReceiptDto.class
 com\stock_management\entity\QOrder.class
 com\stock_management\mapper\UserMapper.class
+com\stock_management\exception\ErrorMessages.class
 com\stock_management\dto\ManipulateProductQuantityDto.class
 com\stock_management\entity\OrderProduct.class
 com\stock_management\repository\UserRepository.class

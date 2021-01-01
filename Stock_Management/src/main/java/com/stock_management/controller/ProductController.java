@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -89,7 +88,7 @@ public class ProductController {
 
     // PUT GOES HERE
     @PutMapping("edit-product")
-    public ResponseEntity<String> editProduct(@RequestBody ProductDto productDto){
+    public ResponseEntity<String> editProduct(@RequestBody ProductDto productDto) throws Exception {
         productService.editProduct(productDto);
         return new ResponseEntity<String>("Product edited successfully!", HttpStatus.OK);
     }

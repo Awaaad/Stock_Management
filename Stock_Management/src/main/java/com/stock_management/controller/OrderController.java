@@ -64,14 +64,14 @@ public class OrderController {
 
     // POST GOES HERE
     @PostMapping("save-order")
-    public ResponseEntity<String> saveOrder(@RequestBody OrderDto orderDto){
+    public ResponseEntity<String> saveOrder(@RequestBody OrderDto orderDto) throws Exception{
         orderService.saveOrder(orderDto);
         return new ResponseEntity<String>("Order saved successfully!", HttpStatus.OK);
     }
 
     // PUT GOES HERE
     @PutMapping("edit-order")
-    public ResponseEntity<String> editOrder(@RequestBody OrderDto orderDto){
+    public ResponseEntity<String> editOrder(@RequestBody OrderDto orderDto) throws Exception {
         orderService.editOrder(orderDto);
         return new ResponseEntity<String>("Order edited successfully!", HttpStatus.OK);
     }
