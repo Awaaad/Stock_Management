@@ -30,6 +30,9 @@ public class Supplier {
     @Column(name = "TELEPHONE_NUMBER", nullable = true)
     private Integer telephoneNumber;
 
+    @Column(name = "FAX", nullable = true)
+    private Integer fax;
+
     @Column(name = "ADDRESS", nullable = true)
     private String address;
 }

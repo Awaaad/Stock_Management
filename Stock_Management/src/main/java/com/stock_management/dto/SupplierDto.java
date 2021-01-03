@@ -8,5 +8,6 @@ public class SupplierDto {
     private String supplierName;
     private String email;
     private Integer telephoneNumber;
+    private Integer fax;
     private String address;
 }

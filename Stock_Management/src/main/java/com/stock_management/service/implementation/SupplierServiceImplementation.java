@@ -10,15 +10,25 @@ import com.stock_management.entity.*;
 import com.stock_management.mapper.OrderMapper;
 import com.stock_management.repository.SupplierRepository;
 import com.stock_management.service.SupplierService;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.stock_management.mapper.SupplierMapper;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -32,6 +42,8 @@ public class SupplierServiceImplementation implements SupplierService{
     private final SupplierRepository supplierRepository;
     private final SupplierMapper supplierMapper;
     private final OrderMapper orderMapper;
+
+    public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
     public SupplierServiceImplementation(SupplierRepository supplierRepository, SupplierMapper supplierMapper, OrderMapper orderMapper) {
         this.supplierRepository = supplierRepository;
@@ -93,6 +105,106 @@ public class SupplierServiceImplementation implements SupplierService{
     }
 
     @Override
+    public boolean hasExcelFormat(MultipartFile file) {
+
+        if (!TYPE.equals(file.getContentType())) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public void upload(MultipartFile file) throws IOException {
+        try {
+            List<Supplier> suppliers = excelToSuppliers(file.getInputStream());
+            supplierRepository.saveAll(suppliers);
+        } catch (IOException e) {
+            throw new RuntimeException("fail to store excel data: " + e.getMessage());
+        }
+    }
+
+    public List<Supplier> excelToSuppliers(InputStream is) {
+        try {
+            Workbook workbook = new XSSFWorkbook(is);
+
+            Sheet sheet = workbook.getSheetAt(0);
+            Iterator<Row> rows = sheet.iterator();
+
+            List<Supplier> suppliers = new ArrayList<Supplier>();
+
+            int rowNumber = 0;
+            while (rows.hasNext()) {
+                Row currentRow = rows.next();
+
+                // skip header
+                if (rowNumber == 0) {
+                    rowNumber++;
+                    continue;
+                }
+
+                Iterator<Cell> cellsInRow = currentRow.iterator();
+
+                Supplier supplier = new Supplier();
+
+                int cellIdx = 0;
+                while (cellsInRow.hasNext()) {
+                    Cell currentCell = cellsInRow.next();
+
+                    switch (cellIdx) {
+                        case 0:
+                            supplier.setSupplierName(currentCell.getStringCellValue());
+                            break;
+
+                        case 1:
+                            if (currentCell.getStringCellValue().equals("NULL")) {
+                                supplier.setEmail("");
+                            } else {
+                                supplier.setEmail(currentCell.getStringCellValue());
+                            }
+                            break;
+
+                        case 2:
+                            if (currentCell.getNumericCellValue() != 0) {
+                                supplier.setTelephoneNumber((int) currentCell.getNumericCellValue());
+                            }
+                            break;
+
+                        case 3:
+                            if (currentCell.getStringCellValue().equals("NULL")) {
+                                supplier.setAddress("");
+                            } else {
+                                supplier.setAddress(currentCell.getStringCellValue());
+                            }
+                            break;
+
+
+                        case 4:
+                            if (currentCell.getNumericCellValue() != 0) {
+                                supplier.setFax((int) currentCell.getNumericCellValue());
+                            }
+                            break;
+
+
+                        default:
+                            break;
+                    }
+
+                    cellIdx++;
+                }
+
+                suppliers.add(supplier);
+            }
+
+            workbook.close();
+
+            return suppliers;
+        } catch (IOException e) {
+            throw new RuntimeException("fail to parse Excel file: " + e.getMessage());
+        }
+    }
+
+    @Override
     @Transactional
     public void editSupplier(SupplierDto supplierDto) throws Exception {
         var supplier = findSupplierById(supplierDto.getSupplierId());
@@ -101,6 +213,7 @@ public class SupplierServiceImplementation implements SupplierService{
             supplier.setEmail(supplierDto.getEmail());
             supplier.setAddress(supplierDto.getAddress());
             supplier.setTelephoneNumber(supplierDto.getTelephoneNumber());
+            supplier.setFax(supplierDto.getFax());
             supplierRepository.save(supplierMapper.mapSupplierDtoToEntity(supplier));
         } else {
             throw new Exception("supplier.not.found");

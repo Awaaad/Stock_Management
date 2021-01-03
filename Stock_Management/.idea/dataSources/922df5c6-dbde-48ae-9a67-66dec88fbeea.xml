@@ -4830,82 +4830,86 @@ APPLICATION_PASSWORD_ADMIN,AUDIT_ADMIN,BACKUP_ADMIN,BINLOG_ADMIN,BINLOG_ENCRYPTI
       <Position>5</Position>
       <DataType>int|0s</DataType>
     </column>
-    <key id="1162" parent="366" name="PRIMARY">
+    <column id="1162" parent="366" name="fax">
+      <Position>6</Position>
+      <DataType>int|0s</DataType>
+    </column>
+    <key id="1163" parent="366" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>supplier_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="1163" parent="367" name="user_id">
+    <column id="1164" parent="367" name="user_id">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="1164" parent="367" name="age">
+    <column id="1165" parent="367" name="age">
       <Position>2</Position>
       <DataType>int|0s</DataType>
     </column>
-    <column id="1165" parent="367" name="email">
+    <column id="1166" parent="367" name="email">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="1166" parent="367" name="first_name">
+    <column id="1167" parent="367" name="first_name">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="1167" parent="367" name="last_name">
+    <column id="1168" parent="367" name="last_name">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="1168" parent="367" name="password">
+    <column id="1169" parent="367" name="password">
       <Position>6</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="1169" parent="367" name="phone">
+    <column id="1170" parent="367" name="phone">
       <Position>7</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="1170" parent="367" name="user_name">
+    <column id="1171" parent="367" name="user_name">
       <Position>8</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="1171" parent="367" name="PRIMARY">
+    <key id="1172" parent="367" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>user_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="1172" parent="368" name="user_profile_user_id">
+    <column id="1173" parent="368" name="user_profile_user_id">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="1173" parent="368" name="roles_role_id">
+    <column id="1174" parent="368" name="roles_role_id">
       <Position>2</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="1174" parent="368" name="FKjsnm3bdaradlln6cu48am8pyv">
+    <index id="1175" parent="368" name="FKjsnm3bdaradlln6cu48am8pyv">
       <ColNames>roles_role_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="1175" parent="368" name="PRIMARY">
+    <key id="1176" parent="368" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>user_profile_user_id
 roles_role_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="1176" parent="368" name="FKeb8gn0kxytsxyojjmov6uqu9i">
+    <foreign-key id="1177" parent="368" name="FKeb8gn0kxytsxyojjmov6uqu9i">
       <ColNames>user_profile_user_id</ColNames>
       <RefTableName>user_profile</RefTableName>
       <RefColNames>user_id</RefColNames>
     </foreign-key>
-    <foreign-key id="1177" parent="368" name="FKjsnm3bdaradlln6cu48am8pyv">
+    <foreign-key id="1178" parent="368" name="FKjsnm3bdaradlln6cu48am8pyv">
       <ColNames>roles_role_id</ColNames>
       <RefTableName>role</RefTableName>
       <RefColNames>role_id</RefColNames>

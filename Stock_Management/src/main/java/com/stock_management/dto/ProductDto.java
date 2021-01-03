@@ -1,6 +1,7 @@
 package com.stock_management.dto;
 
 import lombok.Data;
+import org.springframework.data.relational.core.sql.In;
 
 import javax.validation.constraints.DecimalMax;
 import java.time.LocalDate;
@@ -24,4 +25,5 @@ public class ProductDto {
     private String slot;
     private LocalDate expiryDate;
     private SupplierDto supplier;
+    private Double maxUnitsCanBeEntered;
 }

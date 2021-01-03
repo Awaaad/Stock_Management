@@ -23,6 +23,8 @@ public class QSupplier extends EntityPathBase<Supplier> {
 
     public final StringPath email = createString("email");
 
+    public final NumberPath<Integer> fax = createNumber("fax", Integer.class);
+
     public final NumberPath<Long> supplierId = createNumber("supplierId", Long.class);
 
     public final StringPath supplierName = createString("supplierName");

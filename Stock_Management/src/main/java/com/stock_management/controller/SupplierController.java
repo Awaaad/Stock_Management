@@ -5,7 +5,9 @@ import com.stock_management.service.SupplierService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -50,6 +52,16 @@ public class SupplierController {
         return new ResponseEntity<String>("Suppliers saved successfully!", HttpStatus.OK);
     }
 
+    @PostMapping("upload-csv-supplier")
+    public void uploadSupplier(@RequestParam("file") MultipartFile file) throws IOException {
+        if (supplierService.hasExcelFormat(file)) {
+            try {
+                supplierService.upload(file);
+            } catch (Exception e) {
+                return;
+            }
+        }
+    }
     // PUT GOES HERE
     @PutMapping("edit-supplier")
     public ResponseEntity<String> editSupplier(@RequestBody SupplierDto supplierDto) throws Exception {

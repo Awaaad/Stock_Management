@@ -263,6 +263,9 @@ public class OrderServiceImplementation implements OrderService {
             var productEntity = product.get();
             orderProduct.setProduct(productEntity);
             var currentUnits = productEntity.getUnitsTotal();
+//            if (orderProduct.getUnitsOrdered() > productEntity.getUnitsTotal()) {
+//                orderProduct.setUnitsOrdered(productEntity.getUnitsTotal());
+//            }
             if (order.getAmountPaid() > order.getTotalPrice()) {
                 throw new Exception("amount.paid.greater.than.total.price");
             }
@@ -270,7 +273,7 @@ public class OrderServiceImplementation implements OrderService {
                 throw new Exception("total.units.less.than.zero");
             } else {
                 productEntity.setUnitsTotal(currentUnits - (orderProductDto.getUnitsOrdered()));
-                productEntity.setBox(productEntity.getUnitsTotal()/productEntity.getUnitsPerBox());
+                productEntity.setBox((double) (productEntity.getUnitsTotal()/productEntity.getUnitsPerBox()));
             }
         }
         return orderProduct;
