@@ -34,6 +34,8 @@ public class QPurchaseInvoice extends EntityPathBase<PurchaseInvoice> {
 
     public final NumberPath<Double> total = createNumber("total", Double.class);
 
+    public final QUserProfile userProfile;
+
     public QPurchaseInvoice(String variable) {
         this(PurchaseInvoice.class, forVariable(variable), INITS);
     }
@@ -53,6 +55,7 @@ public class QPurchaseInvoice extends EntityPathBase<PurchaseInvoice> {
     public QPurchaseInvoice(Class<? extends PurchaseInvoice> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.supplier = inits.isInitialized("supplier") ? new QSupplier(forProperty("supplier")) : null;
+        this.userProfile = inits.isInitialized("userProfile") ? new QUserProfile(forProperty("userProfile")) : null;
     }
 
 }

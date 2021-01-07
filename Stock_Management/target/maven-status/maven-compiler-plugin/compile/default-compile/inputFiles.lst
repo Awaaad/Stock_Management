@@ -16,6 +16,7 @@ C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\ent
 C:\Work\Stock_Management\Stock_Management\target\generated-sources\com\stock_management\entity\QUserProfile.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\mapper\RoleMapper.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\repository\UserRepository.java
+C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\AuthenticatedUserDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\entity\Supplier.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\controller\UserController.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\DoctorListDto.java
@@ -52,6 +53,7 @@ C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\rep
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\entity\Doctor.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\OrderProductService.java
 C:\Work\Stock_Management\Stock_Management\target\generated-sources\com\stock_management\entity\QSupplier.java
+C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\security\JwtFilter.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\repository\PurchaseInvoiceRepository.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\RoleService.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\mapper\SupplierMapper.java
@@ -60,6 +62,7 @@ C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\ser
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\implementation\UserRoleDetails.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\entity\PurchaseInvoiceProduct.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\implementation\OrderProductServiceImplementation.java
+C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\security\JwtUtil.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\implementation\ProductServiceImplementation.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\implementation\DoctorServiceImplementation.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\CustomerDto.java
@@ -74,6 +77,7 @@ C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\map
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\UpdateStockAmountDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\security\SecurityConfiguration.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\repository\OrderProductRepository.java
+C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\LoginParamDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\CountProductsDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\dto\UserDto.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\CustomerService.java

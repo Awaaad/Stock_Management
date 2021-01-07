@@ -10,6 +10,7 @@ import org.mapstruct.Mapping;
         OrderProductMapper.class
 })
 public interface PurchaseInvoiceMapper {
+    @Mapping(target = "userProfileDto", source = "userProfile")
     @Mapping(target = "purchaseInvoiceProductDtos", source = "purchaseInvoiceProducts")
     @Mapping(target = "supplierDto", source = "supplier")
     PurchaseInvoiceDto mapPurchaseInvoiceEntityToDto (PurchaseInvoice purchaseInvoice);

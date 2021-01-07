@@ -8,10 +8,13 @@ com\stock_management\dto\ProductQuantityPriceDto.class
 com\stock_management\dto\PurchaseInvoiceListDto.class
 com\stock_management\entity\PurchaseInvoiceProduct.class
 com\stock_management\service\SupplierService.class
+com\stock_management\security\SecurityConfiguration.class
+com\stock_management\security\JwtUtil.class
 com\stock_management\mapper\MultipleSaveProductMapperImpl.class
 com\stock_management\mapper\CustomerMapper.class
 com\stock_management\entity\QPurchaseInvoice.class
 com\stock_management\repository\ProductRepository.class
+com\stock_management\dto\LoginParamDto.class
 com\stock_management\dto\PurchaseInvoiceDto.class
 com\stock_management\service\implementation\RoleServiceImplementation.class
 com\stock_management\service\implementation\SupplierServiceImplementation.class
@@ -43,6 +46,7 @@ com\stock_management\dto\OrderProductDto.class
 com\stock_management\entity\QOrderProduct.class
 com\stock_management\mapper\OrderProductMapper.class
 com\stock_management\entity\QSupplier.class
+com\stock_management\security\JwtFilter.class
 com\stock_management\entity\QRole.class
 com\stock_management\mapper\UserMapperImpl.class
 com\stock_management\mapper\PurchaseInvoiceProductMapperImpl.class
@@ -68,6 +72,7 @@ com\stock_management\mapper\SupplierMapperImpl.class
 com\stock_management\repository\DoctorRepository.class
 com\stock_management\entity\UserProfile.class
 com\stock_management\dto\CountProductsDto.class
+com\stock_management\dto\AuthenticatedUserDto.class
 com\stock_management\mapper\CustomerMapperImpl.class
 com\stock_management\entity\QCustomer.class
 com\stock_management\service\OrderService.class
@@ -100,6 +105,7 @@ com\stock_management\controller\DoctorController.class
 com\stock_management\dto\ProductDto.class
 com\stock_management\dto\PurchaseInvoiceProductDto.class
 com\stock_management\entity\QProduct.class
+com\stock_management\service\implementation\UserRoleDetailsServiceImplementation.class
 com\stock_management\entity\Doctor.class
 com\stock_management\mapper\RoleMapperImpl.class
 com\stock_management\dto\CustomerListDto.class

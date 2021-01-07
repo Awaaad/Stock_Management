@@ -9,6 +9,7 @@ import java.util.List;
 public class PurchaseInvoiceDto {
     private Long purchaseInvoiceId;
     private String InvoiceNumber;
+    private UserDto userProfileDto;
     private SupplierDto supplierDto;
     private LocalDateTime invoiceDate;
     private Double total;

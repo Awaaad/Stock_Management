@@ -29,6 +29,10 @@ public class PurchaseInvoice {
     @Column(name = "INVOICE_NUMBER", nullable = false)
     private String invoiceNumber;
 
+    @ManyToOne(targetEntity = UserProfile.class)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
+    private UserProfile userProfile;
+
     @ManyToOne(targetEntity = Supplier.class)
     @JoinColumn(name = "SUPPLIER_ID", referencedColumnName = "SUPPLIER_ID")
     private Supplier supplier;
