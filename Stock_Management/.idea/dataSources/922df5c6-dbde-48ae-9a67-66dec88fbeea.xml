@@ -4623,7 +4623,7 @@ APPLICATION_PASSWORD_ADMIN,AUDIT_ADMIN,BACKUP_ADMIN,BINLOG_ADMIN,BINLOG_ENCRYPTI
     </column>
     <column id="1117" parent="362" name="box">
       <Position>2</Position>
-      <DataType>int|0s</DataType>
+      <DataType>double|0s</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="1118" parent="362" name="category">
@@ -4639,53 +4639,55 @@ APPLICATION_PASSWORD_ADMIN,AUDIT_ADMIN,BACKUP_ADMIN,BINLOG_ADMIN,BINLOG_ENCRYPTI
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="1121" parent="362" name="price_per_box">
+    <column id="1121" parent="362" name="expiry_date">
       <Position>6</Position>
+      <DataType>date|0s</DataType>
+    </column>
+    <column id="1122" parent="362" name="min_stock_amount">
+      <Position>7</Position>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="1123" parent="362" name="old_price_per_box">
+      <Position>8</Position>
       <DataType>double|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="1122" parent="362" name="price_per_unit">
-      <Position>7</Position>
+    <column id="1124" parent="362" name="price_per_box">
+      <Position>9</Position>
       <DataType>double|0s</DataType>
+      <NotNull>1</NotNull>
     </column>
-    <column id="1123" parent="362" name="product_name">
-      <Position>8</Position>
+    <column id="1125" parent="362" name="price_per_unit">
+      <Position>10</Position>
+      <DataType>double|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="1126" parent="362" name="product_name">
+      <Position>11</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="1124" parent="362" name="require_prescription">
-      <Position>9</Position>
-      <DataType>bit(1)|0s</DataType>
-    </column>
-    <column id="1125" parent="362" name="units_per_box">
-      <Position>10</Position>
-      <DataType>int|0s</DataType>
-    </column>
-    <column id="1126" parent="362" name="units_total">
-      <Position>11</Position>
-      <DataType>int|0s</DataType>
-    </column>
-    <column id="1127" parent="362" name="supplier_id">
+    <column id="1127" parent="362" name="require_prescription">
       <Position>12</Position>
-      <DataType>bigint|0s</DataType>
+      <DataType>bit(1)|0s</DataType>
+      <NotNull>1</NotNull>
     </column>
     <column id="1128" parent="362" name="slot">
       <Position>13</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="1129" parent="362" name="expiry_date">
+    <column id="1129" parent="362" name="units_per_box">
       <Position>14</Position>
-      <DataType>date|0s</DataType>
+      <DataType>int|0s</DataType>
     </column>
-    <column id="1130" parent="362" name="old_price_per_box">
+    <column id="1130" parent="362" name="units_total">
       <Position>15</Position>
       <DataType>double|0s</DataType>
-      <NotNull>1</NotNull>
     </column>
-    <column id="1131" parent="362" name="min_stock_amount">
+    <column id="1131" parent="362" name="supplier_id">
       <Position>16</Position>
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
+      <DataType>bigint|0s</DataType>
     </column>
     <index id="1132" parent="362" name="FK2kxvbr72tmtscjvyp9yqb12by">
       <ColNames>supplier_id</ColNames>
@@ -4826,24 +4828,24 @@ APPLICATION_PASSWORD_ADMIN,AUDIT_ADMIN,BACKUP_ADMIN,BINLOG_ADMIN,BINLOG_ENCRYPTI
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="1161" parent="366" name="supplier_name">
+    <column id="1161" parent="366" name="address">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
-      <NotNull>1</NotNull>
     </column>
-    <column id="1162" parent="366" name="address">
+    <column id="1162" parent="366" name="email">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="1163" parent="366" name="email">
+    <column id="1163" parent="366" name="fax">
       <Position>4</Position>
-      <DataType>varchar(255)|0s</DataType>
-    </column>
-    <column id="1164" parent="366" name="telephone_number">
-      <Position>5</Position>
       <DataType>int|0s</DataType>
     </column>
-    <column id="1165" parent="366" name="fax">
+    <column id="1164" parent="366" name="supplier_name">
+      <Position>5</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="1165" parent="366" name="telephone_number">
       <Position>6</Position>
       <DataType>int|0s</DataType>
     </column>

@@ -75,6 +75,25 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public void saveUser(UserProfile userProfile) {
+        saveUserProfile(userProfile);
+    }
+
+    @Override
+    public void saveUsers(List<UserProfile> userProfiles) {
+        userProfiles.stream().map(this::mapUser).collect(Collectors.toList());
+    }
+
+    private UserProfile mapUser(UserProfile userProfile) {
+        if (!userRepository.existsByUsername(userProfile.getUsername())) {
+            saveUserProfile(userProfile);
+            return userProfile;
+        }
+        else {
+            return null;
+        }
+    }
+
+    private void saveUserProfile(UserProfile userProfile) {
         String password = userProfile.getPassword();
         String encrypPassword = passwordEncoder.encode(password);
         userProfile.setPassword(encrypPassword);
@@ -82,21 +101,5 @@ public class UserServiceImplementation implements UserService {
                 roleRepository.findRoleByRole(role.getRole()))
                 .collect(Collectors.toSet()));
         userRepository.save(userProfile);
-    }
-
-    @Override
-    public void saveUsers(List<UserProfile> userProfiles) {
-        userProfiles.stream().map(this::mapUser).collect(Collectors.toList());
-        userRepository.saveAll(userProfiles);
-    }
-
-    private UserProfile mapUser(UserProfile userProfile) {
-        String password = userProfile.getPassword();
-        String encrypPassword = passwordEncoder.encode(password);
-        userProfile.setPassword(encrypPassword);
-        userProfile.setRoles(userProfile.getRoles().stream().map(role ->
-                roleRepository.findRoleByRole(role.getRole()))
-                .collect(Collectors.toSet()));
-        return userProfile;
     }
 }

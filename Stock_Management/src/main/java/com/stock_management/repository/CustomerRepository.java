@@ -6,4 +6,5 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long>, QuerydslPredicateExecutor<Customer> {
     Customer findCustomerByLastName(String lastName);
+    Boolean existsByFirstNameAndLastName(String firstName, String lastName);
 }
