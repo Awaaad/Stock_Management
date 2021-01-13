@@ -4,6 +4,7 @@ import com.stock_management.entity.Customer;
 import com.stock_management.entity.Role;
 import com.stock_management.entity.UserProfile;
 import com.stock_management.repository.CustomerRepository;
+import com.stock_management.repository.UserRepository;
 import com.stock_management.service.RoleService;
 import com.stock_management.service.UserService;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -20,11 +23,13 @@ import java.util.stream.Stream;
 public class StockControlSystemApplication extends SpringBootServletInitializer {
 
 	private final CustomerRepository customerRepository;
+	private final UserRepository userRepository;
 	private final RoleService roleService;
 	private final UserService userService;
 
-	public StockControlSystemApplication(CustomerRepository customerRepository, RoleService roleService, UserService userService) {
+	public StockControlSystemApplication(CustomerRepository customerRepository, UserRepository userRepository, RoleService roleService, UserService userService) {
 		this.customerRepository = customerRepository;
+		this.userRepository = userRepository;
 		this.roleService = roleService;
 		this.userService = userService;
 	}
@@ -35,11 +40,6 @@ public class StockControlSystemApplication extends SpringBootServletInitializer 
 
 	@PostConstruct
 	public void initPost() {
-		Customer customer = new Customer(1L, "anonymous", "anonymous", null, null);
-		if (!customerRepository.existsByFirstNameAndLastName(customer.getFirstName(), customer.getLastName())) {
-			customerRepository.save(customer);
-		}
-
 		List<Role> roles = Stream.of(
 				new Role(1L, "ADMIN"),
 				new Role(2L, "CASHIER")
@@ -64,5 +64,11 @@ public class StockControlSystemApplication extends SpringBootServletInitializer 
 				new UserProfile(6L, "m.ayash.l", "ay@$h9120", "Ayash", "Luckhoo", 23, "test@test.com", 9999999, roleForAdmin)
 		).collect(Collectors.toList());
 		userService.saveUsers(userProfiles);
+
+		Customer customer = new Customer(1L, "anonymous", "anonymous", null, null, userRepository.findByUsername
+				("m.awad.l"), new Date(), null, null);
+		if (!customerRepository.existsByFirstNameAndLastName(customer.getFirstName(), customer.getLastName())) {
+			customerRepository.save(customer);
+		}
 	}
 }

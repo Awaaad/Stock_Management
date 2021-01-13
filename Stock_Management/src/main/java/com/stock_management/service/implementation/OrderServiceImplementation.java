@@ -32,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -197,7 +198,7 @@ public class OrderServiceImplementation implements OrderService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void saveOrder(OrderDto orderDto) throws Exception {
         List<OrderProductDto> orderProductDtos = new ArrayList<>();
         for (OrderProductDto orderProductDto : orderDto.getOrderProductDtos()) {
@@ -231,15 +232,14 @@ public class OrderServiceImplementation implements OrderService {
                 throw new Exception("doctor.not.provided");
             }
         } else {
+            if (orderDto.getIsNewCustomer().equals(true)) {
+                var savedCustomer = customerRepository.save(customerMapper.mapCustomerDtoToEntity(orderDto.getCustomerDto()));
+                orderDto.setCustomerDto(customerMapper.mapCustomerEntityToDto(savedCustomer));
+            } else if (!Objects.nonNull(orderDto.getCustomerDto().getCustomerId())) {
+                var spontaneousCustomer = customerRepository.findCustomerByLastName("anonymous");
+                orderDto.setCustomerDto(customerMapper.mapCustomerEntityToDto(spontaneousCustomer));
+            }
             orderDto.setDoctorDto(null);
-        }
-
-        if (orderDto.getIsNewCustomer().equals(true)) {
-            var savedCustomer = customerRepository.save(customerMapper.mapCustomerDtoToEntity(orderDto.getCustomerDto()));
-            orderDto.setCustomerDto(customerMapper.mapCustomerEntityToDto(savedCustomer));
-        } else if (!Objects.nonNull(orderDto.getCustomerDto().getCustomerId())) {
-            var spontaneousCustomer = customerRepository.findCustomerByLastName("anonymous");
-            orderDto.setCustomerDto(customerMapper.mapCustomerEntityToDto(spontaneousCustomer));
         }
 
         var order = orderMapper.mapOrderDtoToEntity(orderDto);
@@ -263,9 +263,6 @@ public class OrderServiceImplementation implements OrderService {
             var productEntity = product.get();
             orderProduct.setProduct(productEntity);
             var currentUnits = productEntity.getUnitsTotal();
-//            if (orderProduct.getUnitsOrdered() > productEntity.getUnitsTotal()) {
-//                orderProduct.setUnitsOrdered(productEntity.getUnitsTotal());
-//            }
             if (order.getAmountPaid() > order.getTotalPrice()) {
                 throw new Exception("amount.paid.greater.than.total.price");
             }

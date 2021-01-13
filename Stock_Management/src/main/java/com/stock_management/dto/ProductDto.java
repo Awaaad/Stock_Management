@@ -18,6 +18,7 @@ public class ProductDto {
     private Integer minStockAmount;
     private Integer unitsPerBox;
     private Double unitsTotal;
+    private Double wholeSalePrice;
     private Double oldPricePerBox;
     private Double pricePerBox;
     private Double pricePerUnit;

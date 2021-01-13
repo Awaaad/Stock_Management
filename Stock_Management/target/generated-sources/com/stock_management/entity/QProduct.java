@@ -58,6 +58,8 @@ public class QProduct extends EntityPathBase<Product> {
 
     public final NumberPath<Double> unitsTotal = createNumber("unitsTotal", Double.class);
 
+    public final NumberPath<Double> wholeSalePrice = createNumber("wholeSalePrice", Double.class);
+
     public QProduct(String variable) {
         this(Product.class, forVariable(variable), INITS);
     }

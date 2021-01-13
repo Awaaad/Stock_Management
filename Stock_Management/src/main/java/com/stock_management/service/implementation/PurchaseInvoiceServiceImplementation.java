@@ -66,6 +66,9 @@ public class PurchaseInvoiceServiceImplementation implements PurchaseInvoiceServ
             } else {
                 productEntity.setExpiryDate(productEntity.getExpiryDate().plusDays(1));
             }
+            if (!purchaseInvoiceProductDto.getWholeSalePrice().equals(productEntity.getWholeSalePrice())) {
+                productEntity.setWholeSalePrice(purchaseInvoiceProductDto.getWholeSalePrice());
+            }
             purchaseInvoiceProduct.setProduct(productEntity);
             var currentUnits = productEntity.getUnitsTotal();
             var newUnits = purchaseInvoiceProductDto.getBoxesReceived() * productEntity.getUnitsPerBox();
@@ -103,8 +106,6 @@ public class PurchaseInvoiceServiceImplementation implements PurchaseInvoiceServ
         var onePurchaseInvoice = purchaseInvoice.orElse(null);
 
         return mapPurchaseInvoiceEntityToDto(onePurchaseInvoice);
-//        onePurchaseInvoice.getPurchaseInvoiceProducts().stream().map(this::mapPurchaseInvoiceProductEntityToDto).collect(Collectors.toList());
-//        return purchaseInvoiceMapper.mapPurchaseInvoiceEntityToDto(onePurchaseInvoice);
     }
 
     @Override

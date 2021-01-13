@@ -34,6 +34,8 @@ public class QPurchaseInvoiceProduct extends EntityPathBase<PurchaseInvoiceProdu
 
     public final NumberPath<Long> purchaseInvoiceProductId = createNumber("purchaseInvoiceProductId", Long.class);
 
+    public final NumberPath<Double> wholeSalePrice = createNumber("wholeSalePrice", Double.class);
+
     public QPurchaseInvoiceProduct(String variable) {
         this(PurchaseInvoiceProduct.class, forVariable(variable), INITS);
     }

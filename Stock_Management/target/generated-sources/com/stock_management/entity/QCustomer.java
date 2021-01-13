@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,28 +18,48 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     private static final long serialVersionUID = 742444948L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QCustomer customer = new QCustomer("customer");
 
     public final StringPath address = createString("address");
 
+    public final QUserProfile createdBy;
+
+    public final DateTimePath<java.util.Date> createdDate = createDateTime("createdDate", java.util.Date.class);
+
     public final NumberPath<Long> customerId = createNumber("customerId", Long.class);
 
     public final StringPath firstName = createString("firstName");
+
+    public final QUserProfile lastModifiedBy;
+
+    public final DateTimePath<java.util.Date> lastModifiedDate = createDateTime("lastModifiedDate", java.util.Date.class);
 
     public final StringPath lastName = createString("lastName");
 
     public final NumberPath<Integer> telephoneNumber = createNumber("telephoneNumber", Integer.class);
 
     public QCustomer(String variable) {
-        super(Customer.class, forVariable(variable));
+        this(Customer.class, forVariable(variable), INITS);
     }
 
     public QCustomer(Path<? extends Customer> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QCustomer(PathMetadata metadata) {
-        super(Customer.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QCustomer(PathMetadata metadata, PathInits inits) {
+        this(Customer.class, metadata, inits);
+    }
+
+    public QCustomer(Class<? extends Customer> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.createdBy = inits.isInitialized("createdBy") ? new QUserProfile(forProperty("createdBy")) : null;
+        this.lastModifiedBy = inits.isInitialized("lastModifiedBy") ? new QUserProfile(forProperty("lastModifiedBy")) : null;
     }
 
 }

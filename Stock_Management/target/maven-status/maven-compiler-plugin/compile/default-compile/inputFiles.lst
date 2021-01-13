@@ -59,7 +59,6 @@ C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\ser
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\mapper\SupplierMapper.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\controller\PurchaseInvoiceController.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\SupplierService.java
-C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\implementation\UserRoleDetails.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\entity\PurchaseInvoiceProduct.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\service\implementation\OrderProductServiceImplementation.java
 C:\Work\Stock_Management\Stock_Management\src\main\java\com\stock_management\security\JwtUtil.java

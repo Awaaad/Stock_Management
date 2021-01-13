@@ -7,6 +7,7 @@ import com.stock_management.entity.Doctor;
 import com.stock_management.entity.QDoctor;
 import com.stock_management.mapper.DoctorMapper;
 import com.stock_management.repository.DoctorRepository;
+import com.stock_management.repository.UserRepository;
 import com.stock_management.service.DoctorService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,10 +23,12 @@ import java.util.stream.Collectors;
 public class DoctorServiceImplementation implements DoctorService {
     private final DoctorRepository doctorRepository;
     private final DoctorMapper doctorMapper;
+    private final UserRepository userRepository;
 
-    public DoctorServiceImplementation(DoctorRepository doctorRepository, DoctorMapper doctorMapper) {
+    public DoctorServiceImplementation(DoctorRepository doctorRepository, DoctorMapper doctorMapper, UserRepository userRepository) {
         this.doctorRepository = doctorRepository;
         this.doctorMapper = doctorMapper;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -59,15 +62,19 @@ public class DoctorServiceImplementation implements DoctorService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void editDoctor(DoctorDto doctorDto) throws Exception {
         var optionalDoctor = doctorRepository.findById(doctorDto.getDoctorId());
         var doctor = optionalDoctor.orElse(null);
+
+        var optionalUser = userRepository.findById(doctorDto.getLastModifiedBy().getUserId());
+        var user = optionalUser.orElse(null);
         if (Objects.nonNull(doctor)) {
             doctor.setFirstName(doctorDto.getFirstName());
             doctor.setLastName(doctorDto.getLastName());
             doctor.setAddress(doctorDto.getAddress());
             doctor.setTelephoneNumber(doctorDto.getTelephoneNumber());
+            doctor.setLastModifiedBy(user);
             doctorRepository.save(doctor);
         } else {
             throw new Exception("doctor.not.found");

@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-01-08T20:14:21+0400",
+    date = "2021-01-13T22:31:21+0400",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.6 (AdoptOpenJDK)"
 )
 @Component
@@ -79,51 +79,6 @@ public class OrderMapperImpl implements OrderMapper {
         return order;
     }
 
-    protected CustomerDto customerToCustomerDto(Customer customer) {
-        if ( customer == null ) {
-            return null;
-        }
-
-        CustomerDto customerDto = new CustomerDto();
-
-        customerDto.setCustomerId( customer.getCustomerId() );
-        customerDto.setFirstName( customer.getFirstName() );
-        customerDto.setLastName( customer.getLastName() );
-        customerDto.setAddress( customer.getAddress() );
-        customerDto.setTelephoneNumber( customer.getTelephoneNumber() );
-
-        return customerDto;
-    }
-
-    protected DoctorDto doctorToDoctorDto(Doctor doctor) {
-        if ( doctor == null ) {
-            return null;
-        }
-
-        DoctorDto doctorDto = new DoctorDto();
-
-        doctorDto.setDoctorId( doctor.getDoctorId() );
-        doctorDto.setFirstName( doctor.getFirstName() );
-        doctorDto.setLastName( doctor.getLastName() );
-        doctorDto.setAddress( doctor.getAddress() );
-        doctorDto.setTelephoneNumber( doctor.getTelephoneNumber() );
-
-        return doctorDto;
-    }
-
-    protected List<OrderProductDto> orderProductListToOrderProductDtoList(List<OrderProduct> list) {
-        if ( list == null ) {
-            return null;
-        }
-
-        List<OrderProductDto> list1 = new ArrayList<OrderProductDto>( list.size() );
-        for ( OrderProduct orderProduct : list ) {
-            list1.add( orderProductMapper.mapOrderProductEntityToDto( orderProduct ) );
-        }
-
-        return list1;
-    }
-
     protected RoleDto roleToRoleDto(Role role) {
         if ( role == null ) {
             return null;
@@ -170,30 +125,54 @@ public class OrderMapperImpl implements OrderMapper {
         return userDto;
     }
 
-    protected Doctor doctorDtoToDoctor(DoctorDto doctorDto) {
-        if ( doctorDto == null ) {
+    protected CustomerDto customerToCustomerDto(Customer customer) {
+        if ( customer == null ) {
             return null;
         }
 
-        Doctor doctor = new Doctor();
+        CustomerDto customerDto = new CustomerDto();
 
-        doctor.setDoctorId( doctorDto.getDoctorId() );
-        doctor.setFirstName( doctorDto.getFirstName() );
-        doctor.setLastName( doctorDto.getLastName() );
-        doctor.setAddress( doctorDto.getAddress() );
-        doctor.setTelephoneNumber( doctorDto.getTelephoneNumber() );
+        customerDto.setCustomerId( customer.getCustomerId() );
+        customerDto.setFirstName( customer.getFirstName() );
+        customerDto.setLastName( customer.getLastName() );
+        customerDto.setAddress( customer.getAddress() );
+        customerDto.setTelephoneNumber( customer.getTelephoneNumber() );
+        customerDto.setCreatedBy( userProfileToUserDto( customer.getCreatedBy() ) );
+        customerDto.setCreatedDate( customer.getCreatedDate() );
+        customerDto.setLastModifiedBy( userProfileToUserDto( customer.getLastModifiedBy() ) );
+        customerDto.setLastModifiedDate( customer.getLastModifiedDate() );
 
-        return doctor;
+        return customerDto;
     }
 
-    protected List<OrderProduct> orderProductDtoListToOrderProductList(List<OrderProductDto> list) {
+    protected DoctorDto doctorToDoctorDto(Doctor doctor) {
+        if ( doctor == null ) {
+            return null;
+        }
+
+        DoctorDto doctorDto = new DoctorDto();
+
+        doctorDto.setDoctorId( doctor.getDoctorId() );
+        doctorDto.setFirstName( doctor.getFirstName() );
+        doctorDto.setLastName( doctor.getLastName() );
+        doctorDto.setAddress( doctor.getAddress() );
+        doctorDto.setTelephoneNumber( doctor.getTelephoneNumber() );
+        doctorDto.setCreatedBy( userProfileToUserDto( doctor.getCreatedBy() ) );
+        doctorDto.setCreatedDate( doctor.getCreatedDate() );
+        doctorDto.setLastModifiedBy( userProfileToUserDto( doctor.getLastModifiedBy() ) );
+        doctorDto.setLastModifiedDate( doctor.getLastModifiedDate() );
+
+        return doctorDto;
+    }
+
+    protected List<OrderProductDto> orderProductListToOrderProductDtoList(List<OrderProduct> list) {
         if ( list == null ) {
             return null;
         }
 
-        List<OrderProduct> list1 = new ArrayList<OrderProduct>( list.size() );
-        for ( OrderProductDto orderProductDto : list ) {
-            list1.add( orderProductMapper.mapOrderProductDtoToEntity( orderProductDto ) );
+        List<OrderProductDto> list1 = new ArrayList<OrderProductDto>( list.size() );
+        for ( OrderProduct orderProduct : list ) {
+            list1.add( orderProductMapper.mapOrderProductEntityToDto( orderProduct ) );
         }
 
         return list1;
@@ -245,6 +224,39 @@ public class OrderMapperImpl implements OrderMapper {
         return userProfile;
     }
 
+    protected Doctor doctorDtoToDoctor(DoctorDto doctorDto) {
+        if ( doctorDto == null ) {
+            return null;
+        }
+
+        Doctor doctor = new Doctor();
+
+        doctor.setDoctorId( doctorDto.getDoctorId() );
+        doctor.setFirstName( doctorDto.getFirstName() );
+        doctor.setLastName( doctorDto.getLastName() );
+        doctor.setAddress( doctorDto.getAddress() );
+        doctor.setTelephoneNumber( doctorDto.getTelephoneNumber() );
+        doctor.setCreatedBy( userDtoToUserProfile( doctorDto.getCreatedBy() ) );
+        doctor.setCreatedDate( doctorDto.getCreatedDate() );
+        doctor.setLastModifiedBy( userDtoToUserProfile( doctorDto.getLastModifiedBy() ) );
+        doctor.setLastModifiedDate( doctorDto.getLastModifiedDate() );
+
+        return doctor;
+    }
+
+    protected List<OrderProduct> orderProductDtoListToOrderProductList(List<OrderProductDto> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<OrderProduct> list1 = new ArrayList<OrderProduct>( list.size() );
+        for ( OrderProductDto orderProductDto : list ) {
+            list1.add( orderProductMapper.mapOrderProductDtoToEntity( orderProductDto ) );
+        }
+
+        return list1;
+    }
+
     protected Customer customerDtoToCustomer(CustomerDto customerDto) {
         if ( customerDto == null ) {
             return null;
@@ -257,6 +269,10 @@ public class OrderMapperImpl implements OrderMapper {
         customer.setLastName( customerDto.getLastName() );
         customer.setAddress( customerDto.getAddress() );
         customer.setTelephoneNumber( customerDto.getTelephoneNumber() );
+        customer.setCreatedBy( userDtoToUserProfile( customerDto.getCreatedBy() ) );
+        customer.setCreatedDate( customerDto.getCreatedDate() );
+        customer.setLastModifiedBy( userDtoToUserProfile( customerDto.getLastModifiedBy() ) );
+        customer.setLastModifiedDate( customerDto.getLastModifiedDate() );
 
         return customer;
     }

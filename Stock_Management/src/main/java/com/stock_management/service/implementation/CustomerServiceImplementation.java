@@ -7,6 +7,7 @@ import com.stock_management.entity.Customer;
 import com.stock_management.entity.QCustomer;
 import com.stock_management.mapper.CustomerMapper;
 import com.stock_management.repository.CustomerRepository;
+import com.stock_management.repository.UserRepository;
 import com.stock_management.service.CustomerService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,10 +23,12 @@ import java.util.stream.Collectors;
 public class CustomerServiceImplementation implements CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
+    private final UserRepository userRepository;
 
-    public CustomerServiceImplementation(CustomerRepository customerRepository, CustomerMapper customerMapper) {
+    public CustomerServiceImplementation(CustomerRepository customerRepository, CustomerMapper customerMapper, UserRepository userRepository) {
         this.customerRepository = customerRepository;
         this.customerMapper = customerMapper;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -59,15 +62,19 @@ public class CustomerServiceImplementation implements CustomerService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void editCustomer(CustomerDto customerDto) throws Exception {
         var optionalCustomer = customerRepository.findById(customerDto.getCustomerId());
         var customer = optionalCustomer.orElse(null);
+
+        var optionalUser = userRepository.findById(customerDto.getLastModifiedBy().getUserId());
+        var user = optionalUser.orElse(null);
         if (Objects.nonNull(customer)) {
             customer.setFirstName(customerDto.getFirstName());
             customer.setLastName(customerDto.getLastName());
             customer.setAddress(customerDto.getAddress());
             customer.setTelephoneNumber(customerDto.getTelephoneNumber());
+            customer.setLastModifiedBy(user);
             customerRepository.save(customer);
         } else {
             throw new Exception("customer.not.found");

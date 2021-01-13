@@ -32,6 +32,9 @@ public class PurchaseInvoiceProduct {
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
 
+    @Column(name = "WHOLE_SALE_PRICE", nullable = false)
+    private Double wholeSalePrice;
+
     @Column(name = "OLD_PRICE_PER_BOX", nullable = false)
     private Double oldPricePerBox;
 

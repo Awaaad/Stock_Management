@@ -43,6 +43,9 @@ public class Product {
     @Column(name = "UNITS_TOTAL")
     private Double unitsTotal;
 
+    @Column(name = "WHOLE_SALE_PRICE", nullable = false)
+    private Double wholeSalePrice;
+
     @Column(name = "OLD_PRICE_PER_BOX", nullable = false)
     private Double oldPricePerBox;
 

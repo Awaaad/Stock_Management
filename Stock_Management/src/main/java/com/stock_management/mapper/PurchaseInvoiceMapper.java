@@ -7,7 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = {
-        OrderProductMapper.class
+        OrderProductMapper.class,
+        ProductMapper.class
 })
 public interface PurchaseInvoiceMapper {
     @Mapping(target = "userProfileDto", source = "userProfile")

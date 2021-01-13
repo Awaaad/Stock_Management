@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-01-08T20:14:21+0400",
+    date = "2021-01-13T22:31:20+0400",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.6 (AdoptOpenJDK)"
 )
 @Component
@@ -88,6 +88,7 @@ public class PurchaseInvoiceMapperImpl implements PurchaseInvoiceMapper {
         PurchaseInvoiceProductDto purchaseInvoiceProductDto = new PurchaseInvoiceProductDto();
 
         purchaseInvoiceProductDto.setPurchaseInvoiceProductId( purchaseInvoiceProduct.getPurchaseInvoiceProductId() );
+        purchaseInvoiceProductDto.setWholeSalePrice( purchaseInvoiceProduct.getWholeSalePrice() );
         purchaseInvoiceProductDto.setOldPricePerBox( purchaseInvoiceProduct.getOldPricePerBox() );
         purchaseInvoiceProductDto.setPricePerBox( purchaseInvoiceProduct.getPricePerBox() );
         purchaseInvoiceProductDto.setBoxesReceived( purchaseInvoiceProduct.getBoxesReceived() );
@@ -162,6 +163,7 @@ public class PurchaseInvoiceMapperImpl implements PurchaseInvoiceMapper {
         PurchaseInvoiceProduct purchaseInvoiceProduct = new PurchaseInvoiceProduct();
 
         purchaseInvoiceProduct.setPurchaseInvoiceProductId( purchaseInvoiceProductDto.getPurchaseInvoiceProductId() );
+        purchaseInvoiceProduct.setWholeSalePrice( purchaseInvoiceProductDto.getWholeSalePrice() );
         purchaseInvoiceProduct.setOldPricePerBox( purchaseInvoiceProductDto.getOldPricePerBox() );
         purchaseInvoiceProduct.setPricePerBox( purchaseInvoiceProductDto.getPricePerBox() );
         purchaseInvoiceProduct.setBoxesReceived( purchaseInvoiceProductDto.getBoxesReceived() );

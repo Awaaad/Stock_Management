@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-01-08T20:14:22+0400",
+    date = "2021-01-13T22:31:21+0400",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.6 (AdoptOpenJDK)"
 )
 @Component
@@ -32,6 +32,7 @@ public class ProductMapperImpl implements ProductMapper {
         productDto.setMinStockAmount( productEntity.getMinStockAmount() );
         productDto.setUnitsPerBox( productEntity.getUnitsPerBox() );
         productDto.setUnitsTotal( productEntity.getUnitsTotal() );
+        productDto.setWholeSalePrice( productEntity.getWholeSalePrice() );
         productDto.setOldPricePerBox( productEntity.getOldPricePerBox() );
         productDto.setPricePerBox( productEntity.getPricePerBox() );
         productDto.setPricePerUnit( productEntity.getPricePerUnit() );
@@ -60,6 +61,7 @@ public class ProductMapperImpl implements ProductMapper {
         product.setMinStockAmount( productDto.getMinStockAmount() );
         product.setUnitsPerBox( productDto.getUnitsPerBox() );
         product.setUnitsTotal( productDto.getUnitsTotal() );
+        product.setWholeSalePrice( productDto.getWholeSalePrice() );
         product.setOldPricePerBox( productDto.getOldPricePerBox() );
         product.setPricePerBox( productDto.getPricePerBox() );
         product.setPricePerUnit( productDto.getPricePerUnit() );

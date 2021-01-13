@@ -10,6 +10,8 @@ import org.mapstruct.Mapping;
         OrderProductMapper.class
 })
 public interface OrderMapper {
+    @Mapping(target = "isNewDoctor", source = "")
+    @Mapping(target = "isNewCustomer", source = "")
     @Mapping(target = "userProfileDto", source = "userProfile")
     @Mapping(target = "customerDto", source = "customer")
     @Mapping(target = "doctorDto", source = "doctor")

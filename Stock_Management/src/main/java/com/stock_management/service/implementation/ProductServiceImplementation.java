@@ -128,6 +128,7 @@ public class ProductServiceImplementation implements ProductService {
                 productDto.setCategory(oneProduct.getCategory());
                 productDto.setBox(oneProduct.getBox());
                 productDto.setDosage(oneProduct.getDosage());
+                productDto.setWholeSalePrice(oneProduct.getWholeSalePrice());
                 productDto.setUnitsPerBox(oneProduct.getUnitsPerBox());
                 productDto.setUnitsTotal(oneProduct.getUnitsTotal());
                 productDto.setOldPricePerBox(oneProduct.getOldPricePerBox());
@@ -167,7 +168,7 @@ public class ProductServiceImplementation implements ProductService {
 
     // PUT
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void editProduct(ProductDto productDto) throws Exception {
         var product = findProductById(productDto.getProductId());
         if (product != null) {
@@ -178,6 +179,7 @@ public class ProductServiceImplementation implements ProductService {
             product.setDosage(productDto.getDosage());
             product.setUnitsPerBox(productDto.getUnitsPerBox());
             product.setUnitsTotal((productDto.getBox() * productDto.getUnitsPerBox()));
+            product.setWholeSalePrice(productDto.getWholeSalePrice());
             product.setOldPricePerBox(productDto.getOldPricePerBox());
             product.setPricePerBox(productDto.getPricePerBox());
             product.setPricePerUnit(productDto.getPricePerBox() / productDto.getUnitsPerBox());
@@ -365,7 +367,11 @@ public class ProductServiceImplementation implements ProductService {
                             break;
 
                         case 3:
-                            product.setCategory(currentCell.getStringCellValue());
+                            if (currentCell.getStringCellValue().equals("NULL")) {
+                                product.setCategory("");
+                            } else {
+                                product.setCategory(currentCell.getStringCellValue());
+                            }
                             break;
 
                         case 4:
@@ -411,6 +417,10 @@ public class ProductServiceImplementation implements ProductService {
 
                         case 14:
                             product.setMinStockAmount((int) currentCell.getNumericCellValue());
+                            break;
+
+                        case 15:
+                            product.setWholeSalePrice((double) currentCell.getNumericCellValue());
                             break;
 
                         default:
