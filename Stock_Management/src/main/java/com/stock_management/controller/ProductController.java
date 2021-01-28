@@ -1,9 +1,8 @@
 package com.stock_management.controller;
 
-import com.stock_management.dto.ProductDto;
-import com.stock_management.dto.ProductListDto;
-import com.stock_management.dto.SaveProductDto;
-import com.stock_management.dto.UpdateStockAmountDto;
+import com.stock_management.dto.product.ProductDto;
+import com.stock_management.dto.product.ProductListDto;
+import com.stock_management.dto.product.SaveProductDto;
 import com.stock_management.service.ProductService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

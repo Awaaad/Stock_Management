@@ -1,8 +1,8 @@
 package com.stock_management.controller;
 
-import com.stock_management.dto.AuthenticatedUserDto;
-import com.stock_management.dto.LoginParamDto;
-import com.stock_management.dto.UserDto;
+import com.stock_management.dto.security.AuthenticatedUserDto;
+import com.stock_management.dto.security.LoginParamDto;
+import com.stock_management.dto.security.UserDto;
 import com.stock_management.security.JwtUtil;
 import com.stock_management.service.UserService;
 import org.springframework.http.HttpStatus;

@@ -29,428 +29,76 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="745d19a2-2adc-45d2-bc63-2f4d4e916644" name="Default Changelist" comment="exception added">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/AuditDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/PaymentDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/ProductStockDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/ReceiptDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/SaveProductDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/StockDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Invoice.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Payment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Receipt.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Stock.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/PaymentMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/StockMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/repository/PaymentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/repository/ReceiptRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/repository/StockRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/type/PaymentType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/type/TransactionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/922df5c6-dbde-48ae-9a67-66dec88fbeea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/922df5c6-dbde-48ae-9a67-66dec88fbeea.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/StockControlSystemApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/StockControlSystemApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/CustomerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/DoctorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/DoctorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/OrderController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/OrderProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/OrderProductController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/ProductController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/PurchaseInvoiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/PurchaseInvoiceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/CustomerDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/CustomerDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/CustomerListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/CustomerListDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/DoctorDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/DoctorDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/DoctorListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/DoctorListDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/OrderDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/OrderListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/OrderListDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/OrderProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/OrderLineDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/ProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/ProductDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/ProductListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/ProductListDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/PurchaseInvoiceDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/InvoiceDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/PurchaseInvoiceListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/PurchaseInvoiceListDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/PurchaseInvoiceProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/PurchaseInvoiceLineDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/SupplierDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/SupplierDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/SupplierListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/SupplierListDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/OrderProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/OrderLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/PurchaseInvoice.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/PurchaseInvoiceProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/PurchaseInvoiceLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Supplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Supplier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/UserProfile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/UserProfile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/MultipleSaveProductMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/RoleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/SupplierController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/SupplierController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/AuditDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/shared/AuditDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/AuthenticatedUserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/security/AuthenticatedUserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/CountProductsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/CountProductsDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/CustomerDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/customer/CustomerDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/CustomerListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/customer/CustomerListDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/CustomerReceiptDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/customer/CustomerReceiptDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/DoctorDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/doctor/DoctorDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/DoctorListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/doctor/DoctorListDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/InvoiceDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/invoice/InvoiceDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/LoginParamDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/security/LoginParamDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/ManipulateProductQuantityDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/ManipulateProductQuantityDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/MonthlySalesDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/order/MonthlySalesDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/order/OrderDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/OrderLineDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/order/OrderLineDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/OrderListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/order/OrderListDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/PaginationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/shared/PaginationDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/PaymentDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/payment/PaymentDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/ProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/ProductDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/ProductListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/ProductListDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/ProductQuantityPriceDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/ProductQuantityPriceDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/ProductStockDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/ProductStockDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/PurchaseInvoiceLineDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/invoice/PurchaseInvoiceLineDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/PurchaseInvoiceListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/invoice/PurchaseInvoiceListDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/ReceiptDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/receipt/ReceiptDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/RoleDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/security/RoleDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/SaveProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/SaveProductDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/StockDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/stock/StockDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/SupplierDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/supplier/SupplierDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/SupplierListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/supplier/SupplierListDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/UpdateStockAmountDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/stock/UpdateStockAmountDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/security/UserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/CustomerMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/CustomerMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/DoctorMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/DoctorMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/InvoiceMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/InvoiceMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/OrderLineMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/OrderLineMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/OrderMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/OrderMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/OrderProductMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/OrderLineMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/PurchaseInvoiceMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/InvoiceMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/PurchaseInvoiceProductMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/PurchaseInvoiceLineMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/PaymentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/PaymentMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/ProductMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/ProductMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/PurchaseInvoiceLineMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/PurchaseInvoiceLineMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/ReceiptMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/ReceiptMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/repository/OrderProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/repository/OrderLineRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/repository/PurchaseInvoiceProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/repository/PurchaseInvoiceLineRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/repository/PurchaseInvoiceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/repository/InvoiceRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/OrderProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/OrderLineService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/RoleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/RoleMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/StockMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/StockMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/SupplierMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/SupplierMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/CustomerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/DoctorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/DoctorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/InvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/InvoiceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/OrderLineService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/OrderLineService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/OrderService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/PurchaseInvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/InvoiceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/RoleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/RoleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/SupplierService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/SupplierService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/CustomerServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/CustomerServiceImplementation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/DoctorServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/DoctorServiceImplementation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/OrderProductServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/OrderLineServiceImplementation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/OrderLineServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/OrderLineServiceImplementation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/OrderServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/OrderServiceImplementation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/ProductServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/ProductServiceImplementation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/PurchaseInvoiceServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/InvoiceServiceImplementation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/RoleServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/RoleServiceImplementation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/SupplierServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/SupplierServiceImplementation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application-prod.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/StockControlSystemApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/controller/CustomerController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/controller/DoctorController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/controller/OrderController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/controller/OrderProductController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/controller/ProductController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/controller/PurchaseInvoiceController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/controller/RoleController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/controller/SupplierController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/controller/UserController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/AuthenticatedUserDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/CountProductsDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/CustomerDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/CustomerListDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/CustomerReceiptDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/DoctorDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/DoctorListDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/LoginParamDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/ManipulateProductQuantityDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/MonthlySalesDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/OrderDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/OrderListDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/OrderProductDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/PaginationDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/ProductDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/ProductListDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/ProductQuantityPriceDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/PurchaseInvoiceDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/PurchaseInvoiceListDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/PurchaseInvoiceProductDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/RoleDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/SupplierDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/SupplierListDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/UpdateStockAmountDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/dto/UserDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/Customer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/Doctor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/Order.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/OrderProduct.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/Product.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/PurchaseInvoice.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/PurchaseInvoiceProduct.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/QCustomer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/QDoctor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/QOrder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/QOrderProduct.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/QProduct.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/QPurchaseInvoice.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/QPurchaseInvoiceProduct.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/QRole.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/QSupplier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/QUserProfile.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/Role.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/Supplier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/entity/UserProfile.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/exception/ErrorMessages.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/CustomerMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/CustomerMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/DoctorMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/DoctorMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/MultipleSaveProductMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/MultipleSaveProductMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/OrderMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/OrderMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/OrderProductMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/OrderProductMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/ProductMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/ProductMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/PurchaseInvoiceMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/PurchaseInvoiceMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/PurchaseInvoiceProductMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/PurchaseInvoiceProductMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/ReceiptMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/ReceiptMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/RoleMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/RoleMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/SupplierMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/SupplierMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/UserMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/mapper/UserMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/repository/CustomerRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/repository/DoctorRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/repository/OrderProductRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/repository/OrderRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/repository/ProductRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/repository/PurchaseInvoiceProductRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/repository/PurchaseInvoiceRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/repository/RoleRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/repository/SupplierRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/repository/UserRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/security/JwtFilter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/security/JwtUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/security/SecurityConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/CustomerService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/DoctorService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/OrderProductService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/OrderService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/ProductService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/PurchaseInvoiceService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/RoleService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/SupplierService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/UserService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/implementation/CustomerServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/implementation/DoctorServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/implementation/OrderProductServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/implementation/OrderServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/implementation/ProductServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/implementation/PurchaseInvoiceServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/implementation/RoleServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/implementation/SupplierServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/implementation/UserRoleDetailsServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/stock_management/service/implementation/UserServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/CustomerMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/DoctorMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/MultipleSaveProductMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/OrderMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/OrderProductMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/ProductMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/PurchaseInvoiceMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/PurchaseInvoiceProductMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/ReceiptMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/RoleMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/SupplierMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/stock_management/mapper/UserMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/com/stock_management/entity/QCustomer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/com/stock_management/entity/QDoctor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/com/stock_management/entity/QOrder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/com/stock_management/entity/QOrderProduct.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/com/stock_management/entity/QProduct.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/com/stock_management/entity/QPurchaseInvoice.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/com/stock_management/entity/QPurchaseInvoiceProduct.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/com/stock_management/entity/QRole.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/com/stock_management/entity/QSupplier.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/com/stock_management/entity/QUserProfile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT.war" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT.war.original" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/application-prod.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/StockControlSystemApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/controller/CustomerController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/controller/DoctorController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/controller/OrderController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/controller/OrderProductController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/controller/ProductController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/controller/PurchaseInvoiceController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/controller/RoleController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/controller/SupplierController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/controller/UserController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/AuthenticatedUserDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/CountProductsDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/CustomerDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/CustomerListDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/CustomerReceiptDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/DoctorDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/DoctorListDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/LoginParamDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/ManipulateProductQuantityDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/MonthlySalesDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/OrderDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/OrderListDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/OrderProductDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/PaginationDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/ProductDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/ProductListDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/ProductQuantityPriceDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/PurchaseInvoiceDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/PurchaseInvoiceListDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/PurchaseInvoiceProductDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/RoleDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/SupplierDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/SupplierListDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/UpdateStockAmountDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/dto/UserDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/Customer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/Doctor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/Order.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/OrderProduct.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/Product.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/PurchaseInvoice.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/PurchaseInvoiceProduct.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/QCustomer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/QDoctor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/QOrder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/QOrderProduct.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/QProduct.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/QPurchaseInvoice.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/QPurchaseInvoiceProduct.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/QRole.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/QSupplier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/QUserProfile.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/Role.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/Supplier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/entity/UserProfile.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/exception/ErrorMessages.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/CustomerMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/CustomerMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/DoctorMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/DoctorMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/MultipleSaveProductMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/MultipleSaveProductMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/OrderMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/OrderMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/OrderProductMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/OrderProductMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/ProductMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/ProductMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/PurchaseInvoiceMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/PurchaseInvoiceMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/PurchaseInvoiceProductMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/PurchaseInvoiceProductMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/ReceiptMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/ReceiptMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/RoleMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/RoleMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/SupplierMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/SupplierMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/UserMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/mapper/UserMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/repository/CustomerRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/repository/DoctorRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/repository/OrderProductRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/repository/OrderRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/repository/ProductRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/repository/PurchaseInvoiceProductRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/repository/PurchaseInvoiceRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/repository/RoleRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/repository/SupplierRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/repository/UserRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/security/JwtFilter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/security/JwtUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/security/SecurityConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/CustomerService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/DoctorService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/OrderProductService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/OrderService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/ProductService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/PurchaseInvoiceService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/RoleService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/SupplierService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/UserService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/implementation/CustomerServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/implementation/DoctorServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/implementation/OrderProductServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/implementation/OrderServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/implementation/ProductServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/implementation/PurchaseInvoiceServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/implementation/RoleServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/implementation/SupplierServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/implementation/UserRoleDetailsServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/classes/com/stock_management/service/implementation/UserServiceImplementation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/FastInfoset-1.2.16.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/HikariCP-3.4.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/SparseBitSet-1.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/accessors-smart-1.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/antlr-2.7.7.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/asm-5.0.4.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/aspectjweaver-1.9.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/bridge-method-annotation-1.13.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/byte-buddy-1.10.6.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/checker-qual-3.5.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/classmate-1.5.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/commons-codec-1.13.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/commons-collections4-4.4.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/commons-compress-1.19.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/commons-math3-3.6.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/curvesapi-1.06.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/dom4j-2.1.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/evo-inflector-1.2.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/guava-18.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/hibernate-commons-annotations-5.1.0.Final.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/hibernate-core-5.4.10.Final.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/hibernate-validator-6.0.18.Final.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/istack-commons-runtime-3.0.8.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/jackson-annotations-2.10.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/jackson-core-2.10.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/jackson-databind-2.10.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/jackson-datatype-jdk8-2.10.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/jackson-datatype-jsr310-2.10.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/jackson-module-parameter-names-2.10.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/jakarta.activation-api-1.2.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/jakarta.annotation-api-1.3.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/jakarta.persistence-api-2.2.3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/jakarta.transaction-api-1.3.3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/jakarta.validation-api-2.0.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/jakarta.xml.bind-api-2.3.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/jandex-2.1.1.Final.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/javassist-3.24.0-GA.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/javax.inject-1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/jaxb-runtime-2.3.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/jboss-logging-3.4.1.Final.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/jjwt-0.9.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/json-path-2.4.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/json-smart-2.3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/jsr305-1.3.9.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/jul-to-slf4j-1.7.30.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/log4j-api-2.12.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/log4j-to-slf4j-2.12.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/logback-classic-1.2.3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/logback-core-1.2.3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/mapstruct-1.3.1.Final.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/mapstruct-processor-1.3.0.Final.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/mysema-commons-lang-0.2.4.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/mysql-connector-java-8.0.19.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/poi-4.1.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/poi-ooxml-4.1.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/poi-ooxml-schemas-4.1.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/postgresql-42.2.18.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/querydsl-core-4.2.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/querydsl-jpa-4.2.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/slf4j-api-1.7.30.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/snakeyaml-1.25.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-aop-5.2.3.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-aspects-5.2.3.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-beans-5.2.3.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-boot-2.2.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-boot-autoconfigure-2.2.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-boot-starter-2.2.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-boot-starter-aop-2.2.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-boot-starter-data-jdbc-2.2.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-boot-starter-data-jpa-2.2.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-boot-starter-data-rest-2.2.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-boot-starter-jdbc-2.2.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-boot-starter-json-2.2.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-boot-starter-logging-2.2.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-boot-starter-security-2.2.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-boot-starter-validation-2.2.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-boot-starter-web-2.2.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-context-5.2.3.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-core-5.2.3.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-data-commons-2.2.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-data-jdbc-1.1.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-data-jpa-2.2.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-data-relational-1.1.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-data-rest-core-3.2.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-data-rest-webmvc-3.2.4.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-expression-5.2.3.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-hateoas-1.0.3.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-jcl-5.2.3.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-jdbc-5.2.3.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-orm-5.2.3.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-plugin-core-2.0.0.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-security-config-5.2.1.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-security-core-5.2.1.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-security-web-5.2.1.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-tx-5.2.3.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-web-5.2.3.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/spring-webmvc-5.2.3.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/stax-ex-1.8.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/txw2-2.3.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/stock_management-0.0.1-SNAPSHOT/WEB-INF/lib/xmlbeans-3.1.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/stock_management/StockControlSystemApplicationTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/UserServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/UserServiceImplementation.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -673,7 +321,7 @@
       <workItem from="1611594172171" duration="10576000" />
       <workItem from="1611680835751" duration="4134000" />
       <workItem from="1611684996502" duration="1533000" />
-      <workItem from="1611724825512" duration="13664000" />
+      <workItem from="1611724825512" duration="14295000" />
     </task>
     <task id="LOCAL-00001" summary="init commit">
       <created>1604322794122</created>
@@ -759,7 +407,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610565718098</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="new erd setup">
+      <created>1611835407849</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1611835407850</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -808,7 +463,8 @@
     <MESSAGE value="purchase form completed with minor fix" />
     <MESSAGE value="exception added" />
     <MESSAGE value="x" />
-    <option name="LAST_COMMIT_MESSAGE" value="x" />
+    <MESSAGE value="new erd setup" />
+    <option name="LAST_COMMIT_MESSAGE" value="new erd setup" />
   </component>
   <component name="WindowStateProjectService">
     <state x="859" y="411" width="290" height="218" key="#Assign_Data_Sources" timestamp="1611401323141">
@@ -859,82 +515,86 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1610728828781" />
-    <state width="1877" height="162" key="GridCell.Tab.0.bottom" timestamp="1611823207457">
+    <state width="1877" height="162" key="GridCell.Tab.0.bottom" timestamp="1611835359008">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
     <state width="1877" height="162" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1611637110971" />
     <state width="1877" height="312" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1606201942599" />
-    <state width="1877" height="162" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1611823207457" />
-    <state width="1877" height="162" key="GridCell.Tab.0.center" timestamp="1611823207457">
+    <state width="1877" height="162" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359008" />
+    <state width="1877" height="162" key="GridCell.Tab.0.center" timestamp="1611835359008">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
     <state width="1877" height="162" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1611637110969" />
     <state width="1877" height="312" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1606201942599" />
-    <state width="1877" height="162" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1611823207456" />
-    <state width="1877" height="162" key="GridCell.Tab.0.left" timestamp="1611823207456">
+    <state width="1877" height="162" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359008" />
+    <state width="1877" height="162" key="GridCell.Tab.0.left" timestamp="1611835359008">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685765" />
     <state width="1877" height="162" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1611637110969" />
     <state width="1877" height="312" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1606201942598" />
-    <state width="1877" height="162" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1611823207456" />
-    <state width="1877" height="162" key="GridCell.Tab.0.right" timestamp="1611823207457">
+    <state width="1877" height="162" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359008" />
+    <state width="1877" height="162" key="GridCell.Tab.0.right" timestamp="1611835359008">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
     <state width="1877" height="162" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1611637110970" />
     <state width="1877" height="312" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1606201942599" />
-    <state width="1877" height="162" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1611823207457" />
-    <state width="1877" height="162" key="GridCell.Tab.1.bottom" timestamp="1611823261733">
+    <state width="1877" height="162" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359008" />
+    <state width="1877" height="162" key="GridCell.Tab.1.bottom" timestamp="1611835359008">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
     <state width="1877" height="312" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1606201942599" />
-    <state width="1877" height="162" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1611823261733" />
-    <state width="1877" height="162" key="GridCell.Tab.1.center" timestamp="1611823261732">
+    <state width="1877" height="162" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359008" />
+    <state width="1877" height="162" key="GridCell.Tab.1.center" timestamp="1611835359008">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
     <state width="1877" height="312" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1606201942599" />
-    <state width="1877" height="162" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1611823261732" />
-    <state width="1877" height="162" key="GridCell.Tab.1.left" timestamp="1611823261732">
+    <state width="1877" height="162" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359008" />
+    <state width="1877" height="162" key="GridCell.Tab.1.left" timestamp="1611835359008">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
     <state width="1877" height="312" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1606201942599" />
-    <state width="1877" height="162" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1611823261732" />
-    <state width="1877" height="162" key="GridCell.Tab.1.right" timestamp="1611823261732">
+    <state width="1877" height="162" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359008" />
+    <state width="1877" height="162" key="GridCell.Tab.1.right" timestamp="1611835359008">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
     <state width="1877" height="312" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1606201942599" />
-    <state width="1877" height="162" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1611823261732" />
-    <state width="1877" height="162" key="GridCell.Tab.2.bottom" timestamp="1611639685766">
-      <screen x="-1920" y="0" width="1920" height="1040" />
+    <state width="1877" height="162" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359008" />
+    <state width="1877" height="162" key="GridCell.Tab.2.bottom" timestamp="1611835359009">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.2.bottom/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
-    <state width="1877" height="162" key="GridCell.Tab.2.center" timestamp="1611639685766">
-      <screen x="-1920" y="0" width="1920" height="1040" />
+    <state width="1877" height="162" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359009" />
+    <state width="1877" height="162" key="GridCell.Tab.2.center" timestamp="1611835359009">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.2.center/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
-    <state width="1877" height="162" key="GridCell.Tab.2.left" timestamp="1611639685766">
-      <screen x="-1920" y="0" width="1920" height="1040" />
+    <state width="1877" height="162" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359009" />
+    <state width="1877" height="162" key="GridCell.Tab.2.left" timestamp="1611835359009">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.2.left/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
-    <state width="1877" height="162" key="GridCell.Tab.2.right" timestamp="1611639685766">
-      <screen x="-1920" y="0" width="1920" height="1040" />
+    <state width="1877" height="162" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359009" />
+    <state width="1877" height="162" key="GridCell.Tab.2.right" timestamp="1611835359009">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.2.right/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
+    <state width="1877" height="162" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359009" />
     <state x="490" y="174" key="Maven.ArtifactSearchDialog" timestamp="1608658109336">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="490" y="174" key="Maven.ArtifactSearchDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608658109336" />
-    <state x="1032" y="243" key="Vcs.Push.Dialog.v2" timestamp="1610565725220">
+    <state x="1032" y="243" key="Vcs.Push.Dialog.v2" timestamp="1611835580475">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1032" y="243" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1610565725220" />
+    <state x="1032" y="243" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1611835580475" />
     <state x="702" y="253" key="VcsDiffUtil.ChangesDialog" timestamp="1610111459175">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

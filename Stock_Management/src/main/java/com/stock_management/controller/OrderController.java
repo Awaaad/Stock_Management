@@ -1,9 +1,9 @@
 package com.stock_management.controller;
 
-import com.stock_management.dto.CustomerReceiptDto;
-import com.stock_management.dto.MonthlySalesDto;
-import com.stock_management.dto.OrderDto;
-import com.stock_management.dto.OrderListDto;
+import com.stock_management.dto.customer.CustomerReceiptDto;
+import com.stock_management.dto.order.MonthlySalesDto;
+import com.stock_management.dto.order.OrderDto;
+import com.stock_management.dto.order.OrderListDto;
 import com.stock_management.service.OrderService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;

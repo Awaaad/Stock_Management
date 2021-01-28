@@ -1,6 +1,6 @@
 package com.stock_management.service.implementation;
 
-import com.stock_management.dto.UserDto;
+import com.stock_management.dto.security.UserDto;
 import com.stock_management.entity.UserProfile;
 import com.stock_management.mapper.RoleMapper;
 import com.stock_management.mapper.UserMapper;

@@ -1,6 +1,6 @@
 package com.stock_management.mapper;
 
-import com.stock_management.dto.DoctorDto;
+import com.stock_management.dto.doctor.DoctorDto;
 import com.stock_management.entity.Doctor;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;

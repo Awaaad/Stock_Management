@@ -2,11 +2,11 @@ package com.stock_management.service.implementation;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
-import com.stock_management.dto.CountProductsDto;
-import com.stock_management.dto.ProductDto;
-import com.stock_management.dto.ProductListDto;
-import com.stock_management.dto.ProductStockDto;
-import com.stock_management.dto.SaveProductDto;
+import com.stock_management.dto.product.CountProductsDto;
+import com.stock_management.dto.product.ProductDto;
+import com.stock_management.dto.product.ProductListDto;
+import com.stock_management.dto.product.ProductStockDto;
+import com.stock_management.dto.product.SaveProductDto;
 import com.stock_management.entity.Product;
 import com.stock_management.entity.QProduct;
 import com.stock_management.entity.QStock;

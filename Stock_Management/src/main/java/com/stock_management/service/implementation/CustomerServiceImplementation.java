@@ -1,8 +1,8 @@
 package com.stock_management.service.implementation;
 
 import com.querydsl.core.BooleanBuilder;
-import com.stock_management.dto.CustomerDto;
-import com.stock_management.dto.CustomerListDto;
+import com.stock_management.dto.customer.CustomerDto;
+import com.stock_management.dto.customer.CustomerListDto;
 import com.stock_management.entity.Customer;
 import com.stock_management.entity.QCustomer;
 import com.stock_management.mapper.CustomerMapper;

@@ -1,7 +1,7 @@
 package com.stock_management.service;
 
-import com.stock_management.dto.DoctorDto;
-import com.stock_management.dto.DoctorListDto;
+import com.stock_management.dto.doctor.DoctorDto;
+import com.stock_management.dto.doctor.DoctorListDto;
 
 import java.util.List;
 

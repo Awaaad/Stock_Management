@@ -1,6 +1,6 @@
 package com.stock_management.mapper;
 
-import com.stock_management.dto.OrderLineDto;
+import com.stock_management.dto.order.OrderLineDto;
 import com.stock_management.entity.OrderLine;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;

@@ -1,6 +1,6 @@
 package com.stock_management.controller;
 
-import com.stock_management.dto.RoleDto;
+import com.stock_management.dto.security.RoleDto;
 import com.stock_management.service.RoleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

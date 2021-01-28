@@ -1,9 +1,9 @@
 package com.stock_management.service;
 
-import com.stock_management.dto.CustomerReceiptDto;
-import com.stock_management.dto.MonthlySalesDto;
-import com.stock_management.dto.OrderDto;
-import com.stock_management.dto.OrderListDto;
+import com.stock_management.dto.customer.CustomerReceiptDto;
+import com.stock_management.dto.order.MonthlySalesDto;
+import com.stock_management.dto.order.OrderDto;
+import com.stock_management.dto.order.OrderListDto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

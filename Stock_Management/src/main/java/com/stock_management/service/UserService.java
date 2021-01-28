@@ -1,6 +1,6 @@
 package com.stock_management.service;
 
-import com.stock_management.dto.UserDto;
+import com.stock_management.dto.security.UserDto;
 import com.stock_management.entity.UserProfile;
 
 import java.util.List;

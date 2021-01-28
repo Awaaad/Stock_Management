@@ -1,6 +1,6 @@
 package com.stock_management.controller;
 
-import com.stock_management.dto.OrderLineDto;
+import com.stock_management.dto.order.OrderLineDto;
 import com.stock_management.service.OrderLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

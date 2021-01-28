@@ -1,7 +1,7 @@
 package com.stock_management.mapper;
 
 
-import com.stock_management.dto.ReceiptDto;
+import com.stock_management.dto.receipt.ReceiptDto;
 import com.stock_management.entity.Receipt;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;

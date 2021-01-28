@@ -1,6 +1,6 @@
 package com.stock_management.service.implementation;
 
-import com.stock_management.dto.RoleDto;
+import com.stock_management.dto.security.RoleDto;
 import com.stock_management.entity.Role;
 import com.stock_management.mapper.RoleMapper;
 import com.stock_management.repository.RoleRepository;
@@ -8,7 +8,6 @@ import com.stock_management.service.RoleService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service

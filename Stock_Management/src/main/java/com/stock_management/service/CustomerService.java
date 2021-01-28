@@ -1,7 +1,7 @@
 package com.stock_management.service;
 
-import com.stock_management.dto.CustomerDto;
-import com.stock_management.dto.CustomerListDto;
+import com.stock_management.dto.customer.CustomerDto;
+import com.stock_management.dto.customer.CustomerListDto;
 
 import java.util.List;
 

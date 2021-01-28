@@ -1,6 +1,6 @@
 package com.stock_management.service.implementation;
 
-import com.stock_management.dto.OrderLineDto;
+import com.stock_management.dto.order.OrderLineDto;
 import com.stock_management.entity.OrderLine;
 import com.stock_management.mapper.OrderLineMapper;
 import com.stock_management.repository.OrderLineRepository;

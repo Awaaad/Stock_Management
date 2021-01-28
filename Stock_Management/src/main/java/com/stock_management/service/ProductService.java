@@ -1,10 +1,9 @@
 package com.stock_management.service;
 
-import com.stock_management.dto.CountProductsDto;
-import com.stock_management.dto.ProductDto;
-import com.stock_management.dto.ProductListDto;
-import com.stock_management.dto.SaveProductDto;
-import com.stock_management.dto.UpdateStockAmountDto;
+import com.stock_management.dto.product.CountProductsDto;
+import com.stock_management.dto.product.ProductDto;
+import com.stock_management.dto.product.ProductListDto;
+import com.stock_management.dto.product.SaveProductDto;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 

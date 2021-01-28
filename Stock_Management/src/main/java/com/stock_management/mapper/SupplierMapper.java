@@ -1,9 +1,8 @@
 package com.stock_management.mapper;
-import com.stock_management.dto.SupplierDto;
+import com.stock_management.dto.supplier.SupplierDto;
 import com.stock_management.entity.Supplier;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface SupplierMapper {

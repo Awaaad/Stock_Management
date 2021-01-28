@@ -1,6 +1,8 @@
 package com.stock_management.controller;
 
-import com.stock_management.dto.*;
+import com.stock_management.dto.order.OrderDto;
+import com.stock_management.dto.supplier.SupplierDto;
+import com.stock_management.dto.supplier.SupplierListDto;
 import com.stock_management.service.SupplierService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

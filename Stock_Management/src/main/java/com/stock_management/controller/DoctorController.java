@@ -1,9 +1,7 @@
 package com.stock_management.controller;
 
-import com.stock_management.dto.DoctorDto;
-import com.stock_management.dto.DoctorListDto;
-import com.stock_management.dto.SupplierDto;
-import com.stock_management.dto.SupplierListDto;
+import com.stock_management.dto.doctor.DoctorDto;
+import com.stock_management.dto.doctor.DoctorListDto;
 import com.stock_management.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

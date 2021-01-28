@@ -1,7 +1,8 @@
 package com.stock_management.service;
 
-import com.stock_management.dto.*;
-import com.stock_management.entity.Supplier;
+import com.stock_management.dto.order.OrderDto;
+import com.stock_management.dto.supplier.SupplierDto;
+import com.stock_management.dto.supplier.SupplierListDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
