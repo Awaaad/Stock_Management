@@ -39,7 +39,7 @@ public class DoctorServiceImplementation implements DoctorService {
         Page<Doctor> doctors = doctorRepository.findAll(predicate,pageRequest);
         List<DoctorDto> doctorDtos = doctors.stream().map(doctorMapper::mapDoctorEntityToDto).collect(Collectors.toList());
         var doctorDtoList = new DoctorListDto();
-        doctorDtoList.setDoctorDtos(doctorDtos);
+        doctorDtoList.setDoctorsDto(doctorDtos);
         doctorDtoList.setTotalElements(doctors.getNumberOfElements());
         doctorDtoList.setTotalPages(doctors.getTotalPages());
         return doctorDtoList;

@@ -3,10 +3,11 @@ package com.stock_management.service;
 import com.stock_management.dto.CountProductsDto;
 import com.stock_management.dto.ProductDto;
 import com.stock_management.dto.ProductListDto;
+import com.stock_management.dto.SaveProductDto;
 import com.stock_management.dto.UpdateStockAmountDto;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.print.Pageable;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
@@ -15,7 +16,7 @@ public interface ProductService {
     // GET
     List<ProductDto> findAllProducts();
 
-    ProductListDto findAllProductLessThanMinStockAmount(org.springframework.data.domain.Pageable pageable);
+    ProductListDto findAllProductLessThanMinStockAmount(Pageable pageable);
 
     ProductListDto findAllProductList(Pageable pageable);
 
@@ -29,9 +30,9 @@ public interface ProductService {
 
     List<String> findAllSlots();
     // POST
-    void saveProduct(ProductDto productDto);
+    void saveProduct(SaveProductDto saveProductDto);
 
-    void saveProducts(ProductListDto productListDto);
+    void saveProducts(List<SaveProductDto> saveProductsDto);
 
     void upload(MultipartFile file) throws IOException;
 
@@ -39,7 +40,5 @@ public interface ProductService {
 
     // PUT
     void editProduct(ProductDto productDto) throws Exception;
-
-    void quickStockControl(List<UpdateStockAmountDto> updateStockAmountDto);
 
 }

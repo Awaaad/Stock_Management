@@ -1,8 +1,7 @@
 package com.stock_management.dto;
-import com.stock_management.entity.UserProfile;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -11,14 +10,11 @@ public class OrderDto {
     private UserDto userProfileDto;
     private CustomerDto customerDto;
     private DoctorDto doctorDto;
-    private LocalDateTime orderDate;
-    private List<OrderProductDto> orderProductDtos;
+    private Date createdDate;
+    private List<OrderLineDto> orderLinesDto;
     private Double totalPrice;
-    private Double amountPaid;
-    private Double discount;
-    private Boolean paid;
-    private String paymentMode;
     private Boolean prescription;
+    private InvoiceDto invoiceDto;
     private Boolean isNewCustomer;
     private Boolean isNewDoctor;
 }

@@ -2,6 +2,7 @@ package com.stock_management.controller;
 
 import com.stock_management.dto.ProductDto;
 import com.stock_management.dto.ProductListDto;
+import com.stock_management.dto.SaveProductDto;
 import com.stock_management.dto.UpdateStockAmountDto;
 import com.stock_management.service.ProductService;
 import org.springframework.data.domain.PageRequest;
@@ -64,14 +65,14 @@ public class ProductController {
 
     // POST GOES HERE
     @PostMapping("save-product")
-    public ResponseEntity saveProduct(@RequestBody ProductDto productDto){
-        productService.saveProduct(productDto);
+    public ResponseEntity saveProduct(@RequestBody SaveProductDto saveProductDto){
+        productService.saveProduct(saveProductDto);
         return new ResponseEntity<String>("Product saved successfully!", HttpStatus.OK);
     }
 
     @PostMapping("save-products")
-    public ResponseEntity<String> saveProducts(@RequestBody ProductListDto productListDto){
-        productService.saveProducts(productListDto);
+    public ResponseEntity<String> saveProducts(@RequestBody List<SaveProductDto> saveProductsDto){
+        productService.saveProducts(saveProductsDto);
         return new ResponseEntity<String>("Products saved successfully!", HttpStatus.OK);
     }
 
@@ -91,11 +92,5 @@ public class ProductController {
     public ResponseEntity<String> editProduct(@RequestBody ProductDto productDto) throws Exception {
         productService.editProduct(productDto);
         return new ResponseEntity<String>("Product edited successfully!", HttpStatus.OK);
-    }
-
-    @PutMapping("quick-stock-control")
-    public ResponseEntity<String> quickStockControl(@RequestBody List<UpdateStockAmountDto> updateStockAmountDto){
-        productService.quickStockControl(updateStockAmountDto);
-        return new ResponseEntity<String>("Product stock successfully increased!", HttpStatus.OK);
     }
 }

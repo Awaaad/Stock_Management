@@ -6,5 +6,5 @@ import java.util.List;
 
 @Data
 public class ProductListDto extends PaginationDto{
-    List<ProductDto> productDtos;
+    List<ProductDto> productsDto;
 }

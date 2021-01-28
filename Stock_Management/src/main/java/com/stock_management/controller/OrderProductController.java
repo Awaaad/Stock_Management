@@ -1,7 +1,7 @@
 package com.stock_management.controller;
 
-import com.stock_management.dto.OrderProductDto;
-import com.stock_management.service.OrderProductService;
+import com.stock_management.dto.OrderLineDto;
+import com.stock_management.service.OrderLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +14,14 @@ import java.util.List;
 @RequestMapping("/order-product")
 public class OrderProductController {
     @Autowired
-    private final OrderProductService orderProductService;
+    private final OrderLineService orderLineService;
 
-    public OrderProductController(OrderProductService orderProductService) {
-        this.orderProductService = orderProductService;
+    public OrderProductController(OrderLineService orderLineService) {
+        this.orderLineService = orderLineService;
     }
 
     @GetMapping("orderId/{orderId}")
-    public ResponseEntity<List<OrderProductDto>>getProductsByStockId(@PathVariable Long orderId){
-        return new ResponseEntity<>(orderProductService.findOrderProductsByOrderId(orderId), HttpStatus.OK);
+    public ResponseEntity<List<OrderLineDto>>getProductsByStockId(@PathVariable Long orderId){
+        return new ResponseEntity<>(orderLineService.findOrderProductsByOrderId(orderId), HttpStatus.OK);
     }
 }

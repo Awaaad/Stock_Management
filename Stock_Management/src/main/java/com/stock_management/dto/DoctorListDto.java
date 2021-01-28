@@ -6,5 +6,5 @@ import java.util.List;
 
 @Data
 public class DoctorListDto extends PaginationDto {
-    List<DoctorDto> doctorDtos;
+    List<DoctorDto> doctorsDto;
 }

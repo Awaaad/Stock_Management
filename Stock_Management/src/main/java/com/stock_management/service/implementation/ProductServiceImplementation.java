@@ -5,13 +5,19 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.stock_management.dto.CountProductsDto;
 import com.stock_management.dto.ProductDto;
 import com.stock_management.dto.ProductListDto;
-import com.stock_management.dto.UpdateStockAmountDto;
+import com.stock_management.dto.ProductStockDto;
+import com.stock_management.dto.SaveProductDto;
 import com.stock_management.entity.Product;
 import com.stock_management.entity.QProduct;
+import com.stock_management.entity.QStock;
+import com.stock_management.entity.Stock;
 import com.stock_management.mapper.ProductMapper;
 import com.stock_management.mapper.SupplierMapper;
+import com.stock_management.mapper.UserMapper;
 import com.stock_management.repository.ProductRepository;
+import com.stock_management.repository.StockRepository;
 import com.stock_management.repository.SupplierRepository;
+import com.stock_management.repository.UserRepository;
 import com.stock_management.service.ProductService;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -22,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,11 +37,11 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import java.awt.print.Pageable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -52,15 +59,21 @@ public class ProductServiceImplementation implements ProductService {
     private final ProductMapper productMapper;
     private final SupplierRepository supplierRepository;
     private final SupplierMapper supplierMapper;
+    private final UserRepository userRepository;
+    private final StockRepository stockRepository;
+    private final UserMapper userMapper;
 
     public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
     @Autowired
-    public ProductServiceImplementation(ProductRepository productRepository, ProductMapper productMapper, SupplierRepository supplierRepository, SupplierMapper supplierMapper) {
+    public ProductServiceImplementation(ProductRepository productRepository, ProductMapper productMapper, SupplierRepository supplierRepository, SupplierMapper supplierMapper, UserRepository userRepository, StockRepository stockRepository, UserMapper userMapper) {
         this.productRepository = productRepository;
         this.productMapper = productMapper;
         this.supplierRepository = supplierRepository;
         this.supplierMapper = supplierMapper;
+        this.userRepository = userRepository;
+        this.stockRepository = stockRepository;
+        this.userMapper = userMapper;
     }
     // GET
     @Override
@@ -70,8 +83,8 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     @Override
-    public ProductListDto findAllProductLessThanMinStockAmount(org.springframework.data.domain.Pageable pageable) {
-        Page<Product> products = productRepository.findAll((org.springframework.data.domain.Pageable) pageable);
+    public ProductListDto findAllProductLessThanMinStockAmount(Pageable pageable) {
+        Page<Product> products = productRepository.findAll(pageable);
         return getProductListLessThanMinStockAmountDto(products);
     }
 
@@ -79,18 +92,24 @@ public class ProductServiceImplementation implements ProductService {
         if (product == null) {
             return null;
         } else {
-            List<ProductDto> productDto = product.stream().filter(product1 -> product1.getBox() < product1.getMinStockAmount()).map(productMapper::mapProductEntityToDto).collect(Collectors.toList());
+            List<ProductDto> productDto = product.stream().filter(this::filterProduct).map(this::mapListOfProductWithAdditionalDetail).collect(Collectors.toList());
             ProductListDto productListDto = new ProductListDto();
-            productListDto.setProductDtos(productDto);
+            productListDto.setProductsDto(productDto);
             productListDto.setTotalElements(product.getNumberOfElements());
             productListDto.setTotalPages(product.getTotalPages());
             return productListDto;
         }
     }
 
+    private boolean filterProduct(Product product) {
+        var stocks = stockRepository.findStockByProduct_ProductId_AndQuantityIsGreaterThanOrderByCreatedDateDesc(product.getProductId(), 0);
+        double quantity = stocks.stream().mapToDouble(Stock::getQuantity).sum();
+        return quantity < product.getMinStockAmount();
+    }
+
     @Override
     public ProductListDto findAllProductList(Pageable pageable) {
-        Page<Product> products = productRepository.findAll((org.springframework.data.domain.Pageable) pageable);
+        Page<Product> products = productRepository.findAll(pageable);
         return getProductListDto(products);
     }
 
@@ -98,14 +117,21 @@ public class ProductServiceImplementation implements ProductService {
         if (product == null) {
             return null;
         } else {
-            List<ProductDto> productDto = product.stream().map(productMapper::mapProductEntityToDto).collect(Collectors.toList());
+            List<ProductDto> productDto = product.stream().map(this::mapListOfProductWithAdditionalDetail).collect(Collectors.toList());
             ProductListDto productListDto = new ProductListDto();
-            productListDto.setProductDtos(productDto);
+            productListDto.setProductsDto(productDto);
             productListDto.setTotalElements(product.getNumberOfElements());
             productListDto.setTotalPages(product.getTotalPages());
             return productListDto;
         }
     }
+
+    private ProductDto mapListOfProductWithAdditionalDetail(Product product) {
+        ProductDto productDto = new ProductDto();
+        var stocks = stockRepository.findStockByProduct_ProductId_AndQuantityIsGreaterThanOrderByCreatedDateDesc(product.getProductId(), 0);
+        return setProductDto(product, stocks, productDto);
+    }
+
 
     @Override
     public CountProductsDto countAllProducts() {
@@ -115,139 +141,150 @@ public class ProductServiceImplementation implements ProductService {
         return countProductsDto;
     }
 
-    // find product by product_id in productDto
     @Override
     public ProductDto findProductById(Long productId) {
-            Optional<Product> product = productRepository.findById(productId);
-            var oneProduct = product.orElse(null);
+            Optional<Product> optionalProduct = productRepository.findById(productId);
+            var product = optionalProduct.orElse(null);
+            var stocks = stockRepository.findStockByProduct_ProductId_AndQuantityIsGreaterThanOrderByCreatedDateDesc(productId, 0);
+
             ProductDto productDto = new ProductDto();
-            if (Objects.nonNull(oneProduct)) {
-                productDto.setProductId(oneProduct.getProductId());
-                productDto.setProductName(oneProduct.getProductName());
-                productDto.setDescription(oneProduct.getDescription());
-                productDto.setCategory(oneProduct.getCategory());
-                productDto.setBox(oneProduct.getBox());
-                productDto.setDosage(oneProduct.getDosage());
-                productDto.setWholeSalePrice(oneProduct.getWholeSalePrice());
-                productDto.setUnitsPerBox(oneProduct.getUnitsPerBox());
-                productDto.setUnitsTotal(oneProduct.getUnitsTotal());
-                productDto.setOldPricePerBox(oneProduct.getOldPricePerBox());
-                productDto.setPricePerBox(oneProduct.getPricePerBox());
-                productDto.setPricePerUnit(oneProduct.getPricePerUnit());
-                productDto.setRequirePrescription(oneProduct.getRequirePrescription());
-                productDto.setSlot(oneProduct.getSlot());
-                productDto.setMinStockAmount(oneProduct.getMinStockAmount());
-                productDto.setExpiryDate(oneProduct.getExpiryDate());
-                productDto.setSupplier(supplierMapper.mapSupplierEntityToDto(oneProduct.getSupplier()));
-                if (oneProduct.getUnitsTotal() > oneProduct.getUnitsPerBox()) {
-                    productDto.setMaxUnitsCanBeEntered(oneProduct.getUnitsPerBox().doubleValue());
-                } else {
-                    productDto.setMaxUnitsCanBeEntered(oneProduct.getUnitsTotal());
-                }
+            if (Objects.nonNull(product)) {
+                setProductDto(product, stocks, productDto);
             }
 
             return productDto;
     }
 
+    private ProductDto setProductDto(Product product, List<Stock> stocks, ProductDto productDto) {
+        productDto.setProductId(product.getProductId());
+        productDto.setProductName(product.getProductName());
+        productDto.setDescription(product.getDescription());
+        productDto.setDosage(product.getDosage());
+        productDto.setCategory(product.getCategory());
+        productDto.setMinStockAmount(product.getMinStockAmount());
+        productDto.setUnitsPerBox(product.getUnitsPerBox());
+        productDto.setRequirePrescription(product.getRequirePrescription());
+        productDto.setSlot(product.getSlot());
+        productDto.setCreatedBy(userMapper.mapUserEntityToDto(product.getCreatedBy()));
+        productDto.setCreatedDate(product.getCreatedDate());
+        productDto.setLastModifiedBy(userMapper.mapUserEntityToDto(product.getLastModifiedBy()));
+        productDto.setLastModifiedDate(product.getLastModifiedDate());
+        productDto.setProductStocksDto(mapStockToProductStock(stocks));
+        productDto.setSupplier(supplierMapper.mapSupplierEntityToDto(product.getSupplier()));
+        return productDto;
+    }
+
+    private List<ProductStockDto> mapStockToProductStock(List<Stock> stocks) {
+        ProductStockDto productStockDto = new ProductStockDto();
+        List<ProductStockDto> productStocksDto = new ArrayList<>();
+        stocks.forEach(stock -> {
+            productStockDto.setStockId(stock.getStockId());
+            productStockDto.setQuantity(stock.getQuantity());
+            productStockDto.setUnitsTotal(stock.getUnitsTotal());
+            productStockDto.setWholeSalePrice(stock.getWholeSalePrice());
+            productStockDto.setPricePerBox(stock.getPricePerBox());
+            productStockDto.setPricePerUnit(stock.getPricePerUnit());
+            productStockDto.setExpiryDate(stock.getExpiryDate());
+            productStockDto.setMaxUnitsCanBeEntered(null);
+            productStocksDto.add(productStockDto);
+        });
+
+        return productStocksDto;
+    }
+
     @Override
     public Long findNumberOfProductsLowInStock() {
         List<Product> products = productRepository.findAll();
-        Long numberOfProductsLowInStock = products.stream().filter(product -> product.getBox() <= product.getMinStockAmount()).count();
-        return numberOfProductsLowInStock;
-    }
-
-    // POST
-    @Override
-    @Transactional
-    public void saveProduct(ProductDto productDto) {
-        productDto.setUnitsTotal((productDto.getBox() * productDto.getUnitsPerBox()));
-        productDto.setPricePerUnit(productDto.getPricePerBox() / productDto.getUnitsPerBox());
-        var saveProductInformation = productMapper.mapProductDtoToEntity(productDto);
-        productRepository.save(saveProductInformation);
+        return products.stream().filter(this::filterProduct).count();
     }
 
     // PUT
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void editProduct(ProductDto productDto) throws Exception {
-        var product = findProductById(productDto.getProductId());
-        if (product != null) {
+        var optionalProduct = productRepository.findById(productDto.getProductId());
+        var product = optionalProduct.orElse(null);
+
+        var optionalUser = userRepository.findById(productDto.getLastModifiedBy().getUserId());
+        var user = optionalUser.orElse(null);
+
+        var optionalSupplier = supplierRepository.findById(productDto.getSupplier().getSupplierId());
+        var supplier = optionalSupplier.orElse(null);
+
+        var stocks = stockRepository.findStockByProduct_ProductId_AndQuantityIsGreaterThanOrderByCreatedDateDesc(productDto.getProductId(), 0);
+
+        if (Objects.nonNull(product)) {
             product.setProductName(productDto.getProductName());
             product.setDescription(productDto.getDescription());
             product.setCategory(productDto.getCategory());
-            product.setBox(productDto.getBox());
             product.setDosage(productDto.getDosage());
             product.setUnitsPerBox(productDto.getUnitsPerBox());
-            product.setUnitsTotal((productDto.getBox() * productDto.getUnitsPerBox()));
-            product.setWholeSalePrice(productDto.getWholeSalePrice());
-            product.setOldPricePerBox(productDto.getOldPricePerBox());
-            product.setPricePerBox(productDto.getPricePerBox());
-            product.setPricePerUnit(productDto.getPricePerBox() / productDto.getUnitsPerBox());
             product.setRequirePrescription(productDto.getRequirePrescription());
             product.setSlot(productDto.getSlot());
             product.setMinStockAmount(productDto.getMinStockAmount());
-            product.setExpiryDate(productDto.getExpiryDate().plusDays(1));
-            product.setSupplier(productDto.getSupplier());
-            productRepository.save(productMapper.mapProductDtoToEntity(product));
+            product.setSupplier(supplier);
+            product.setLastModifiedBy(user);
+            product.setLastModifiedDate(new Date());
+            productRepository.save(product);
+
+            if (Objects.nonNull(stocks)) {
+//                stock.setProduct(productMapper.mapProductDtoToEntity(productDto));
+//                stock.setQuantity(productDto.getBox());
+//                stock.setUnitsTotal((productDto.getBox() * productDto.getUnitsPerBox()));
+//                stock.setWholeSalePrice(productDto.getWholeSalePrice());
+//                stock.setPricePerBox(productDto.getPricePerBox());
+//                stock.setPricePerUnit(productDto.getPricePerBox() / productDto.getUnitsPerBox());
+//                stock.setExpiryDate(productDto.getExpiryDate().plusDays(1));
+//                stockRepository.save(stock);
+            }
         } else {
             throw new Exception("product.not.found");
         }
     }
 
+    // POST
     @Override
     @Transactional
-    public void quickStockControl(List<UpdateStockAmountDto> updateStockAmountDto) {
-        List<UpdateStockAmountDto> updateStockAmountDtos = new ArrayList<>();
-        for (UpdateStockAmountDto usad : updateStockAmountDto) {
-            if (!Objects.equals(usad.getAmount(), 0)) {
-                if (Objects.nonNull(usad.getAmount()) ){
-                    updateStockAmountDtos.add(usad);
-                }
-            }
-        }
-        productRepository.saveAll((updateStockAmountDtos.stream().map(this::mapProduct).collect(Collectors.toList()))
-        );
-    }
-
-    private Product mapProduct(UpdateStockAmountDto updateStockAmountDto) {
-        var product = productRepository.findById(updateStockAmountDto.getId());
-        if (product.isPresent()) {
-            var productEntity = product.get();
-            var currentBoxStock = productEntity.getBox();
-            var currentUnitStock = productEntity.getUnitsTotal();
-            productEntity.setBox(currentBoxStock + updateStockAmountDto.getAmount());
-            productEntity.setUnitsTotal(updateStockAmountDto.getAmount() * productEntity.getUnitsPerBox() + currentUnitStock);
-            if (Objects.nonNull(updateStockAmountDto.getNewPrice())) {
-                productEntity.setOldPricePerBox(productEntity.getPricePerBox());
-                productEntity.setPricePerBox(updateStockAmountDto.getNewPrice());
-            }
-            return productEntity;
-        } else {
-            return null;
-        }
+    public void saveProduct(SaveProductDto saveProductDto) {
+        saveProductAndStock(saveProductDto);
     }
 
     @Override
     @Transactional
-    public void saveProducts(ProductListDto productListDto) {
-        for (ProductDto productDto: productListDto.getProductDtos()) {
-            productDto.setExpiryDate(productDto.getExpiryDate().plusDays(1));
-            productDto.setOldPricePerBox(0D);
-            productDto.setUnitsTotal((productDto.getBox() * productDto.getUnitsPerBox()));
-            productDto.setPricePerUnit(productDto.getPricePerBox() / productDto.getUnitsPerBox());
-        }
-        var saveMultipleProduct = productListDto.getProductDtos().stream().map(productMapper::mapProductDtoToEntity).collect(Collectors.toList());
-        productRepository.saveAll(saveMultipleProduct);
+    public void saveProducts(List<SaveProductDto> saveProductsDto) {
+        saveProductsDto.forEach(this::saveProductAndStock);
     }
 
-    @Override
-    public void upload(MultipartFile file) throws IOException {
-        try {
-            List<Product> products = excelToProducts(file.getInputStream());
-            productRepository.saveAll(products);
-        } catch (IOException e) {
-            throw new RuntimeException("fail to store excel data: " + e.getMessage());
-        }
+    private void saveProductAndStock(SaveProductDto saveProductDto) {
+        Stock stock = new Stock();
+
+        var savedProduct = productRepository.save(mapSaveProductDtoToEntity(saveProductDto));
+
+        stock.setProduct(savedProduct);
+        stock.setQuantity(saveProductDto.getBox());
+        stock.setWholeSalePrice(saveProductDto.getWholeSalePrice());
+        stock.setPricePerBox(saveProductDto.getPricePerBox());
+        stock.setExpiryDate(saveProductDto.getExpiryDate().plusDays(1));
+        stock.setUnitsTotal((saveProductDto.getBox() * saveProductDto.getUnitsPerBox()));
+        stock.setPricePerUnit(saveProductDto.getPricePerBox() / saveProductDto.getUnitsPerBox());
+        stock.setCreatedDate(new Date());
+        stockRepository.save(stock);
+    }
+
+    private Product mapSaveProductDtoToEntity(SaveProductDto saveProductDto) {
+        Product product = new Product();
+        product.setProductId(saveProductDto.getProductId());
+        product.setProductName(saveProductDto.getProductName());
+        product.setDescription(saveProductDto.getDescription());
+        product.setDosage(saveProductDto.getDosage());
+        product.setCategory(saveProductDto.getCategory());
+        product.setMinStockAmount(saveProductDto.getMinStockAmount());
+        product.setUnitsPerBox(saveProductDto.getUnitsPerBox());
+        product.setRequirePrescription(saveProductDto.getRequirePrescription());
+        product.setSlot(saveProductDto.getSlot());
+        product.setSupplier(supplierMapper.mapSupplierDtoToEntity(saveProductDto.getSupplier()));
+        product.setCreatedBy(userMapper.mapUserDtoToEntity(saveProductDto.getCreatedBy()));
+        return product;
     }
 
     @Override
@@ -257,17 +294,17 @@ public class ProductServiceImplementation implements ProductService {
         BooleanBuilder predicate = buildProductPredicate(productName, supplierId, category, slot, expiryDate);
         Page<Product> product = productRepository.findAll(predicate,pageRequest);
         if (productLowInStock) {
-            List<ProductDto> productDtos = product.stream().filter(product1 -> product1.getBox() < product1.getMinStockAmount()).map(productMapper::mapProductEntityToDto).collect(Collectors.toList());
+            List<ProductDto> productDtos = product.stream().filter(this::filterProduct).map(this::mapListOfProductWithAdditionalDetail).collect(Collectors.toList());
             return getProductListDto(product, productDtos);
         }
-        List<ProductDto> productDtos = product.stream().map(productMapper::mapProductEntityToDto).collect(Collectors.toList());
+        List<ProductDto> productDtos = product.stream().map(this::mapListOfProductWithAdditionalDetail).collect(Collectors.toList());
         return getProductListDto(product, productDtos);
 
     }
 
     private ProductListDto getProductListDto(Page<Product> product, List<ProductDto> productDtos) {
         var productListDto = new ProductListDto();
-        productListDto.setProductDtos(productDtos);
+        productListDto.setProductsDto(productDtos);
         productListDto.setTotalElements(product.getNumberOfElements());
         productListDto.setTotalPages(product.getTotalPages());
         return productListDto;
@@ -276,6 +313,7 @@ public class ProductServiceImplementation implements ProductService {
 
     private BooleanBuilder buildProductPredicate(String productName, Long supplierId, String category, String slot, LocalDate expiryDate) {
         var qProduct = QProduct.product;
+        var qStock = QStock.stock;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if(!productName.equals("")) {
             booleanBuilder.and(qProduct.productName.toLowerCase().contains(productName.toLowerCase()));
@@ -290,7 +328,7 @@ public class ProductServiceImplementation implements ProductService {
             booleanBuilder.and(qProduct.category.toLowerCase().eq(category.toLowerCase()));
         }
         if(Objects.nonNull(expiryDate)) {
-            booleanBuilder.and(qProduct.expiryDate.before(expiryDate));
+            booleanBuilder.and(qStock.expiryDate.before(expiryDate).and(qStock.quantity.ne(0D)));
         }
         return booleanBuilder;
     }
@@ -301,12 +339,17 @@ public class ProductServiceImplementation implements ProductService {
         var slots = new JPAQuery<Product>(entityManager).select(
                 qProduct.slot).distinct().from(qProduct).fetchResults().getResults();
 
-        List<String> list = new ArrayList<>();
-        for (String s : slots) {
-            list.add(s);
-        }
+        return new ArrayList<>(slots);
+    }
 
-        return list;
+    @Override
+    public void upload(MultipartFile file) throws IOException {
+        try {
+            List<SaveProductDto> saveProductsDto = excelToProducts(file.getInputStream());
+            saveProducts(saveProductsDto);
+        } catch (IOException e) {
+            throw new RuntimeException("fail to store excel data: " + e.getMessage());
+        }
     }
 
     public boolean hasExcelFormat(MultipartFile file) {
@@ -318,14 +361,14 @@ public class ProductServiceImplementation implements ProductService {
         return true;
     }
 
-    public List<Product> excelToProducts(InputStream is) {
+    public List<SaveProductDto> excelToProducts(InputStream is) {
         try {
             Workbook workbook = new XSSFWorkbook(is);
 
             Sheet sheet = workbook.getSheetAt(0);
             Iterator<Row> rows = sheet.iterator();
 
-            List<Product> products = new ArrayList<Product>();
+            List<SaveProductDto> saveProductsDto = new ArrayList<SaveProductDto>();
 
             int rowNumber = 0;
             while (rows.hasNext()) {
@@ -339,7 +382,7 @@ public class ProductServiceImplementation implements ProductService {
 
                 Iterator<Cell> cellsInRow = currentRow.iterator();
 
-                Product product = new Product();
+                SaveProductDto saveProductDto = new SaveProductDto();
 
                 int cellIdx = 0;
                 while (cellsInRow.hasNext()) {
@@ -347,80 +390,76 @@ public class ProductServiceImplementation implements ProductService {
 
                     switch (cellIdx) {
                         case 0:
-                            product.setProductName(currentCell.getStringCellValue());
+                            saveProductDto.setProductName(currentCell.getStringCellValue());
                             break;
 
                         case 1:
                             if (currentCell.getStringCellValue().equals("NULL")) {
-                                product.setDescription("");
+                                saveProductDto.setDescription("");
                             } else {
-                                product.setDescription(currentCell.getStringCellValue());
+                                saveProductDto.setDescription(currentCell.getStringCellValue());
                             }
                             break;
 
                         case 2:
                             if (currentCell.getStringCellValue().equals("NULL")) {
-                                product.setDosage("0");
+                                saveProductDto.setDosage("0");
                             } else {
-                                product.setDosage(currentCell.getStringCellValue());
+                                saveProductDto.setDosage(currentCell.getStringCellValue());
                             }
                             break;
 
                         case 3:
                             if (currentCell.getStringCellValue().equals("NULL")) {
-                                product.setCategory("");
+                                saveProductDto.setCategory("");
                             } else {
-                                product.setCategory(currentCell.getStringCellValue());
+                                saveProductDto.setCategory(currentCell.getStringCellValue());
                             }
                             break;
 
                         case 4:
-                            product.setBox((double) currentCell.getNumericCellValue());
+                            saveProductDto.setBox((double) currentCell.getNumericCellValue());
                             break;
 
                         case 5:
-                            product.setUnitsPerBox((int) currentCell.getNumericCellValue());
+                            saveProductDto.setUnitsPerBox((int) currentCell.getNumericCellValue());
                             break;
 
                         case 6:
-                            product.setUnitsTotal((double) currentCell.getNumericCellValue());
+                            saveProductDto.setUnitsTotal((double) currentCell.getNumericCellValue());
                             break;
 
                         case 7:
-                            product.setOldPricePerBox((double) currentCell.getNumericCellValue());
+                            saveProductDto.setPricePerBox((double) currentCell.getNumericCellValue());
                             break;
 
                         case 8:
-                            product.setPricePerBox((double) currentCell.getNumericCellValue());
+                            saveProductDto.setPricePerUnit((double) currentCell.getNumericCellValue());
                             break;
 
                         case 9:
-                            product.setPricePerUnit((double) currentCell.getNumericCellValue());
+                            saveProductDto.setRequirePrescription(currentCell.getBooleanCellValue());
                             break;
 
                         case 10:
-                            product.setRequirePrescription(currentCell.getBooleanCellValue());
+                            saveProductDto.setSlot(currentCell.getStringCellValue());
                             break;
 
                         case 11:
-                            product.setSlot(currentCell.getStringCellValue());
+                            saveProductDto.setExpiryDate(currentCell.getLocalDateTimeCellValue().toLocalDate());
                             break;
 
                         case 12:
-                            product.setExpiryDate(currentCell.getLocalDateTimeCellValue().toLocalDate());
+                            var supplier = supplierRepository.findSupplierBySupplierName(currentCell.getStringCellValue());
+                            saveProductDto.setSupplier(supplierMapper.mapSupplierEntityToDto(supplier));
                             break;
 
                         case 13:
-                            var supplier = supplierRepository.findSupplierBySupplierName(currentCell.getStringCellValue());
-                            product.setSupplier(supplier);
+                            saveProductDto.setMinStockAmount((int) currentCell.getNumericCellValue());
                             break;
 
                         case 14:
-                            product.setMinStockAmount((int) currentCell.getNumericCellValue());
-                            break;
-
-                        case 15:
-                            product.setWholeSalePrice((double) currentCell.getNumericCellValue());
+                            saveProductDto.setWholeSalePrice((double) currentCell.getNumericCellValue());
                             break;
 
                         default:
@@ -430,12 +469,12 @@ public class ProductServiceImplementation implements ProductService {
                     cellIdx++;
                 }
 
-                products.add(product);
+                saveProductsDto.add(saveProductDto);
             }
 
             workbook.close();
 
-            return products;
+            return saveProductsDto;
         } catch (IOException e) {
             throw new RuntimeException("fail to parse Excel file: " + e.getMessage());
         }

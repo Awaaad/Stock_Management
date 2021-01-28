@@ -1,25 +1,22 @@
 package com.stock_management.service.implementation;
 
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.stock_management.dto.CustomerReceiptDto;
 import com.stock_management.dto.MonthlySalesDto;
 import com.stock_management.dto.OrderDto;
+import com.stock_management.dto.OrderLineDto;
 import com.stock_management.dto.OrderListDto;
-import com.stock_management.dto.OrderProductDto;
 import com.stock_management.entity.Order;
-import com.stock_management.entity.OrderProduct;
 import com.stock_management.entity.QOrder;
-import com.stock_management.entity.QOrderProduct;
 import com.stock_management.entity.QProduct;
 import com.stock_management.mapper.CustomerMapper;
 import com.stock_management.mapper.DoctorMapper;
 import com.stock_management.mapper.OrderMapper;
-import com.stock_management.mapper.OrderProductMapper;
+import com.stock_management.mapper.OrderLineMapper;
 import com.stock_management.mapper.ReceiptMapper;
 import com.stock_management.repository.CustomerRepository;
 import com.stock_management.repository.DoctorRepository;
-import com.stock_management.repository.OrderProductRepository;
+import com.stock_management.repository.OrderLineRepository;
 import com.stock_management.repository.OrderRepository;
 import com.stock_management.repository.ProductRepository;
 import com.stock_management.service.OrderService;
@@ -32,7 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -48,21 +44,21 @@ public class OrderServiceImplementation implements OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
-    private final OrderProductMapper orderProductMapper;
+    private final OrderLineMapper orderLineMapper;
     private final ProductRepository productRepository;
-    private final OrderProductRepository orderProductRepository;
+    private final OrderLineRepository orderLineRepository;
     private final ReceiptMapper receiptMapper;
     private final DoctorRepository doctorRepository;
     private final DoctorMapper doctorMapper;
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
 
-    public OrderServiceImplementation(OrderRepository orderRepository, OrderMapper orderMapper, OrderProductMapper orderProductMapper, ProductRepository productRepository, OrderProductRepository orderProductRepository, ReceiptMapper receiptMapper, DoctorRepository doctorRepository, DoctorMapper doctorMapper, CustomerRepository customerRepository, CustomerMapper customerMapper) {
+    public OrderServiceImplementation(OrderRepository orderRepository, OrderMapper orderMapper, OrderLineMapper orderLineMapper, ProductRepository productRepository, OrderLineRepository orderLineRepository, ReceiptMapper receiptMapper, DoctorRepository doctorRepository, DoctorMapper doctorMapper, CustomerRepository customerRepository, CustomerMapper customerMapper) {
         this.orderRepository = orderRepository;
         this.orderMapper = orderMapper;
-        this.orderProductMapper = orderProductMapper;
+        this.orderLineMapper = orderLineMapper;
         this.productRepository = productRepository;
-        this.orderProductRepository = orderProductRepository;
+        this.orderLineRepository = orderLineRepository;
         this.receiptMapper = receiptMapper;
         this.doctorRepository = doctorRepository;
         this.doctorMapper = doctorMapper;
@@ -100,7 +96,7 @@ public class OrderServiceImplementation implements OrderService {
         }
 
         var orderListDto = new OrderListDto();
-        orderListDto.setOrderDtos(orderDtos);
+        orderListDto.setOrdersDto(orderDtos);
         orderListDto.setTotalElements(orders.getNumberOfElements());
         orderListDto.setTotalPages(orders.getTotalPages());
         return orderListDto;
@@ -116,62 +112,65 @@ public class OrderServiceImplementation implements OrderService {
         if(Objects.nonNull(userId) && userId != 0) {
             booleanBuilder.and(qOrder.userProfile.userId.eq(userId));
         }
-        if(Objects.nonNull(orderDateTimeFrom)) {
-            booleanBuilder.and(qOrder.orderDate.after(orderDateTimeFrom));
-        }
-        if(Objects.nonNull(orderDateTimeTo)) {
-            booleanBuilder.and(qOrder.orderDate.before(orderDateTimeTo));
-        }
-        if(Objects.nonNull(paid)) {
-            booleanBuilder.and(qOrder.paid.eq(paid));
-        }
+//        if(Objects.nonNull(orderDateTimeFrom)) {
+//            booleanBuilder.and(qOrder.orderDate.after(orderDateTimeFrom));
+//        }
+//        if(Objects.nonNull(orderDateTimeTo)) {
+//            booleanBuilder.and(qOrder.orderDate.before(orderDateTimeTo));
+//        }
+//        if(Objects.nonNull(paid)) {
+//            booleanBuilder.and(qOrder.paid.eq(paid));
+//        }
         return booleanBuilder;
     }
 
     @Override
     public CustomerReceiptDto findCustomerReceiptDetails(Long orderId) {
         var qOrder = QOrder.order;
-        var qOrderProduct = QOrderProduct.orderProduct;
+//        var qOrderProduct = QOrderProduct.orderProduct;
         var qProduct = QProduct.product;
 
-        if (Objects.nonNull(orderId)) {
-            var customerReceipt = new JPAQuery<OrderProduct>(entityManager).select(
-                    qOrder.orderId.as("orderId"),
-                    qOrder.userProfile.firstName.as("cashierName"),
-                    qOrder.orderDate.as("orderDate"),
-                    qOrder.totalPrice.as("totalPrice"),
-                    qOrderProduct.product.productName.as("productName"),
-                    qOrderProduct.boxesOrdered.as("boxesOrdered"),
-                    qOrderProduct.unitsOrdered.as("unitsOrdered"),
-                    qOrderProduct.totalPrice.as("price"),
-                    qProduct.pricePerBox.as("pricePerBox"),
-                    qProduct.pricePerUnit.as("pricePerUnit"),
-                    qProduct.unitsPerBox.as("unitsPerBox"))
-                    .from(qOrderProduct)
-                    .leftJoin(qOrderProduct.order, qOrder)
-                    .leftJoin(qOrderProduct.product, qProduct)
-                    .where(qOrder.orderId.eq(orderId))
-                    .fetchResults().getResults();
-
-            return receiptMapper.mapCustomerReceiptDtoEntityToDto(customerReceipt);
-        } else {
-            return null;
-        }
+//        if (Objects.nonNull(orderId)) {
+//            var customerReceipt = new JPAQuery<OrderProduct>(entityManager).select(
+//                    qOrder.orderId.as("orderId"),
+//                    qOrder.userProfile.firstName.as("cashierName"),
+////                    qOrder.orderDate.as("orderDate"),
+//                    qOrder.totalPrice.as("totalPrice"),
+//                    qOrderProduct.product.productName.as("productName"),
+//                    qOrderProduct.boxesOrdered.as("boxesOrdered"),
+//                    qOrderProduct.unitsOrdered.as("unitsOrdered"),
+//                    qOrderProduct.totalPrice.as("price"),
+////                    qProduct.pricePerBox.as("pricePerBox"),
+////                    qProduct.pricePerUnit.as("pricePerUnit"),
+//                    qProduct.unitsPerBox.as("unitsPerBox"))
+//                    .from(qOrderProduct)
+//                    .leftJoin(qOrderProduct.order, qOrder)
+//                    .leftJoin(qOrderProduct.product, qProduct)
+//                    .where(qOrder.orderId.eq(orderId))
+//                    .fetchResults().getResults();
+//
+//            return receiptMapper.mapCustomerReceiptDtoEntityToDto(customerReceipt);
+//        } else {
+//            return null;
+//        }
+        return null;
     }
 
     @Override
     public Double findEODSalesAmount(LocalDate dateTime) {
         var order = orderRepository.findAll();
-        return order.stream().filter(order1 -> dateTime.equals(order1.getOrderDate().toLocalDate())).mapToDouble(Order::getTotalPrice).sum();
+//        return order.stream().filter(order1 -> dateTime.equals(order1.getOrderDate().toLocalDate())).mapToDouble(Order::getTotalPrice).sum();
+        return null;
     }
 
     @Override
     public Double findMonthSalesAmount(LocalDate month, LocalDate year) {
         var order = orderRepository.findAll();
-        return order.stream().filter(order1 ->
-                month.getMonth().equals(order1.getOrderDate().toLocalDate().getMonth()) &&
-                        (year.getYear() == (order1.getOrderDate().toLocalDate().getYear())))
-                .mapToDouble(Order::getTotalPrice).sum();
+//        return order.stream().filter(order1 ->
+//                month.getMonth().equals(order1.getOrderDate().toLocalDate().getMonth()) &&
+//                        (year.getYear() == (order1.getOrderDate().toLocalDate().getYear())))
+//                .mapToDouble(Order::getTotalPrice).sum();
+        return null;
     }
 
     @Override
@@ -194,19 +193,20 @@ public class OrderServiceImplementation implements OrderService {
     }
 
     private Double computeSumForOrder(List<Order> order, LocalDate year, int month) {
-        return order.stream().filter(order1 -> year.getYear() == order1.getOrderDate().getYear() && order1.getOrderDate().getMonthValue() == month).mapToDouble(Order::getTotalPrice).sum();
+//        return order.stream().filter(order1 -> year.getYear() == order1.getOrderDate().getYear() && order1.getOrderDate().getMonthValue() == month).mapToDouble(Order::getTotalPrice).sum();
+        return null;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveOrder(OrderDto orderDto) throws Exception {
-        List<OrderProductDto> orderProductDtos = new ArrayList<>();
-        for (OrderProductDto orderProductDto : orderDto.getOrderProductDtos()) {
-            if (!orderProductDto.getBoxesOrdered().equals(0) || !orderProductDto.getUnitsOrdered().equals(0)) {
-                orderProductDtos.add(orderProductDto);
-            }
-        }
-        orderDto.setOrderProductDtos(orderProductDtos);
+        List<OrderLineDto> orderLineDtos = new ArrayList<>();
+//        for (OrderLineDto orderLineDto : orderDto.getOrderProductsDto()) {
+//            if (!orderLineDto.getBoxesOrdered().equals(0) || !orderLineDto.getUnitsOrdered().equals(0)) {
+//                orderLineDtos.add(orderLineDto);
+//            }
+//        }
+//        orderDto.setOrderProductsDto(orderLineDtos);
 
         if (orderDto.getPrescription().equals(true)) {
             if (orderDto.getIsNewCustomer().equals(true)) {
@@ -244,45 +244,45 @@ public class OrderServiceImplementation implements OrderService {
 
         var order = orderMapper.mapOrderDtoToEntity(orderDto);
         var savedOrder = orderRepository.save(order);
-        orderProductRepository.saveAll(orderDto.getOrderProductDtos().stream().map(orderProductDto ->
-        {
-            try {
-                return mapOrderProduct(orderProductDto, savedOrder);
-            } catch (Exception e) {
-                System.out.println(e.toString());
-            }
-            return null;
-        }).collect(Collectors.toList()));
+//        orderLineRepository.saveAll(orderDto.getOrderProductsDto().stream().map(orderProductDto ->
+//        {
+//            try {
+//                return mapOrderProduct(orderProductDto, savedOrder);
+//            } catch (Exception e) {
+//                System.out.println(e.toString());
+//            }
+//            return null;
+//        }).collect(Collectors.toList()));
     }
 
-    private OrderProduct mapOrderProduct(OrderProductDto orderProductDto, Order order) throws Exception {
-        var orderProduct = orderProductMapper.mapOrderProductDtoToEntity(orderProductDto);
-        orderProduct.setOrder(order);
-        var product = productRepository.findById(orderProductDto.getProductDto().getProductId());
-        if (product.isPresent()) {
-            var productEntity = product.get();
-            orderProduct.setProduct(productEntity);
-            var currentUnits = productEntity.getUnitsTotal();
-            if (order.getAmountPaid() > order.getTotalPrice()) {
-                throw new Exception("amount.paid.greater.than.total.price");
-            }
-            if (currentUnits - (orderProductDto.getUnitsOrdered()) < 0) {
-                throw new Exception("total.units.less.than.zero");
-            } else {
-                productEntity.setUnitsTotal(currentUnits - (orderProductDto.getUnitsOrdered()));
-                productEntity.setBox((double) (productEntity.getUnitsTotal()/productEntity.getUnitsPerBox()));
-            }
-        }
-        return orderProduct;
-    }
+//    private OrderLine mapOrderProduct(OrderLineDto orderLineDto, Order order) throws Exception {
+//        var orderProduct = orderLineMapper.mapOrderProductDtoToEntity(orderLineDto);
+//        orderProduct.setOrder(order);
+//        var product = productRepository.findById(orderProductDto.getProductDto().getProductId());
+//        if (product.isPresent()) {
+//            var productEntity = product.get();
+//            orderProduct.setProduct(productEntity);
+//            var currentUnits = productEntity.getUnitsTotal();
+//            if (order.getAmountPaid() > order.getTotalPrice()) {
+//                throw new Exception("amount.paid.greater.than.total.price");
+//            }
+//            if (currentUnits - (orderProductDto.getUnitsOrdered()) < 0) {
+//                throw new Exception("total.units.less.than.zero");
+//            } else {
+//                productEntity.setUnitsTotal(currentUnits - (orderProductDto.getUnitsOrdered()));
+//                productEntity.setBox((double) (productEntity.getUnitsTotal()/productEntity.getUnitsPerBox()));
+//            }
+//        }
+//        return orderProduct;
+//    }
 
     @Override
     @Transactional
     public void editOrder(OrderDto orderDto) throws Exception {
         var order = findOrderById(orderDto.getOrderId());
         if (order != null) {
-            order.setPaid(true);
-            order.setAmountPaid(orderDto.getAmountPaid());
+//            order.setPaid(true);
+//            order.setAmountPaid(orderDto.getAmountPaid());
             orderRepository.save(orderMapper.mapOrderDtoToEntity(order));
         } else {
             throw new Exception("order.not.found");

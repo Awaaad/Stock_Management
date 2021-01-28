@@ -4,8 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -31,29 +37,11 @@ public class Product {
     @Column(name = "CATEGORY")
     private String category;
 
-    @Column(name = "BOX", nullable = false)
-    private Double box;
-
     @Column(name = "MIN_STOCK_AMOUNT", nullable = false)
     private Integer minStockAmount;
 
     @Column(name = "UNITS_PER_BOX")
     private Integer unitsPerBox;
-
-    @Column(name = "UNITS_TOTAL")
-    private Double unitsTotal;
-
-    @Column(name = "WHOLE_SALE_PRICE", nullable = false)
-    private Double wholeSalePrice;
-
-    @Column(name = "OLD_PRICE_PER_BOX", nullable = false)
-    private Double oldPricePerBox;
-
-    @Column(name = "PRICE_PER_BOX", nullable = false)
-    private Double pricePerBox;
-
-    @Column(name = "PRICE_PER_UNIT", nullable = false)
-    private Double pricePerUnit;
 
     @Column(name = "REQUIRE_PRESCRIPTION", nullable = false)
     private Boolean requirePrescription;
@@ -61,16 +49,37 @@ public class Product {
     @Column(name = "SLOT")
     private String slot;
 
-    @Column(name = "EXPIRY_DATE")
-    private LocalDate expiryDate;
-
     @ManyToOne(targetEntity = Supplier.class)
     @JoinColumn(name = "SUPPLIER_ID", referencedColumnName = "SUPPLIER_ID")
     private Supplier supplier;
 
-    @OneToMany(mappedBy = "product")
-    List<OrderProduct> orderProducts;
+    @CreatedBy
+    @ManyToOne(targetEntity = UserProfile.class)
+    @JoinColumn(name = "CREATED_BY", referencedColumnName = "USER_ID")
+    private UserProfile createdBy;
 
-    @OneToMany(mappedBy = "product")
-    List<PurchaseInvoiceProduct> purchaseInvoiceProducts;
+    @CreatedDate
+    @Column(name = "CREATED_DATE")
+    private Date createdDate;
+
+    @LastModifiedBy
+    @ManyToOne(targetEntity = UserProfile.class)
+    @JoinColumn(name = "LAST_MODIFIED_BY", referencedColumnName = "USER_ID")
+    private UserProfile lastModifiedBy;
+
+    @LastModifiedDate
+    @Column(name = "LAST_Modified_DATE")
+    private Date lastModifiedDate;
+
+    @PrePersist
+    protected void prePersist() {
+        createdDate = new Date();
+        lastModifiedDate = new Date();
+        lastModifiedBy = createdBy;
+    }
+
+    @PreUpdate
+    protected void preUpdate() {
+        lastModifiedDate = new Date();
+    }
 }

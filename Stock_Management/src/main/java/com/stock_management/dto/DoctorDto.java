@@ -1,11 +1,13 @@
 package com.stock_management.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class DoctorDto {
+public class DoctorDto extends AuditDto {
     private Long doctorId;
     private String firstName;
     private String lastName;

@@ -39,7 +39,7 @@ public class CustomerServiceImplementation implements CustomerService {
         Page<Customer> customers = customerRepository.findAll(predicate,pageRequest);
         List<CustomerDto> customerDtos = customers.stream().map(customerMapper::mapCustomerEntityToDto).collect(Collectors.toList());
         var customerDtoList = new CustomerListDto();
-        customerDtoList.setCustomerDtos(customerDtos);
+        customerDtoList.setCustomersDto(customerDtos);
         customerDtoList.setTotalElements(customers.getNumberOfElements());
         customerDtoList.setTotalPages(customers.getTotalPages());
         return customerDtoList;

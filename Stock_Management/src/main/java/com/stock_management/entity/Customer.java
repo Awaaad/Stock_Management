@@ -50,7 +50,7 @@ public class Customer {
     private UserProfile createdBy;
 
     @CreatedDate
-    @Column(name = "CREATED_DATE", nullable = false)
+    @Column(name = "CREATED_DATE")
     private Date createdDate;
 
     @LastModifiedBy
