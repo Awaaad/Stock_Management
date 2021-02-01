@@ -4,22 +4,34 @@ import com.querydsl.core.BooleanBuilder;
 import com.stock_management.dto.customer.CustomerReceiptDto;
 import com.stock_management.dto.order.MonthlySalesDto;
 import com.stock_management.dto.order.OrderDto;
-import com.stock_management.dto.order.OrderLineDto;
 import com.stock_management.dto.order.OrderListDto;
+import com.stock_management.dto.order.SaleStockUpdateDto;
+import com.stock_management.dto.order.SaleTransactionDto;
+import com.stock_management.dto.payment.PaymentDto;
+import com.stock_management.entity.Invoice;
 import com.stock_management.entity.Order;
+import com.stock_management.entity.OrderLine;
+import com.stock_management.entity.Payment;
 import com.stock_management.entity.QOrder;
 import com.stock_management.entity.QProduct;
+import com.stock_management.entity.Receipt;
+import com.stock_management.entity.Stock;
+import com.stock_management.entity.UserProfile;
 import com.stock_management.mapper.CustomerMapper;
 import com.stock_management.mapper.DoctorMapper;
 import com.stock_management.mapper.OrderMapper;
-import com.stock_management.mapper.OrderLineMapper;
-import com.stock_management.mapper.ReceiptMapper;
 import com.stock_management.repository.CustomerRepository;
 import com.stock_management.repository.DoctorRepository;
+import com.stock_management.repository.InvoiceRepository;
 import com.stock_management.repository.OrderLineRepository;
 import com.stock_management.repository.OrderRepository;
+import com.stock_management.repository.PaymentRepository;
 import com.stock_management.repository.ProductRepository;
+import com.stock_management.repository.ReceiptRepository;
+import com.stock_management.repository.StockRepository;
+import com.stock_management.repository.UserRepository;
 import com.stock_management.service.OrderService;
+import com.stock_management.type.TransactionType;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,6 +44,7 @@ import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -40,30 +53,35 @@ import java.util.stream.Collectors;
 @Service
 public class OrderServiceImplementation implements OrderService {
     @PersistenceContext
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
-    private final OrderLineMapper orderLineMapper;
-    private final ProductRepository productRepository;
     private final OrderLineRepository orderLineRepository;
-    private final ReceiptMapper receiptMapper;
     private final DoctorRepository doctorRepository;
     private final DoctorMapper doctorMapper;
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
+    private final UserRepository userRepository;
+    private final InvoiceRepository invoiceRepository;
+    private final StockRepository stockRepository;
+    private final PaymentRepository paymentRepository;
+    private final ReceiptRepository receiptRepository;
 
-    public OrderServiceImplementation(OrderRepository orderRepository, OrderMapper orderMapper, OrderLineMapper orderLineMapper, ProductRepository productRepository, OrderLineRepository orderLineRepository, ReceiptMapper receiptMapper, DoctorRepository doctorRepository, DoctorMapper doctorMapper, CustomerRepository customerRepository, CustomerMapper customerMapper) {
+    public OrderServiceImplementation(OrderRepository orderRepository, EntityManager entityManager, OrderMapper orderMapper, OrderLineRepository orderLineRepository, DoctorRepository doctorRepository, DoctorMapper doctorMapper, CustomerRepository customerRepository, CustomerMapper customerMapper, UserRepository userRepository, InvoiceRepository invoiceRepository, StockRepository stockRepository, PaymentRepository paymentRepository, ReceiptRepository receiptRepository) {
         this.orderRepository = orderRepository;
+        this.entityManager = entityManager;
         this.orderMapper = orderMapper;
-        this.orderLineMapper = orderLineMapper;
-        this.productRepository = productRepository;
         this.orderLineRepository = orderLineRepository;
-        this.receiptMapper = receiptMapper;
         this.doctorRepository = doctorRepository;
         this.doctorMapper = doctorMapper;
         this.customerRepository = customerRepository;
         this.customerMapper = customerMapper;
+        this.userRepository = userRepository;
+        this.invoiceRepository = invoiceRepository;
+        this.stockRepository = stockRepository;
+        this.paymentRepository = paymentRepository;
+        this.receiptRepository = receiptRepository;
     }
 
     // GET
@@ -110,7 +128,7 @@ public class OrderServiceImplementation implements OrderService {
                     or(qOrder.customer.lastName.concat(" ").concat(qOrder.customer.firstName).toLowerCase().contains(customerName.toLowerCase()));
         }
         if(Objects.nonNull(userId) && userId != 0) {
-            booleanBuilder.and(qOrder.userProfile.userId.eq(userId));
+            booleanBuilder.and(qOrder.createdBy.userId.eq(userId));
         }
 //        if(Objects.nonNull(orderDateTimeFrom)) {
 //            booleanBuilder.and(qOrder.orderDate.after(orderDateTimeFrom));
@@ -199,84 +217,140 @@ public class OrderServiceImplementation implements OrderService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void saveOrder(OrderDto orderDto) throws Exception {
-        List<OrderLineDto> orderLineDtos = new ArrayList<>();
-//        for (OrderLineDto orderLineDto : orderDto.getOrderProductsDto()) {
-//            if (!orderLineDto.getBoxesOrdered().equals(0) || !orderLineDto.getUnitsOrdered().equals(0)) {
-//                orderLineDtos.add(orderLineDto);
-//            }
-//        }
-//        orderDto.setOrderProductsDto(orderLineDtos);
+    public void saveSaleTransaction(SaleTransactionDto saleTransactionDto) throws Exception {
 
-        if (orderDto.getPrescription().equals(true)) {
-            if (orderDto.getIsNewCustomer().equals(true)) {
-                var savedCustomer = customerRepository.save(customerMapper.mapCustomerDtoToEntity(orderDto.getCustomerDto()));
-                orderDto.setCustomerDto(customerMapper.mapCustomerEntityToDto(savedCustomer));
-            } else if (Objects.nonNull(orderDto.getCustomerDto().getCustomerId())) {
-                var existingCustomer = customerRepository.findById(orderDto.getCustomerDto().getCustomerId()).orElse(null);
+        var user = userRepository.findById(saleTransactionDto.getUserId()).orElse(null);
+        var filteredStocks = saleTransactionDto.getSaleStockUpdatesDto().stream().filter(stockDto -> Objects.nonNull(stockDto.getQuantity()) && stockDto.getQuantity() > 0D).collect(Collectors.toList());
+        var totalPrice = filteredStocks.stream().mapToDouble(SaleStockUpdateDto::getTotal).sum();
+
+        var savedOrder = saveOrderFromST(saleTransactionDto, totalPrice, user);
+
+        var savedInvoice = saveInvoiceFromtST(savedOrder, saleTransactionDto.getSoldAt());
+        var savedReceipt = saveReceipt(savedInvoice, savedOrder, user);
+
+        savePayments(saleTransactionDto.getPaymentsDto(), savedInvoice, savedReceipt);
+        saveOrderLines(saleTransactionDto.getSaleStockUpdatesDto(), savedOrder);
+    }
+
+    private Order saveOrderFromST(SaleTransactionDto saleTransactionDto, Double totalPrice, UserProfile user) throws Exception {
+        Order order = new Order();
+        if (saleTransactionDto.getIsPrescription().equals(true)) {
+            if (saleTransactionDto.getIsNewCustomer().equals(true)) {
+                var savedCustomer = customerRepository.save(customerMapper.mapCustomerDtoToEntity(saleTransactionDto.getCustomerDto()));
+                order.setCustomer(savedCustomer);
+            } else if (Objects.nonNull(saleTransactionDto.getCustomerDto().getCustomerId())) {
+                var existingCustomer = customerRepository.findById(saleTransactionDto.getCustomerDto().getCustomerId()).orElse(null);
                 if (Objects.nonNull(existingCustomer)) {
-                    orderDto.setCustomerDto((customerMapper.mapCustomerEntityToDto(existingCustomer)));
+                    order.setCustomer(existingCustomer);
                 }
             } else {
                 throw new Exception("customer.not.provided");
             }
-            if (orderDto.getIsNewDoctor().equals(true)) {
-                var savedDoctor = doctorRepository.save(doctorMapper.mapDoctorDtoToEntity(orderDto.getDoctorDto()));
-                orderDto.setDoctorDto(doctorMapper.mapDoctorEntityToDto(savedDoctor));
-            } else if (Objects.nonNull(orderDto.getDoctorDto().getDoctorId())) {
-               var existingDoctor = doctorRepository.findById(orderDto.getDoctorDto().getDoctorId()).orElse(null);
-               if (Objects.nonNull(existingDoctor)) {
-                   orderDto.setDoctorDto(doctorMapper.mapDoctorEntityToDto(existingDoctor));
-               }
+            if (saleTransactionDto.getIsNewDoctor().equals(true)) {
+                var savedDoctor = doctorRepository.save(doctorMapper.mapDoctorDtoToEntity(saleTransactionDto.getDoctorDto()));
+                order.setDoctor(savedDoctor);
+            } else if (Objects.nonNull(saleTransactionDto.getDoctorDto().getDoctorId())) {
+                var existingDoctor = doctorRepository.findById(saleTransactionDto.getDoctorDto().getDoctorId()).orElse(null);
+                if (Objects.nonNull(existingDoctor)) {
+                    order.setDoctor(existingDoctor);
+                }
             } else {
                 throw new Exception("doctor.not.provided");
             }
         } else {
-            if (orderDto.getIsNewCustomer().equals(true)) {
-                var savedCustomer = customerRepository.save(customerMapper.mapCustomerDtoToEntity(orderDto.getCustomerDto()));
-                orderDto.setCustomerDto(customerMapper.mapCustomerEntityToDto(savedCustomer));
-            } else if (!Objects.nonNull(orderDto.getCustomerDto().getCustomerId())) {
+            if (saleTransactionDto.getIsNewCustomer().equals(true)) {
+                var savedCustomer = customerRepository.save(customerMapper.mapCustomerDtoToEntity(saleTransactionDto.getCustomerDto()));
+                order.setCustomer(savedCustomer);
+            } else if (!Objects.nonNull(saleTransactionDto.getCustomerDto().getCustomerId())) {
                 var spontaneousCustomer = customerRepository.findCustomerByLastName("anonymous");
-                orderDto.setCustomerDto(customerMapper.mapCustomerEntityToDto(spontaneousCustomer));
+                order.setCustomer(spontaneousCustomer);
             }
-            orderDto.setDoctorDto(null);
+            saleTransactionDto.setDoctorDto(null);
         }
 
-        var order = orderMapper.mapOrderDtoToEntity(orderDto);
-        var savedOrder = orderRepository.save(order);
-//        orderLineRepository.saveAll(orderDto.getOrderProductsDto().stream().map(orderProductDto ->
-//        {
-//            try {
-//                return mapOrderProduct(orderProductDto, savedOrder);
-//            } catch (Exception e) {
-//                System.out.println(e.toString());
-//            }
-//            return null;
-//        }).collect(Collectors.toList()));
+        order.setCreatedBy(user);
+        order.setTotalPrice(totalPrice);
+        order.setCreatedDate(new Date());
+
+        return orderRepository.save(order);
     }
 
-//    private OrderLine mapOrderProduct(OrderLineDto orderLineDto, Order order) throws Exception {
-//        var orderProduct = orderLineMapper.mapOrderProductDtoToEntity(orderLineDto);
-//        orderProduct.setOrder(order);
-//        var product = productRepository.findById(orderProductDto.getProductDto().getProductId());
-//        if (product.isPresent()) {
-//            var productEntity = product.get();
-//            orderProduct.setProduct(productEntity);
-//            var currentUnits = productEntity.getUnitsTotal();
-//            if (order.getAmountPaid() > order.getTotalPrice()) {
-//                throw new Exception("amount.paid.greater.than.total.price");
-//            }
-//            if (currentUnits - (orderProductDto.getUnitsOrdered()) < 0) {
-//                throw new Exception("total.units.less.than.zero");
-//            } else {
-//                productEntity.setUnitsTotal(currentUnits - (orderProductDto.getUnitsOrdered()));
-//                productEntity.setBox((double) (productEntity.getUnitsTotal()/productEntity.getUnitsPerBox()));
-//            }
-//        }
-//        return orderProduct;
-//    }
+    private Invoice saveInvoiceFromtST(Order order, Double soldAt) {
+        Invoice invoice = new Invoice();
 
-    @Override
+        invoice.setCustomer(order.getCustomer());
+        invoice.setCreatedBy(order.getCreatedBy());
+        invoice.setCreatedDate(new Date());
+        invoice.setInvoiceNumber("TEST123");
+        invoice.setTransactionType(TransactionType.SALE);
+        invoice.setTotalPrice(order.getTotalPrice());
+        invoice.setPrescription(order.getPrescription());
+        invoice.setDiscount(order.getTotalPrice() - soldAt);
+
+        return invoiceRepository.save(invoice);
+    }
+
+    private Stock setStockForST(SaleStockUpdateDto saleStockUpdateDto) throws Exception {
+        var stock = stockRepository.findById(saleStockUpdateDto.getStockId()).orElse(null);
+        if (Objects.nonNull(stock)) {
+            var totalUnitsOrdered = ((saleStockUpdateDto.getBoxesOrdered() * stock.getUnitsPerBox()) + saleStockUpdateDto.getUnitsOrdered());
+            var currentUnits = stock.getUnitsTotal();
+            if ((currentUnits - totalUnitsOrdered) < 0) {
+                throw new Exception("total.units.less.than.zero");
+            } else {
+                stock.setUnitsTotal(currentUnits - (totalUnitsOrdered));
+                stock.setQuantity((double) (stock.getUnitsTotal()/stock.getUnitsPerBox()));
+            }
+        }
+        return stock;
+    }
+
+    private void savePayments(List<PaymentDto> paymentsDto, Invoice invoice, Receipt receipt) {
+        var payments = paymentsDto.stream().map(paymentDto -> {
+            Payment payment = new Payment();
+            payment.setInvoice(invoice);
+            payment.setReceipt(receipt);
+            payment.setAmountPaid(paymentDto.getAmountPaid());
+            payment.setPaymentMode(paymentDto.getPaymentMode());
+            payment.setCreatedBy(userRepository.findById(paymentDto.getCreatedBy().getUserId()).orElse(null));
+            payment.setCreatedDate(new Date());
+            return payment;
+        }).collect(Collectors.toList());
+
+        paymentRepository.saveAll(payments);
+    }
+
+    private void saveOrderLines(List<SaleStockUpdateDto> saleStockUpdatesDto, Order order) {
+        var orderLines = saleStockUpdatesDto.stream().map(stock -> {
+            OrderLine orderLine = new OrderLine();
+            orderLine.setOrder(order);
+            try {
+                orderLine.setStock(setStockForST(stock));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            orderLine.setBoxesOrdered(stock.getBoxesOrdered());
+            orderLine.setUnitsOrdered(stock.getUnitsOrdered());
+            orderLine.setTotalPrice(stock.getTotal());
+            return orderLine;
+        }).collect(Collectors.toList());
+
+        orderLineRepository.saveAll(orderLines);
+    }
+
+    private Receipt saveReceipt(Invoice invoice, Order order, UserProfile user) {
+        Receipt receipt = new Receipt();
+        receipt.setInvoice(invoice);
+        receipt.setTotalPrice(invoice.getTotalPrice());
+        receipt.setDiscount(invoice.getDiscount());
+        receipt.setCreatedBy(user);
+        receipt.setCreatedDate(new Date());
+        receipt.setCustomer(order.getCustomer());
+        receipt.setDoctor(order.getDoctor());
+        return receiptRepository.save(receipt);
+    }
+
+        @Override
     @Transactional
     public void editOrder(OrderDto orderDto) throws Exception {
         var order = findOrderById(orderDto.getOrderId());

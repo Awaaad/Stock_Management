@@ -5,10 +5,10 @@ import lombok.Data;
 
 @Data
 public class PurchaseInvoiceLineDto {
-    private Long purchaseInvoiceProductId;
+    private Long purchaseInvoiceLineId;
     private StockDto stockDto;
     private Double wholeSalePrice;
     private Double oldPricePerBox;
     private Double pricePerBox;
-    private Integer boxesReceived;
+    private Double boxesReceived;
 }

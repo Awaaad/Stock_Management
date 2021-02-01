@@ -22,10 +22,6 @@ public class Order {
     @Column(name = "ORDER_ID")
     private Long orderId;
 
-    @ManyToOne(targetEntity = UserProfile.class)
-    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
-    private UserProfile userProfile;
-
     @ManyToOne(targetEntity = Customer.class)
     @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID")
     private Customer customer;
@@ -42,10 +38,6 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     List<OrderLine> orderLines;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "INVOICE_ID", referencedColumnName = "INVOICE_ID")
-    private Invoice invoice;
 
     @ManyToOne(targetEntity = UserProfile.class)
     @JoinColumn(name = "CREATED_BY", referencedColumnName = "USER_ID")

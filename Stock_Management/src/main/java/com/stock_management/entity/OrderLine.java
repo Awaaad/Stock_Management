@@ -14,8 +14,8 @@ import javax.persistence.*;
 public class OrderLine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ORDER_PRODUCT_ID")
-    private Long orderProductId;
+    @Column(name = "ORDER_Line_ID")
+    private Long orderLineId;
 
     @ManyToOne
     @JoinColumn(name = "ORDER_ID")
@@ -24,12 +24,6 @@ public class OrderLine {
     @ManyToOne
     @JoinColumn(name = "STOCK_ID")
     private Stock stock;
-
-    @Column(name = "PRICE_PER_BOX", nullable = false)
-    private Double pricePerBox;
-
-    @Column(name = "PRICE_PER_UNIT", nullable = false)
-    private Double pricePerUnit;
 
     @Column(name = "BOXES_ORDERED")
     private Integer boxesOrdered;

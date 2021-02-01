@@ -29,76 +29,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="745d19a2-2adc-45d2-bc63-2f4d4e916644" name="Default Changelist" comment="exception added">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/DoctorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/DoctorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/OrderProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/OrderProductController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/StockController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/invoice/SavePurchaseInvoiceStockDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/order/SaleStockUpdateDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/order/SaleTransactionDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/StockService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/StockServiceImplementation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/922df5c6-dbde-48ae-9a67-66dec88fbeea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/922df5c6-dbde-48ae-9a67-66dec88fbeea.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/ProductController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/PurchaseInvoiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/PurchaseInvoiceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/RoleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/SupplierController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/SupplierController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/AuditDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/shared/AuditDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/AuthenticatedUserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/security/AuthenticatedUserDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/CountProductsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/CountProductsDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/CustomerDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/customer/CustomerDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/CustomerListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/customer/CustomerListDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/CustomerReceiptDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/customer/CustomerReceiptDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/DoctorDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/doctor/DoctorDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/DoctorListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/doctor/DoctorListDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/InvoiceDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/invoice/InvoiceDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/LoginParamDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/security/LoginParamDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/ManipulateProductQuantityDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/ManipulateProductQuantityDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/MonthlySalesDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/order/MonthlySalesDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/order/OrderDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/OrderLineDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/order/OrderLineDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/OrderListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/order/OrderListDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/PaginationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/shared/PaginationDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/PaymentDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/payment/PaymentDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/ProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/ProductDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/ProductListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/ProductListDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/ProductQuantityPriceDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/ProductQuantityPriceDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/ProductStockDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/ProductStockDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/PurchaseInvoiceLineDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/invoice/PurchaseInvoiceLineDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/PurchaseInvoiceListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/invoice/PurchaseInvoiceListDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/ReceiptDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/receipt/ReceiptDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/RoleDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/security/RoleDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/SaveProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/SaveProductDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/StockDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/stock/StockDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/SupplierDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/supplier/SupplierDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/SupplierListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/supplier/SupplierListDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/UpdateStockAmountDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/stock/UpdateStockAmountDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/security/UserDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/CustomerMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/CustomerMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/DoctorMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/DoctorMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/invoice/InvoiceDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/invoice/InvoiceDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/invoice/PurchaseInvoiceLineDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/invoice/PurchaseInvoiceLineDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/order/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/order/OrderDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/order/OrderLineDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/order/OrderLineDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/payment/PaymentDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/payment/PaymentDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/ProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/ProductDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/ProductStockDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/ProductStockDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/SaveProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/product/SaveProductDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/receipt/ReceiptDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/receipt/ReceiptDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/stock/StockDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/dto/stock/StockDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Invoice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/OrderLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/OrderLine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/PurchaseInvoiceLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/PurchaseInvoiceLine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Receipt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Receipt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Stock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/entity/Stock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/InvoiceMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/InvoiceMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/OrderLineMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/OrderLineMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/OrderMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/OrderMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/PaymentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/PaymentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/ProductMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/ProductMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/PurchaseInvoiceLineMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/PurchaseInvoiceLineMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/ReceiptMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/ReceiptMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/RoleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/RoleMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/StockMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/StockMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/SupplierMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/SupplierMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/CustomerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/DoctorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/DoctorService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/InvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/InvoiceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/OrderLineService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/OrderLineService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/OrderService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/RoleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/RoleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/SupplierService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/SupplierService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/CustomerServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/CustomerServiceImplementation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/DoctorServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/DoctorServiceImplementation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/OrderLineServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/OrderLineServiceImplementation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/InvoiceServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/InvoiceServiceImplementation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/OrderServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/OrderServiceImplementation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/ProductServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/ProductServiceImplementation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/RoleServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/RoleServiceImplementation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/SupplierServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/SupplierServiceImplementation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/UserServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/stock_management/service/implementation/UserServiceImplementation.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -321,7 +288,9 @@
       <workItem from="1611594172171" duration="10576000" />
       <workItem from="1611680835751" duration="4134000" />
       <workItem from="1611684996502" duration="1533000" />
-      <workItem from="1611724825512" duration="14295000" />
+      <workItem from="1611724825512" duration="46601000" />
+      <workItem from="1612075913982" duration="6282000" />
+      <workItem from="1612159548526" duration="10564000" />
     </task>
     <task id="LOCAL-00001" summary="init commit">
       <created>1604322794122</created>
@@ -414,7 +383,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611835407850</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="structure dto">
+      <created>1611836097660</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1611836097660</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -464,7 +440,8 @@
     <MESSAGE value="exception added" />
     <MESSAGE value="x" />
     <MESSAGE value="new erd setup" />
-    <option name="LAST_COMMIT_MESSAGE" value="new erd setup" />
+    <MESSAGE value="structure dto" />
+    <option name="LAST_COMMIT_MESSAGE" value="structure dto" />
   </component>
   <component name="WindowStateProjectService">
     <state x="859" y="411" width="290" height="218" key="#Assign_Data_Sources" timestamp="1611401323141">
@@ -479,10 +456,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="533" y="226" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608821916282" />
-    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1610015623985">
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1612197161652">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1610015623985" />
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1612197161652" />
     <state x="551" y="444" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1605892549510">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -491,10 +468,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="743" y="388" width="433" height="269" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040@0.0.1920.1040" timestamp="1611396897821" />
-    <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1611684743663">
+    <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1612187846452">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1611684743663" />
+    <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1612187846452" />
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1611683694818">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -507,94 +484,94 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1014" y="94" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1604322792731" />
-    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1610111872686">
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1612078324797">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610111872686" />
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1612078324797" />
     <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1610728828781">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1610728828781" />
-    <state width="1877" height="162" key="GridCell.Tab.0.bottom" timestamp="1611835359008">
+    <state width="1877" height="322" key="GridCell.Tab.0.bottom" timestamp="1612196400742">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
     <state width="1877" height="162" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1611637110971" />
     <state width="1877" height="312" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1606201942599" />
-    <state width="1877" height="162" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359008" />
-    <state width="1877" height="162" key="GridCell.Tab.0.center" timestamp="1611835359008">
+    <state width="1877" height="322" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612196400742" />
+    <state width="1877" height="322" key="GridCell.Tab.0.center" timestamp="1612196400742">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
     <state width="1877" height="162" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1611637110969" />
     <state width="1877" height="312" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1606201942599" />
-    <state width="1877" height="162" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359008" />
-    <state width="1877" height="162" key="GridCell.Tab.0.left" timestamp="1611835359008">
+    <state width="1877" height="322" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612196400742" />
+    <state width="1877" height="322" key="GridCell.Tab.0.left" timestamp="1612196400741">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685765" />
     <state width="1877" height="162" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1611637110969" />
     <state width="1877" height="312" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1606201942598" />
-    <state width="1877" height="162" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359008" />
-    <state width="1877" height="162" key="GridCell.Tab.0.right" timestamp="1611835359008">
+    <state width="1877" height="322" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612196400741" />
+    <state width="1877" height="322" key="GridCell.Tab.0.right" timestamp="1612196400742">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
     <state width="1877" height="162" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1611637110970" />
     <state width="1877" height="312" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1606201942599" />
-    <state width="1877" height="162" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359008" />
-    <state width="1877" height="162" key="GridCell.Tab.1.bottom" timestamp="1611835359008">
+    <state width="1877" height="322" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612196400742" />
+    <state width="0" height="0" key="GridCell.Tab.1.bottom" timestamp="1612196400637">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
     <state width="1877" height="312" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1606201942599" />
-    <state width="1877" height="162" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359008" />
-    <state width="1877" height="162" key="GridCell.Tab.1.center" timestamp="1611835359008">
+    <state width="0" height="0" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612196400637" />
+    <state width="0" height="0" key="GridCell.Tab.1.center" timestamp="1612196400636">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
     <state width="1877" height="312" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1606201942599" />
-    <state width="1877" height="162" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359008" />
-    <state width="1877" height="162" key="GridCell.Tab.1.left" timestamp="1611835359008">
+    <state width="0" height="0" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612196400636" />
+    <state width="0" height="0" key="GridCell.Tab.1.left" timestamp="1612196400636">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
     <state width="1877" height="312" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1606201942599" />
-    <state width="1877" height="162" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359008" />
-    <state width="1877" height="162" key="GridCell.Tab.1.right" timestamp="1611835359008">
+    <state width="0" height="0" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612196400636" />
+    <state width="0" height="0" key="GridCell.Tab.1.right" timestamp="1612196400637">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
     <state width="1877" height="312" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1606201942599" />
-    <state width="1877" height="162" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359008" />
-    <state width="1877" height="162" key="GridCell.Tab.2.bottom" timestamp="1611835359009">
+    <state width="0" height="0" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612196400637" />
+    <state width="0" height="0" key="GridCell.Tab.2.bottom" timestamp="1612196400637">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.2.bottom/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
-    <state width="1877" height="162" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359009" />
-    <state width="1877" height="162" key="GridCell.Tab.2.center" timestamp="1611835359009">
+    <state width="0" height="0" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612196400637" />
+    <state width="0" height="0" key="GridCell.Tab.2.center" timestamp="1612196400637">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.2.center/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
-    <state width="1877" height="162" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359009" />
-    <state width="1877" height="162" key="GridCell.Tab.2.left" timestamp="1611835359009">
+    <state width="0" height="0" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612196400637" />
+    <state width="0" height="0" key="GridCell.Tab.2.left" timestamp="1612196400637">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.2.left/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
-    <state width="1877" height="162" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359009" />
-    <state width="1877" height="162" key="GridCell.Tab.2.right" timestamp="1611835359009">
+    <state width="0" height="0" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612196400637" />
+    <state width="0" height="0" key="GridCell.Tab.2.right" timestamp="1612196400637">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="162" key="GridCell.Tab.2.right/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611639685766" />
-    <state width="1877" height="162" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1611835359009" />
+    <state width="0" height="0" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612196400637" />
     <state x="490" y="174" key="Maven.ArtifactSearchDialog" timestamp="1608658109336">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="490" y="174" key="Maven.ArtifactSearchDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608658109336" />
-    <state x="1032" y="243" key="Vcs.Push.Dialog.v2" timestamp="1611835580475">
+    <state x="1032" y="243" key="Vcs.Push.Dialog.v2" timestamp="1611836107508">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1032" y="243" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1611835580475" />
+    <state x="1032" y="243" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1611836107508" />
     <state x="702" y="253" key="VcsDiffUtil.ChangesDialog" timestamp="1610111459175">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -607,11 +584,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="859" y="404" key="com.intellij.database.actions.DdlActions$CreateObject$1/0.0.1920.1040@0.0.1920.1040" timestamp="1605891988845" />
-    <state x="1315" y="423" width="316" height="240" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1611814908073">
+    <state x="1315" y="423" width="316" height="240" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1612036414547">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="3235" y="423" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1611555233985" />
-    <state x="1315" y="423" width="316" height="240" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1920.1040@0.0.1920.1040" timestamp="1611814908073" />
+    <state x="1315" y="423" width="316" height="240" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1920.1040@0.0.1920.1040" timestamp="1612036414547" />
     <state x="540" y="174" key="com.intellij.database.dbimport.ImportDialog" timestamp="1610016865722">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -642,19 +619,19 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="280" key="extract.method.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1611516890153" />
-    <state x="714" y="443" width="642" height="534" key="find.popup" timestamp="1611685243284">
+    <state x="714" y="443" width="642" height="534" key="find.popup" timestamp="1612038473422">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1206" y="443" width="642" height="534" key="find.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611213458746" />
-    <state x="714" y="443" width="642" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1611685243284" />
+    <state x="714" y="443" width="642" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1612038473422" />
     <state x="71" y="184" key="new project wizard" timestamp="1608658481888">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="71" y="184" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1608658481888" />
-    <state x="660" y="277" key="refactoring.ChangeSignatureDialog" timestamp="1610563115921">
+    <state x="660" y="277" key="refactoring.ChangeSignatureDialog" timestamp="1611983504528">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="660" y="277" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610563115921" />
+    <state x="660" y="277" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1611983504528" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1611820055919">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -1,22 +1,20 @@
 package com.stock_management.dto.receipt;
 
-import com.stock_management.entity.Customer;
-import com.stock_management.entity.Doctor;
-import com.stock_management.entity.UserProfile;
+import com.stock_management.dto.customer.CustomerDto;
+import com.stock_management.dto.doctor.DoctorDto;
+import com.stock_management.dto.invoice.InvoiceDto;
+import com.stock_management.dto.security.UserDto;
 import lombok.Data;
 import java.util.Date;
 
 @Data
 public class ReceiptDto {
     private Long receiptId;
-    private Double pricePerBox;
-    private Double pricePerUnit;
-    private Integer boxesOrdered;
-    private Integer unitsOrdered;
+    private InvoiceDto invoiceDto;
     private Double totalPrice;
     private Double discount;
-    private Customer customer;
-    private Doctor doctor;
-    private UserProfile createdBy;
+    private CustomerDto customerDto;
+    private DoctorDto doctorDto;
+    private UserDto createdBy;
     private Date createdDate;
 }

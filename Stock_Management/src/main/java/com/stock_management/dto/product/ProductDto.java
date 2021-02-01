@@ -19,12 +19,4 @@ public class ProductDto extends AuditDto {
     private String slot;
     private SupplierDto supplier;
     private List<ProductStockDto> productStocksDto;
-//    private Double box;
-//    private Double unitsTotal;
-//    private Double wholeSalePrice;
-//    private Double oldPricePerBox;
-//    private Double pricePerBox;
-//    private Double pricePerUnit;
-//    private LocalDate expiryDate;
-//    private Double maxUnitsCanBeEntered;
 }

@@ -21,8 +21,8 @@ import javax.persistence.ManyToOne;
 public class PurchaseInvoiceLine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PURCHASE_INVOICE_PRODUCT_ID")
-    private Long purchaseInvoiceProductId;
+    @Column(name = "PURCHASE_INVOICE_LINE_ID")
+    private Long purchaseInvoiceLineId;
 
     @ManyToOne
     @JoinColumn(name = "INVOICE_ID")
@@ -35,12 +35,9 @@ public class PurchaseInvoiceLine {
     @Column(name = "WHOLE_SALE_PRICE", nullable = false)
     private Double wholeSalePrice;
 
-    @Column(name = "OLD_PRICE_PER_BOX", nullable = false)
-    private Double oldPricePerBox;
-
     @Column(name = "PRICE_PER_BOX", nullable = false)
     private Double pricePerBox;
 
     @Column(name = "BOXES_RECEIVED")
-    private Integer boxesReceived;
+    private Double boxesReceived;
 }

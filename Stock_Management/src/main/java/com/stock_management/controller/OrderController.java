@@ -4,6 +4,7 @@ import com.stock_management.dto.customer.CustomerReceiptDto;
 import com.stock_management.dto.order.MonthlySalesDto;
 import com.stock_management.dto.order.OrderDto;
 import com.stock_management.dto.order.OrderListDto;
+import com.stock_management.dto.order.SaleTransactionDto;
 import com.stock_management.service.OrderService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -63,10 +64,10 @@ public class OrderController {
 
 
     // POST GOES HERE
-    @PostMapping("save-order")
-    public ResponseEntity<String> saveOrder(@RequestBody OrderDto orderDto) throws Exception{
-        orderService.saveOrder(orderDto);
-        return new ResponseEntity<String>("Order saved successfully!", HttpStatus.OK);
+    @PostMapping("save-sale-transaction")
+    public ResponseEntity<String> saveOrder(@RequestBody SaleTransactionDto saleTransactionDto) throws Exception{
+        orderService.saveSaleTransaction(saleTransactionDto);
+        return new ResponseEntity<String>("Sale transaction saved successfully!", HttpStatus.OK);
     }
 
     // PUT GOES HERE

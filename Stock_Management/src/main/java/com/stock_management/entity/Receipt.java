@@ -6,12 +6,14 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import java.util.Date;
 
@@ -26,17 +28,9 @@ public class Receipt {
     @Column(name = "RECEIPT_ID")
     private Long receiptId;
 
-    @Column(name = "PRICE_PER_BOX", nullable = false)
-    private Double pricePerBox;
-
-    @Column(name = "PRICE_PER_UNIT", nullable = false)
-    private Double pricePerUnit;
-
-    @Column(name = "BOXES_ORDERED")
-    private Integer boxesOrdered;
-
-    @Column(name = "UNITS_ORDERED")
-    private Integer unitsOrdered;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "INVOICE_ID", referencedColumnName = "INVOICE_ID")
+    private Invoice invoice;
 
     @Column(name = "TOTAL_PRICE", nullable = false)
     private Double totalPrice;

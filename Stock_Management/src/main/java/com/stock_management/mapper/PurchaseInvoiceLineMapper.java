@@ -6,8 +6,12 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {
+        StockMapper.class,
+        ProductMapper.class
+})
 public interface PurchaseInvoiceLineMapper {
+    @Mapping(target = "oldPricePerBox", source = "")
     @Mapping(target = "stockDto", source = "stock")
     PurchaseInvoiceLineDto mapPurchaseInvoiceLineEntityToDto (PurchaseInvoiceLine purchaseInvoiceLine);
     @InheritInverseConfiguration

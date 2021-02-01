@@ -88,8 +88,8 @@ public class ProductController {
 
     // PUT GOES HERE
     @PutMapping("edit-product")
-    public ResponseEntity<String> editProduct(@RequestBody ProductDto productDto) throws Exception {
-        productService.editProduct(productDto);
+    public ResponseEntity<String> editProduct(@RequestBody SaveProductDto saveProductDto) throws Exception {
+        productService.editProduct(saveProductDto);
         return new ResponseEntity<String>("Product edited successfully!", HttpStatus.OK);
     }
 }

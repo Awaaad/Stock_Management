@@ -5,9 +5,13 @@ import com.stock_management.dto.receipt.ReceiptDto;
 import com.stock_management.entity.Receipt;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface ReceiptMapper {
+    @Mapping(target = "invoiceDto", source = "invoice")
+    @Mapping(target = "doctorDto", source = "doctor")
+    @Mapping(target = "customerDto", source = "customer")
     ReceiptDto mapReceiptEntityToDto(Receipt receipt);
     @InheritInverseConfiguration
     Receipt mapReceiptDtoToEntity(ReceiptDto receiptDto);

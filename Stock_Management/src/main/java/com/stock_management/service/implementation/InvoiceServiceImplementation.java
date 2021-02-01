@@ -1,130 +1,113 @@
 package com.stock_management.service.implementation;
 
-import com.stock_management.mapper.ProductMapper;
-import com.stock_management.mapper.PurchaseInvoiceLineMapper;
+import com.querydsl.core.BooleanBuilder;
+import com.stock_management.dto.invoice.InvoiceDto;
+import com.stock_management.dto.invoice.PurchaseInvoiceListDto;
+import com.stock_management.dto.invoice.SavePurchaseInvoiceStockDto;
+import com.stock_management.entity.Invoice;
+import com.stock_management.entity.PurchaseInvoiceLine;
+import com.stock_management.entity.QInvoice;
 import com.stock_management.mapper.InvoiceMapper;
-import com.stock_management.repository.ProductRepository;
-import com.stock_management.repository.PurchaseInvoiceLineRepository;
 import com.stock_management.repository.InvoiceRepository;
+import com.stock_management.repository.PurchaseInvoiceLineRepository;
+import com.stock_management.repository.SupplierRepository;
+import com.stock_management.repository.UserRepository;
 import com.stock_management.service.InvoiceService;
+import com.stock_management.service.StockService;
+import com.stock_management.type.TransactionType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class InvoiceServiceImplementation implements InvoiceService {
-//    private final InvoiceRepository purchaseInvoiceRepository;
-//    private final InvoiceMapper invoiceMapper;
-//    private final PurchaseInvoiceLineRepository purchaseInvoiceLineRepository;
-//    private final PurchaseInvoiceLineMapper purchaseInvoiceLineMapper;
-//    private final ProductRepository productRepository;
-//    private final ProductMapper productMapper;
-//
-//    public InvoiceServiceImplementation(InvoiceRepository purchaseInvoiceRepository, InvoiceMapper invoiceMapper, PurchaseInvoiceLineRepository purchaseInvoiceLineRepository, PurchaseInvoiceLineMapper purchaseInvoiceLineMapper, ProductRepository productRepository, ProductMapper productMapper) {
-//        this.purchaseInvoiceRepository = purchaseInvoiceRepository;
-//        this.invoiceMapper = invoiceMapper;
-//        this.purchaseInvoiceLineRepository = purchaseInvoiceLineRepository;
-//        this.purchaseInvoiceLineMapper = purchaseInvoiceLineMapper;
-//        this.productRepository = productRepository;
-//        this.productMapper = productMapper;
-//    }
+    private final InvoiceRepository invoiceRepository;
+    private final StockService stockService;
+    private final UserRepository userRepository;
+    private final PurchaseInvoiceLineRepository purchaseInvoiceLineRepository;
+    private final SupplierRepository supplierRepository;
+    private final InvoiceMapper invoiceMapper;
 
-//    @Override
-//    @Transactional
-//    public void savePurchaseInvoice(InvoiceDto invoiceDto) {
-//        var purchaseInvoiceToEntity = invoiceMapper.mapPurchaseInvoiceDtoToEntity(invoiceDto);
-//        var savedPurchaseInvoice = purchaseInvoiceRepository.save(purchaseInvoiceToEntity);
-//        purchaseInvoiceLineRepository.saveAll(invoiceDto.getPurchaseInvoiceProductsDto().stream().map(purchaseInvoiceProductDto ->
-//                mapPurchaseInvoiceProduct(purchaseInvoiceProductDto, savedPurchaseInvoice)).collect(Collectors.toList()));
-//    }
-//
-//    private PurchaseInvoiceLine mapPurchaseInvoiceProduct(PurchaseInvoiceLineDto purchaseInvoiceLineDto, PurchaseInvoice purchaseInvoice) {
-//        var purchaseInvoiceProduct = purchaseInvoiceLineMapper.mapPurchaseInvoiceProductDtoToEntity(purchaseInvoiceLineDto);
-//
-//        purchaseInvoiceProduct.setPurchaseInvoice(purchaseInvoice);
-//        var product = productRepository.findById(purchaseInvoiceProductDto.getProductDto().getProductId());
-//        if (product.isPresent()) {
-//            var productEntity = product.get();
-//            if (purchaseInvoiceProductDto.getProductDto().getExpiryDate().isAfter(productEntity.getExpiryDate())) {
-//                productEntity.setExpiryDate(purchaseInvoiceProductDto.getProductDto().getExpiryDate().plusDays(1));
-//            } else {
-//                productEntity.setExpiryDate(productEntity.getExpiryDate().plusDays(1));
-//            }
-//            if (!purchaseInvoiceProductDto.getWholeSalePrice().equals(productEntity.getWholeSalePrice())) {
-//                productEntity.setWholeSalePrice(purchaseInvoiceProductDto.getWholeSalePrice());
-//            }
-//            purchaseInvoiceProduct.setProduct(productEntity);
-//            var currentUnits = productEntity.getUnitsTotal();
-//            var newUnits = purchaseInvoiceProductDto.getBoxesReceived() * productEntity.getUnitsPerBox();
-//            productEntity.setUnitsTotal(currentUnits + newUnits);
-//            var boxesInStore = purchaseInvoiceProductDto.getBoxesReceived() + productEntity.getBox();
-//            productEntity.setBox(boxesInStore);
-//            if (!productEntity.getPricePerBox().equals(purchaseInvoiceProductDto.getPricePerBox()) && !purchaseInvoiceProductDto.getPricePerBox().equals(0D) ) {
-//                productEntity.setOldPricePerBox(productEntity.getPricePerBox());
-//                productEntity.setPricePerBox(purchaseInvoiceProductDto.getPricePerBox());
-//            }
-//        }
-//        return purchaseInvoiceProduct;
-//    }
+    public InvoiceServiceImplementation(InvoiceRepository invoiceRepository, StockService stockService, UserRepository userRepository, PurchaseInvoiceLineRepository purchaseInvoiceLineRepository, SupplierRepository supplierRepository, InvoiceMapper invoiceMapper) {
+        this.invoiceRepository = invoiceRepository;
+        this.stockService = stockService;
+        this.userRepository = userRepository;
+        this.purchaseInvoiceLineRepository = purchaseInvoiceLineRepository;
+        this.supplierRepository = supplierRepository;
+        this.invoiceMapper = invoiceMapper;
+    }
 
-//    private InvoiceDto mapPurchaseInvoiceEntityToDto(PurchaseInvoice purchaseInvoice) {
-//        var purchaseInvoiceDto = invoiceMapper.mapPurchaseInvoiceEntityToDto(purchaseInvoice);
-//
-//        var purchaseInvoiceProducts = purchaseInvoice.getPurchaseInvoiceLines();
-//        var purchaseInvoiceProductDtos = purchaseInvoiceProducts.stream().map(this::mapPurchaseInvoiceProductEntityToDto).collect(Collectors.toList());
-//
-//        purchaseInvoiceDto.setPurchaseInvoiceProductsDto(purchaseInvoiceProductDtos);
-//        return purchaseInvoiceDto;
-//    }
+    @Override
+    public void savePurchaseInvoice(SavePurchaseInvoiceStockDto savePurchaseInvoiceStockDto) {
+        Invoice invoice = new Invoice();
+        invoice.setInvoiceNumber(savePurchaseInvoiceStockDto.getInvoiceNumber());
+        invoice.setTransactionType(TransactionType.PURCHASE);
+        invoice.setTotalPrice(savePurchaseInvoiceStockDto.getTotalPrice());
+        invoice.setSupplier(supplierRepository.findById(savePurchaseInvoiceStockDto.getSupplierId()).orElse(null));
+        invoice.setCreatedBy(userRepository.findById(savePurchaseInvoiceStockDto.getUserId()).orElse(null));
+        invoice.setCreatedDate(new Date());
+        var savedInvoice = invoiceRepository.save(invoice);
 
-//    private PurchaseInvoiceLineDto mapPurchaseInvoiceProductEntityToDto(PurchaseInvoiceLine purchaseInvoiceLine) {
-//        java.util.Optional<Product> product = productRepository.findById(purchaseInvoiceProduct.getProduct().getProductId());
-//        var oneProduct = product.orElse(null);
-//        var productDto = productMapper.mapProductEntityToDto(oneProduct);
-//        return purchaseInvoiceLineMapper.mapPurchaseInvoiceProductEntityToDto(purchaseInvoiceLine);
-//    }
+        var savedStocks = stockService.saveStock(savePurchaseInvoiceStockDto.getStocksDto());
+        var setPurchaseInvoiceLines = savedStocks.stream().map(stock -> {
+            PurchaseInvoiceLine purchaseInvoiceLine = new PurchaseInvoiceLine();
+            purchaseInvoiceLine.setInvoice(savedInvoice);
+            purchaseInvoiceLine.setStock(stock);
+            purchaseInvoiceLine.setBoxesReceived(stock.getQuantity());
+            purchaseInvoiceLine.setWholeSalePrice(stock.getWholeSalePrice());
+            purchaseInvoiceLine.setPricePerBox(stock.getPricePerBox());
+            return purchaseInvoiceLine;
+        }).collect(Collectors.toList());
 
-//    @Override
-//    public InvoiceDto findPurchaseInvoiceById(Long purchaseInvoiceId) {
-//        Optional<PurchaseInvoice> purchaseInvoice = purchaseInvoiceRepository.findById(purchaseInvoiceId);
-//        var onePurchaseInvoice = purchaseInvoice.orElse(null);
-//
-//        return mapPurchaseInvoiceEntityToDto(onePurchaseInvoice);
-//    }
+        purchaseInvoiceLineRepository.saveAll(setPurchaseInvoiceLines);
+    }
 
-//    @Override
-//    public List<InvoiceDto> findAllPurchaseInvoice() {
-//        List<PurchaseInvoice> purchaseInvoices = purchaseInvoiceRepository.findAll();
-//        return purchaseInvoices.stream().map(this::mapPurchaseInvoiceEntityToDto).collect(Collectors.toList());
-//    }
-//
-//    @Override
-//    public PurchaseInvoiceListDto findPurchaseInvoiceByFilters(String searchBox, LocalDateTime invoiceDateFrom, LocalDateTime invoiceDateTo, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
-//        Sort sort = Sort.by("ASC".equals(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
-//        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sort);
-//        BooleanBuilder predicate = buildProductPredicate(searchBox, invoiceDateFrom, invoiceDateTo);
-//        Page<PurchaseInvoice> purchaseInvoices = purchaseInvoiceRepository.findAll(predicate,pageRequest);
-//        List<InvoiceDto> invoiceDtos = purchaseInvoices.stream().map(this::mapPurchaseInvoiceEntityToDto).collect(Collectors.toList());
-//
-//        var purchaseInvoiceListDto = new PurchaseInvoiceListDto();
-//        purchaseInvoiceListDto.setPurchaseInvoicesDto(invoiceDtos);
-//        purchaseInvoiceListDto.setTotalElements(purchaseInvoices.getNumberOfElements());
-//        purchaseInvoiceListDto.setTotalPages(purchaseInvoices.getTotalPages());
-//        return purchaseInvoiceListDto;
-//    }
+    @Override
+    public InvoiceDto findPurchaseInvoiceById(Long invoiceId) {
+        Optional<Invoice> optionalInvoice = invoiceRepository.findById(invoiceId);
+        var invoice = optionalInvoice.orElse(null);
 
-//    private BooleanBuilder buildProductPredicate(String searchBox, LocalDateTime invoiceDateFrom, LocalDateTime invoiceDateTo) {
-//        var qPurchaseInvoice = QPurchaseInvoice.purchaseInvoice;
-//        BooleanBuilder booleanBuilder = new BooleanBuilder();
-//        if(!searchBox.equals("")) {
-//            booleanBuilder.and(qPurchaseInvoice.supplier.supplierName.toLowerCase().contains(searchBox.toLowerCase()))
-//            .or(qPurchaseInvoice.invoiceNumber.toLowerCase().contains(searchBox.toLowerCase()));
-//        }
-//        if(Objects.nonNull(invoiceDateFrom)) {
-//            booleanBuilder.and(qPurchaseInvoice.invoiceDate.after(invoiceDateFrom));
-//        }
-//        if(Objects.nonNull(invoiceDateTo)) {
-//            booleanBuilder.and(qPurchaseInvoice.invoiceDate.before(invoiceDateTo));
-//        }
-//        return booleanBuilder;
-//    }
+
+        return invoiceMapper.mapInvoiceEntityToDto(invoice);
+    }
+
+    @Override
+    public PurchaseInvoiceListDto findPurchaseInvoiceByFilters(String searchBox, Date invoiceDateFrom, Date invoiceDateTo, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) {
+        Sort sort = Sort.by("ASC".equals(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sort);
+        BooleanBuilder predicate = buildProductPredicate(searchBox, invoiceDateFrom, invoiceDateTo);
+        Page<Invoice> invoices = invoiceRepository.findAll(predicate,pageRequest);
+        List<InvoiceDto> invoiceDtos = invoices.stream().map(invoiceMapper::mapInvoiceEntityToDto).collect(Collectors.toList());
+
+        var purchaseInvoiceListDto = new PurchaseInvoiceListDto();
+        purchaseInvoiceListDto.setPurchaseInvoicesDto(invoiceDtos);
+        purchaseInvoiceListDto.setTotalElements(invoices.getNumberOfElements());
+        purchaseInvoiceListDto.setTotalPages(invoices.getTotalPages());
+        return purchaseInvoiceListDto;
+    }
+
+    private BooleanBuilder buildProductPredicate(String searchBox, Date invoiceDateFrom, Date invoiceDateTo) {
+        var qInvoice = QInvoice.invoice;
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        if(!searchBox.equals("")) {
+            booleanBuilder.and(qInvoice.supplier.supplierName.toLowerCase().contains(searchBox.toLowerCase()))
+            .or(qInvoice.invoiceNumber.toLowerCase().contains(searchBox.toLowerCase()));
+        }
+        if(Objects.nonNull(invoiceDateFrom)) {
+            booleanBuilder.and(qInvoice.createdDate.after(invoiceDateFrom));
+        }
+        if(Objects.nonNull(invoiceDateTo)) {
+            booleanBuilder.and(qInvoice.createdDate.before(invoiceDateTo));
+        }
+        return booleanBuilder;
+    }
 
 }

@@ -4,6 +4,7 @@ import com.stock_management.dto.customer.CustomerReceiptDto;
 import com.stock_management.dto.order.MonthlySalesDto;
 import com.stock_management.dto.order.OrderDto;
 import com.stock_management.dto.order.OrderListDto;
+import com.stock_management.dto.order.SaleTransactionDto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,10 +27,10 @@ public interface OrderService {
     MonthlySalesDto findSalesForEachMonth(LocalDate year);
 
     // POST
-    void saveOrder(OrderDto orderDto) throws Exception;
+
+    void saveSaleTransaction(SaleTransactionDto saleTransactionDto) throws Exception;
 
     // PUT
     void editOrder(OrderDto orderDto) throws Exception;
-
 }
 

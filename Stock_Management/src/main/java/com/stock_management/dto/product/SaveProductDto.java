@@ -24,4 +24,5 @@ public class SaveProductDto extends AuditDto {
     private Double pricePerBox;
     private Double pricePerUnit;
     private LocalDate expiryDate;
+    private Long userId;
 }

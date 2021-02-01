@@ -50,11 +50,15 @@ public class Invoice {
     @Column(name = "TOTAL_PRICE", nullable = false)
     private Double totalPrice;
 
-    @Column(name = "DISCOUNT", nullable = false)
+    @Column(name = "DISCOUNT")
     private Double discount;
 
     @Column(name = "PRESCRIPTION")
     private Boolean prescription;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
+    private Order order;
 
     @ManyToOne(targetEntity = Customer.class)
     @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID")
@@ -67,10 +71,6 @@ public class Invoice {
     @ManyToOne(targetEntity = Supplier.class)
     @JoinColumn(name = "SUPPLIER_ID", referencedColumnName = "SUPPLIER_ID")
     private Supplier supplier;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "RECEIPT_ID", referencedColumnName = "RECEIPT_ID")
-    private Receipt receipt;
 
     @ManyToOne(targetEntity = UserProfile.class)
     @JoinColumn(name = "CREATED_BY", referencedColumnName = "USER_ID")

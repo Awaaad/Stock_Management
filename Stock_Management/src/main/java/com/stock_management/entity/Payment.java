@@ -33,6 +33,10 @@ public class Payment {
     @JoinColumn(name = "INVOICE_ID", referencedColumnName = "INVOICE_ID")
     private Invoice invoice;
 
+    @ManyToOne(targetEntity = Receipt.class)
+    @JoinColumn(name = "RECEIPT_ID", referencedColumnName = "RECEIPT_ID")
+    private Receipt receipt;
+
     @Column(name = "AMOUNT_PAID", nullable = false)
     private Double amountPaid;
 

@@ -1,18 +1,21 @@
-package com.stock_management.dto.product;
-import com.stock_management.dto.shared.AuditDto;
+package com.stock_management.dto.order;
+
+import com.stock_management.dto.product.ProductDto;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-public class ProductStockDto extends AuditDto {
+public class SaleStockUpdateDto {
     private Long stockId;
+    private ProductDto productDto;
     private Double quantity;
     private Integer unitsPerBox;
     private Double wholeSalePrice;
     private Double pricePerBox;
     private Double pricePerUnit;
-    private Double unitsTotal;
     private LocalDate expiryDate;
-    private Double maxUnitsCanBeEntered;
+    private Integer boxesOrdered;
+    private Integer unitsOrdered;
+    private Double total;
 }

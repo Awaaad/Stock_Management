@@ -1,6 +1,7 @@
 package com.stock_management.dto.invoice;
 
 import com.stock_management.dto.doctor.DoctorDto;
+import com.stock_management.dto.order.OrderDto;
 import com.stock_management.dto.receipt.ReceiptDto;
 import com.stock_management.dto.supplier.SupplierDto;
 import com.stock_management.dto.security.UserDto;
@@ -20,11 +21,12 @@ public class InvoiceDto {
     private List<PurchaseInvoiceLineDto> purchaseInvoiceLinesDto;
     private List<OrderLineDto> orderLinesDto;
     private Double totalPrice;
+    private Double discount;
     private Boolean prescription;
+    private OrderDto orderDto;
     private CustomerDto customerDto;
     private DoctorDto doctorDto;
-    private UserDto createdBy;
     private SupplierDto supplierDto;
-    private ReceiptDto receiptDto;
+    private UserDto createdBy;
     private Date createdDate;
 }

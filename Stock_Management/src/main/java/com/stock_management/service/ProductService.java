@@ -38,6 +38,6 @@ public interface ProductService {
     boolean hasExcelFormat(MultipartFile file);
 
     // PUT
-    void editProduct(ProductDto productDto) throws Exception;
+    void editProduct(SaveProductDto saveProductDto) throws Exception;
 
 }

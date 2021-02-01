@@ -175,16 +175,21 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     private List<ProductStockDto> mapStockToProductStock(List<Stock> stocks) {
-        ProductStockDto productStockDto = new ProductStockDto();
         List<ProductStockDto> productStocksDto = new ArrayList<>();
         stocks.forEach(stock -> {
+            ProductStockDto productStockDto = new ProductStockDto();
             productStockDto.setStockId(stock.getStockId());
             productStockDto.setQuantity(stock.getQuantity());
+            productStockDto.setUnitsPerBox(stock.getUnitsPerBox());
             productStockDto.setUnitsTotal(stock.getUnitsTotal());
             productStockDto.setWholeSalePrice(stock.getWholeSalePrice());
             productStockDto.setPricePerBox(stock.getPricePerBox());
             productStockDto.setPricePerUnit(stock.getPricePerUnit());
             productStockDto.setExpiryDate(stock.getExpiryDate());
+            productStockDto.setCreatedBy(userMapper.mapUserEntityToDto(stock.getCreatedBy()));
+            productStockDto.setCreatedDate(stock.getCreatedDate());
+            productStockDto.setLastModifiedBy(userMapper.mapUserEntityToDto(stock.getLastModifiedBy()));
+            productStockDto.setLastModifiedDate(stock.getLastModifiedDate());
             productStockDto.setMaxUnitsCanBeEntered(null);
             productStocksDto.add(productStockDto);
         });
@@ -201,41 +206,45 @@ public class ProductServiceImplementation implements ProductService {
     // PUT
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void editProduct(ProductDto productDto) throws Exception {
-        var optionalProduct = productRepository.findById(productDto.getProductId());
+    public void editProduct(SaveProductDto saveProductDto) throws Exception {
+        var optionalProduct = productRepository.findById(saveProductDto.getProductId());
         var product = optionalProduct.orElse(null);
 
-        var optionalUser = userRepository.findById(productDto.getLastModifiedBy().getUserId());
+        var optionalUser = userRepository.findById(saveProductDto.getUserId());
         var user = optionalUser.orElse(null);
 
-        var optionalSupplier = supplierRepository.findById(productDto.getSupplier().getSupplierId());
+        var optionalSupplier = supplierRepository.findById(saveProductDto.getSupplier().getSupplierId());
         var supplier = optionalSupplier.orElse(null);
 
-        var stocks = stockRepository.findStockByProduct_ProductId_AndQuantityIsGreaterThanOrderByCreatedDateDesc(productDto.getProductId(), 0);
+        var stocks = stockRepository.findStockByProduct_ProductId_AndQuantityIsGreaterThanOrderByCreatedDateDesc(saveProductDto.getProductId(), 0);
+        var stock = stocks.stream().findFirst().orElse(null);
 
         if (Objects.nonNull(product)) {
-            product.setProductName(productDto.getProductName());
-            product.setDescription(productDto.getDescription());
-            product.setCategory(productDto.getCategory());
-            product.setDosage(productDto.getDosage());
-            product.setUnitsPerBox(productDto.getUnitsPerBox());
-            product.setRequirePrescription(productDto.getRequirePrescription());
-            product.setSlot(productDto.getSlot());
-            product.setMinStockAmount(productDto.getMinStockAmount());
+            product.setProductName(saveProductDto.getProductName());
+            product.setDescription(saveProductDto.getDescription());
+            product.setCategory(saveProductDto.getCategory());
+            product.setDosage(saveProductDto.getDosage());
+            product.setUnitsPerBox(saveProductDto.getUnitsPerBox());
+            product.setRequirePrescription(saveProductDto.getRequirePrescription());
+            product.setSlot(saveProductDto.getSlot());
+            product.setMinStockAmount(saveProductDto.getMinStockAmount());
             product.setSupplier(supplier);
             product.setLastModifiedBy(user);
             product.setLastModifiedDate(new Date());
             productRepository.save(product);
 
-            if (Objects.nonNull(stocks)) {
-//                stock.setProduct(productMapper.mapProductDtoToEntity(productDto));
-//                stock.setQuantity(productDto.getBox());
-//                stock.setUnitsTotal((productDto.getBox() * productDto.getUnitsPerBox()));
-//                stock.setWholeSalePrice(productDto.getWholeSalePrice());
-//                stock.setPricePerBox(productDto.getPricePerBox());
-//                stock.setPricePerUnit(productDto.getPricePerBox() / productDto.getUnitsPerBox());
-//                stock.setExpiryDate(productDto.getExpiryDate().plusDays(1));
-//                stockRepository.save(stock);
+            if (Objects.nonNull(stock)) {
+                stock.setProduct(product);
+                stock.setQuantity(saveProductDto.getBox());
+                stock.setUnitsTotal((saveProductDto.getBox() * saveProductDto.getUnitsPerBox()));
+                stock.setWholeSalePrice(saveProductDto.getWholeSalePrice());
+                stock.setPricePerBox(saveProductDto.getPricePerBox());
+                stock.setPricePerUnit(saveProductDto.getPricePerBox() / saveProductDto.getUnitsPerBox());
+                stock.setExpiryDate(saveProductDto.getExpiryDate().plusDays(1));
+                stock.setUnitsPerBox(saveProductDto.getUnitsPerBox());
+                stock.setLastModifiedBy(user);
+                stock.setLastModifiedDate(new Date());
+                stockRepository.save(stock);
             }
         } else {
             throw new Exception("product.not.found");
@@ -267,7 +276,17 @@ public class ProductServiceImplementation implements ProductService {
         stock.setExpiryDate(saveProductDto.getExpiryDate().plusDays(1));
         stock.setUnitsTotal((saveProductDto.getBox() * saveProductDto.getUnitsPerBox()));
         stock.setPricePerUnit(saveProductDto.getPricePerBox() / saveProductDto.getUnitsPerBox());
+        stock.setUnitsPerBox(saveProductDto.getUnitsPerBox());
+        if (Objects.nonNull(saveProductDto.getUserId())) {
+            var user = userRepository.findById(saveProductDto.getUserId()).orElse(null);
+            if (Objects.nonNull(user)) {
+                stock.setCreatedBy(user);
+                stock.setLastModifiedBy(user);
+            }
+        }
+
         stock.setCreatedDate(new Date());
+        stock.setLastModifiedDate(new Date());
         stockRepository.save(stock);
     }
 
