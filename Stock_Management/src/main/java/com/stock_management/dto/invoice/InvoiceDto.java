@@ -10,6 +10,7 @@ import com.stock_management.dto.order.OrderLineDto;
 import com.stock_management.type.TransactionType;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -20,8 +21,8 @@ public class InvoiceDto {
     private TransactionType transactionType;
     private List<PurchaseInvoiceLineDto> purchaseInvoiceLinesDto;
     private List<OrderLineDto> orderLinesDto;
-    private Double totalPrice;
-    private Double discount;
+    private BigDecimal totalPrice;
+    private BigDecimal discount;
     private Boolean prescription;
     private OrderDto orderDto;
     private CustomerDto customerDto;
@@ -29,4 +30,6 @@ public class InvoiceDto {
     private SupplierDto supplierDto;
     private UserDto createdBy;
     private Date createdDate;
+    private Boolean paid;
+    private BigDecimal amountPaid;
 }

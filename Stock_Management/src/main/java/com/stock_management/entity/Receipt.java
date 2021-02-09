@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -33,10 +34,10 @@ public class Receipt {
     private Invoice invoice;
 
     @Column(name = "TOTAL_PRICE", nullable = false)
-    private Double totalPrice;
+    private BigDecimal totalPrice;
 
     @Column(name = "DISCOUNT", nullable = false)
-    private Double discount;
+    private BigDecimal discount;
 
     @ManyToOne(targetEntity = Customer.class)
     @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID")

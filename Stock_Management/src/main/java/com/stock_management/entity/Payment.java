@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -38,7 +39,7 @@ public class Payment {
     private Receipt receipt;
 
     @Column(name = "AMOUNT_PAID", nullable = false)
-    private Double amountPaid;
+    private BigDecimal amountPaid;
 
     @Column(name = "PAYMENT_MODE", nullable = false)
     @Enumerated(EnumType.STRING)

@@ -12,6 +12,8 @@ import org.mapstruct.Mapping;
         StockMapper.class
 })
 public interface InvoiceMapper {
+    @Mapping(target = "amountPaid", source = "")
+    @Mapping(target = "paid", source = "")
     @Mapping(target = "orderDto", source = "order")
     @Mapping(target = "supplierDto", source = "supplier")
     @Mapping(target = "purchaseInvoiceLinesDto", source = "purchaseInvoiceLines")

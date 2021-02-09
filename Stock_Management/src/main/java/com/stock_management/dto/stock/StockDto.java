@@ -8,6 +8,7 @@ import com.stock_management.dto.shared.AuditDto;
 import com.stock_management.entity.Product;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -16,11 +17,12 @@ import java.util.List;
 public class StockDto extends AuditDto {
     private Long stockId;
     private ProductDto productDto;
-    private Double quantity;
+    private BigDecimal quantity;
     private Integer unitsPerBox;
-    private Double wholeSalePrice;
-    private Double pricePerBox;
-    private Double pricePerUnit;
+    private Integer unitsTotal;
+    private BigDecimal wholeSalePrice;
+    private BigDecimal pricePerBox;
+    private BigDecimal pricePerUnit;
     private LocalDate expiryDate;
     private List<OrderLineDto> orderLinesDto;
     private List<PurchaseInvoiceLineDto> purchaseInvoiceLinesDto;

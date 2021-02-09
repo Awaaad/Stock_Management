@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.math.BigDecimal;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,11 +34,11 @@ public class PurchaseInvoiceLine {
     private Stock stock;
 
     @Column(name = "WHOLE_SALE_PRICE", nullable = false)
-    private Double wholeSalePrice;
+    private BigDecimal wholeSalePrice;
 
     @Column(name = "PRICE_PER_BOX", nullable = false)
-    private Double pricePerBox;
+    private BigDecimal pricePerBox;
 
     @Column(name = "BOXES_RECEIVED")
-    private Double boxesReceived;
+    private BigDecimal boxesReceived;
 }

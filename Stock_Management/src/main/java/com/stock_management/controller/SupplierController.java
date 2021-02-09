@@ -22,7 +22,6 @@ public class SupplierController {
         this.supplierService = supplierService;
     }
 
-    // GET
     @GetMapping("all")
     public ResponseEntity<List<SupplierDto>> getAllSuppliers(){
         return new ResponseEntity<>(supplierService.findAllSuppliers(), HttpStatus.OK);
@@ -47,7 +46,7 @@ public class SupplierController {
     public ResponseEntity<List<OrderDto>>getSupplierByOrderId(@PathVariable Long orderId){
         return new ResponseEntity<>(supplierService.findSupplierByOrderId(orderId), HttpStatus.ACCEPTED);
     }
-    // POST GOES HERE
+
     @PostMapping("save-suppliers")
     public ResponseEntity<String> saveSuppliers(@RequestBody SupplierListDto supplierListDto){
         supplierService.saveSupplier(supplierListDto);
@@ -64,7 +63,7 @@ public class SupplierController {
             }
         }
     }
-    // PUT GOES HERE
+
     @PutMapping("edit-supplier")
     public ResponseEntity<String> editSupplier(@RequestBody SupplierDto supplierDto) throws Exception {
         supplierService.editSupplier(supplierDto);

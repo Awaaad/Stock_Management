@@ -6,7 +6,9 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {
+        StockMapper.class
+})
 public interface OrderLineMapper {
     @Mapping(source = "orderLineEntity.order", target = "orderDto")
     @Mapping(target = "stockDto", source = "stock")

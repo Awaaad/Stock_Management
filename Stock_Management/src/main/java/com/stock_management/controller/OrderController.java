@@ -25,7 +25,6 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    // GET GOES HERE
     @GetMapping("all")
     public ResponseEntity<List<OrderDto>> getAllOrders(){
         return new ResponseEntity<>(orderService.findAllOrders(), HttpStatus.OK);
@@ -62,15 +61,12 @@ public class OrderController {
         return new ResponseEntity<MonthlySalesDto>(orderService.findSalesForEachMonth(year), HttpStatus.OK);
     }
 
-
-    // POST GOES HERE
     @PostMapping("save-sale-transaction")
     public ResponseEntity<String> saveOrder(@RequestBody SaleTransactionDto saleTransactionDto) throws Exception{
         orderService.saveSaleTransaction(saleTransactionDto);
         return new ResponseEntity<String>("Sale transaction saved successfully!", HttpStatus.OK);
     }
 
-    // PUT GOES HERE
     @PutMapping("edit-order")
     public ResponseEntity<String> editOrder(@RequestBody OrderDto orderDto) throws Exception {
         orderService.editOrder(orderDto);

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface OrderService {
-    // GET
+
     List<OrderDto> findAllOrders();
 
     OrderDto findOrderById(Long OrderId);
@@ -26,11 +26,8 @@ public interface OrderService {
 
     MonthlySalesDto findSalesForEachMonth(LocalDate year);
 
-    // POST
-
     void saveSaleTransaction(SaleTransactionDto saleTransactionDto) throws Exception;
 
-    // PUT
     void editOrder(OrderDto orderDto) throws Exception;
 }
 

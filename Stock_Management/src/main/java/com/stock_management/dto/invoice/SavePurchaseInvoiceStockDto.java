@@ -4,6 +4,7 @@ import com.stock_management.dto.stock.StockDto;
 import com.stock_management.type.TransactionType;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class SavePurchaseInvoiceStockDto {
     private String invoiceNumber;
     private TransactionType transactionType;
-    private Double totalPrice;
+    private BigDecimal totalPrice;
     private Long supplierId;
     private List<StockDto> stocksDto;
     private Long userId;

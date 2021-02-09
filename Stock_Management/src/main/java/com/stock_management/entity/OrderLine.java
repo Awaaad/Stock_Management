@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,5 +33,5 @@ public class OrderLine {
     private Integer unitsOrdered;
 
     @Column(name = "TOTAL_PRICE", nullable = false)
-    private Double totalPrice;
+    private BigDecimal totalPrice;
 }

@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class Order {
     private Doctor doctor;
 
     @Column(name = "TOTAL_PRICE", nullable = false)
-    private Double totalPrice;
+    private BigDecimal totalPrice;
 
     @Column(name = "PRESCRIPTION", nullable = false)
     private Boolean prescription;

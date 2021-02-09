@@ -28,7 +28,6 @@ public class UserController {
         this.authenticationManager = authenticationManager;
     }
 
-    // GET GOES HERE
     @GetMapping("all")
     public  ResponseEntity<List<UserDto>>getAllUsers(){
         return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
@@ -44,7 +43,6 @@ public class UserController {
         return new ResponseEntity<>(userService.findUserByUsernameAndPassword(username, password), HttpStatus.OK);
     }
 
-    // POST GOES HERE
 //    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("save-user")
     public ResponseEntity<String> saveUser(@RequestBody UserDto userDto){
@@ -68,6 +66,5 @@ public class UserController {
         authenticatedUserDto.setUserDto(userService.findUserByUsername(loginParamDto.getUsername()));
         authenticatedUserDto.setToken(jwtUtil.generateToken(loginParamDto.getUsername()));
         return authenticatedUserDto;
-//        return  jwtUtil.generateToken(userDto.getUsername());
     }
 }

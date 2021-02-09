@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -48,10 +49,10 @@ public class Invoice {
     private List<OrderLine> orderLines;
 
     @Column(name = "TOTAL_PRICE", nullable = false)
-    private Double totalPrice;
+    private BigDecimal totalPrice;
 
     @Column(name = "DISCOUNT")
-    private Double discount;
+    private BigDecimal discount;
 
     @Column(name = "PRESCRIPTION")
     private Boolean prescription;

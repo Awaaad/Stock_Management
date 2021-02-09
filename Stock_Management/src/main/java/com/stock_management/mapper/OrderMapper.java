@@ -7,7 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = {
-        OrderLineMapper.class
+        OrderLineMapper.class,
+        StockMapper.class
 })
 public interface OrderMapper {
     @Mapping(target = "orderLinesDto", source = "orderLines")

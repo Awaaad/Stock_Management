@@ -7,7 +7,16 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {
+        InvoiceMapper.class,
+        PurchaseInvoiceLineMapper.class,
+        StockMapper.class,
+        OrderMapper.class,
+        OrderLineMapper.class,
+        SupplierMapper.class,
+        CustomerMapper.class,
+        DoctorMapper.class
+})
 public interface ReceiptMapper {
     @Mapping(target = "invoiceDto", source = "invoice")
     @Mapping(target = "doctorDto", source = "doctor")

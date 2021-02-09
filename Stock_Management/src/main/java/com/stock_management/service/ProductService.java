@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ProductService {
-    // GET
+
     List<ProductDto> findAllProducts();
 
     ProductListDto findAllProductLessThanMinStockAmount(Pageable pageable);
@@ -28,7 +28,7 @@ public interface ProductService {
     ProductListDto findListOfProductsByFilters(String productName, Long supplierId, String Category, String slot, LocalDate expiryDate, Boolean productLowInStock, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize);
 
     List<String> findAllSlots();
-    // POST
+
     void saveProduct(SaveProductDto saveProductDto);
 
     void saveProducts(List<SaveProductDto> saveProductsDto);
@@ -37,7 +37,6 @@ public interface ProductService {
 
     boolean hasExcelFormat(MultipartFile file);
 
-    // PUT
     void editProduct(SaveProductDto saveProductDto) throws Exception;
 
 }

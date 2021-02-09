@@ -26,7 +26,6 @@ public class ProductController {
         this.productService = productService;
     }
 
-    // GET GOES HERE
     @GetMapping("all")
     public ResponseEntity<List<ProductDto>>getAllProducts(){
         return new ResponseEntity<>(productService.findAllProducts(), HttpStatus.OK);
@@ -62,7 +61,6 @@ public class ProductController {
         return new ResponseEntity<>(productService.findAllSlots(), HttpStatus.OK);
     }
 
-    // POST GOES HERE
     @PostMapping("save-product")
     public ResponseEntity saveProduct(@RequestBody SaveProductDto saveProductDto){
         productService.saveProduct(saveProductDto);
@@ -86,7 +84,6 @@ public class ProductController {
         }
     }
 
-    // PUT GOES HERE
     @PutMapping("edit-product")
     public ResponseEntity<String> editProduct(@RequestBody SaveProductDto saveProductDto) throws Exception {
         productService.editProduct(saveProductDto);

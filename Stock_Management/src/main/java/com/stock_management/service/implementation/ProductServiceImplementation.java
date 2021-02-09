@@ -7,6 +7,7 @@ import com.stock_management.dto.product.ProductDto;
 import com.stock_management.dto.product.ProductListDto;
 import com.stock_management.dto.product.ProductStockDto;
 import com.stock_management.dto.product.SaveProductDto;
+import com.stock_management.entity.Payment;
 import com.stock_management.entity.Product;
 import com.stock_management.entity.QProduct;
 import com.stock_management.entity.QStock;
@@ -39,6 +40,8 @@ import javax.persistence.PersistenceContext;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -102,9 +105,14 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     private boolean filterProduct(Product product) {
-        var stocks = stockRepository.findStockByProduct_ProductId_AndQuantityIsGreaterThanOrderByCreatedDateDesc(product.getProductId(), 0);
-        double quantity = stocks.stream().mapToDouble(Stock::getQuantity).sum();
-        return quantity < product.getMinStockAmount();
+        var stocks = stockRepository.findStockByProduct_ProductId_AndUnitsTotalIsGreaterThanOrderByCreatedDateDesc(product.getProductId(), 0);
+        BigDecimal sum = BigDecimal.ZERO;
+        for (Stock stock : stocks) {
+            sum = sum.add(stock.getQuantity());
+        }
+        var quantity = sum.setScale(2, RoundingMode.HALF_UP);
+//        double quantity = stocks.stream().mapToDouble(Stock::getQuantity).sum();
+        return quantity.compareTo(new BigDecimal(product.getMinStockAmount())) < 0;
     }
 
     @Override
@@ -128,7 +136,7 @@ public class ProductServiceImplementation implements ProductService {
 
     private ProductDto mapListOfProductWithAdditionalDetail(Product product) {
         ProductDto productDto = new ProductDto();
-        var stocks = stockRepository.findStockByProduct_ProductId_AndQuantityIsGreaterThanOrderByCreatedDateDesc(product.getProductId(), 0);
+        var stocks = stockRepository.findStockByProduct_ProductId_AndUnitsTotalIsGreaterThanOrderByCreatedDateDesc(product.getProductId(), 0);
         return setProductDto(product, stocks, productDto);
     }
 
@@ -145,7 +153,7 @@ public class ProductServiceImplementation implements ProductService {
     public ProductDto findProductById(Long productId) {
             Optional<Product> optionalProduct = productRepository.findById(productId);
             var product = optionalProduct.orElse(null);
-            var stocks = stockRepository.findStockByProduct_ProductId_AndQuantityIsGreaterThanOrderByCreatedDateDesc(productId, 0);
+            var stocks = stockRepository.findStockByProduct_ProductId_AndUnitsTotalIsGreaterThanOrderByCreatedDateDesc(productId, 0);
 
             ProductDto productDto = new ProductDto();
             if (Objects.nonNull(product)) {
@@ -216,7 +224,7 @@ public class ProductServiceImplementation implements ProductService {
         var optionalSupplier = supplierRepository.findById(saveProductDto.getSupplier().getSupplierId());
         var supplier = optionalSupplier.orElse(null);
 
-        var stocks = stockRepository.findStockByProduct_ProductId_AndQuantityIsGreaterThanOrderByCreatedDateDesc(saveProductDto.getProductId(), 0);
+        var stocks = stockRepository.findStockByProduct_ProductId_AndUnitsTotalIsGreaterThanOrderByCreatedDateDesc(saveProductDto.getProductId(), 0);
         var stock = stocks.stream().findFirst().orElse(null);
 
         if (Objects.nonNull(product)) {
@@ -236,10 +244,10 @@ public class ProductServiceImplementation implements ProductService {
             if (Objects.nonNull(stock)) {
                 stock.setProduct(product);
                 stock.setQuantity(saveProductDto.getBox());
-                stock.setUnitsTotal((saveProductDto.getBox() * saveProductDto.getUnitsPerBox()));
+                stock.setUnitsTotal(saveProductDto.getBox().multiply(new BigDecimal(saveProductDto.getUnitsPerBox())).intValue());
                 stock.setWholeSalePrice(saveProductDto.getWholeSalePrice());
                 stock.setPricePerBox(saveProductDto.getPricePerBox());
-                stock.setPricePerUnit(saveProductDto.getPricePerBox() / saveProductDto.getUnitsPerBox());
+                stock.setPricePerUnit(saveProductDto.getPricePerBox().divide(new BigDecimal(saveProductDto.getUnitsPerBox())).setScale(2, RoundingMode.HALF_UP));
                 stock.setExpiryDate(saveProductDto.getExpiryDate().plusDays(1));
                 stock.setUnitsPerBox(saveProductDto.getUnitsPerBox());
                 stock.setLastModifiedBy(user);
@@ -274,8 +282,8 @@ public class ProductServiceImplementation implements ProductService {
         stock.setWholeSalePrice(saveProductDto.getWholeSalePrice());
         stock.setPricePerBox(saveProductDto.getPricePerBox());
         stock.setExpiryDate(saveProductDto.getExpiryDate().plusDays(1));
-        stock.setUnitsTotal((saveProductDto.getBox() * saveProductDto.getUnitsPerBox()));
-        stock.setPricePerUnit(saveProductDto.getPricePerBox() / saveProductDto.getUnitsPerBox());
+        stock.setUnitsTotal(saveProductDto.getBox().multiply(new BigDecimal(saveProductDto.getUnitsPerBox())).intValue());
+        stock.setPricePerUnit(saveProductDto.getPricePerBox().divide(new BigDecimal(saveProductDto.getUnitsPerBox())).setScale(2, RoundingMode.HALF_UP));
         stock.setUnitsPerBox(saveProductDto.getUnitsPerBox());
         if (Objects.nonNull(saveProductDto.getUserId())) {
             var user = userRepository.findById(saveProductDto.getUserId()).orElse(null);
@@ -347,7 +355,7 @@ public class ProductServiceImplementation implements ProductService {
             booleanBuilder.and(qProduct.category.toLowerCase().eq(category.toLowerCase()));
         }
         if(Objects.nonNull(expiryDate)) {
-            booleanBuilder.and(qStock.expiryDate.before(expiryDate).and(qStock.quantity.ne(0D)));
+            booleanBuilder.and(qStock.expiryDate.before(expiryDate).and(qStock.quantity.ne(BigDecimal.valueOf(0D))));
         }
         return booleanBuilder;
     }
@@ -437,7 +445,7 @@ public class ProductServiceImplementation implements ProductService {
                             break;
 
                         case 4:
-                            saveProductDto.setBox((double) currentCell.getNumericCellValue());
+                            saveProductDto.setBox(BigDecimal.valueOf((double) currentCell.getNumericCellValue()));
                             break;
 
                         case 5:
@@ -445,15 +453,15 @@ public class ProductServiceImplementation implements ProductService {
                             break;
 
                         case 6:
-                            saveProductDto.setUnitsTotal((double) currentCell.getNumericCellValue());
+                            saveProductDto.setUnitsTotal(BigDecimal.valueOf((double) currentCell.getNumericCellValue()));
                             break;
 
                         case 7:
-                            saveProductDto.setPricePerBox((double) currentCell.getNumericCellValue());
+                            saveProductDto.setPricePerBox(BigDecimal.valueOf((double) currentCell.getNumericCellValue()));
                             break;
 
                         case 8:
-                            saveProductDto.setPricePerUnit((double) currentCell.getNumericCellValue());
+                            saveProductDto.setPricePerUnit(BigDecimal.valueOf((double) currentCell.getNumericCellValue()));
                             break;
 
                         case 9:
@@ -478,7 +486,7 @@ public class ProductServiceImplementation implements ProductService {
                             break;
 
                         case 14:
-                            saveProductDto.setWholeSalePrice((double) currentCell.getNumericCellValue());
+                            saveProductDto.setWholeSalePrice(BigDecimal.valueOf((double) currentCell.getNumericCellValue()));
                             break;
 
                         default:

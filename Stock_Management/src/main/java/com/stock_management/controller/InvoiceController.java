@@ -4,6 +4,7 @@ import com.stock_management.dto.invoice.InvoiceDto;
 import com.stock_management.dto.invoice.PurchaseInvoiceListDto;
 import com.stock_management.dto.invoice.SavePurchaseInvoiceStockDto;
 import com.stock_management.service.InvoiceService;
+import com.stock_management.type.TransactionType;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,23 +22,17 @@ import java.util.Date;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 10000)
-@RequestMapping("/purchase-invoice")
-public class PurchaseInvoiceController {
+@RequestMapping("/invoice")
+public class InvoiceController {
     private final InvoiceService invoiceService;
 
-    public PurchaseInvoiceController(InvoiceService invoiceService) {
+    public InvoiceController(InvoiceService invoiceService) {
         this.invoiceService = invoiceService;
     }
 
-    // GET GOES HERE
-//    @GetMapping("all")
-//    public ResponseEntity<List<InvoiceDto>>getAllPurchaseInvoice(){
-//        return new ResponseEntity<>(invoiceService.findAllPurchaseInvoice(), HttpStatus.OK);
-//    }
-//
     @GetMapping("filter")
-    public ResponseEntity<PurchaseInvoiceListDto> getPurchaseInvoicesViaFilter(@RequestParam String searchBox, @RequestParam("invoiceDateFrom") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date invoiceDateFrom, @RequestParam("invoiceDateTo") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date invoiceDateTo, @RequestParam String sortOrder, @RequestParam String sortBy, @RequestParam Integer pageNumber, @RequestParam Integer pageSize){
-        return new ResponseEntity<>(invoiceService.findPurchaseInvoiceByFilters(searchBox, invoiceDateFrom, invoiceDateTo, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
+    public ResponseEntity<PurchaseInvoiceListDto> getPurchaseInvoicesViaFilter(@RequestParam TransactionType transactionType, @RequestParam String searchBox, @RequestParam Long userId, @RequestParam Boolean paid, @RequestParam("invoiceDateFrom") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date invoiceDateFrom, @RequestParam("invoiceDateTo") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date invoiceDateTo, @RequestParam String sortOrder, @RequestParam String sortBy, @RequestParam Integer pageNumber, @RequestParam Integer pageSize){
+        return new ResponseEntity<>(invoiceService.findPurchaseInvoiceByFilters(transactionType, searchBox, userId, paid, invoiceDateFrom, invoiceDateTo, sortOrder, sortBy, pageNumber, pageSize), HttpStatus.OK);
     }
 
     @GetMapping("invoice-id/{invoiceId}")
@@ -45,7 +40,6 @@ public class PurchaseInvoiceController {
         return new ResponseEntity<>(invoiceService.findPurchaseInvoiceById(invoiceId), HttpStatus.OK);
     }
 
-//    // POST GOES HERE
     @PostMapping("save-purchase-invoice")
     public ResponseEntity<String> savePurchaseInvoice(@RequestBody SavePurchaseInvoiceStockDto savePurchaseInvoiceStockDto){
         invoiceService.savePurchaseInvoice(savePurchaseInvoiceStockDto);

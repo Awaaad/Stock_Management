@@ -3,19 +3,20 @@ package com.stock_management.dto.order;
 import com.stock_management.dto.product.ProductDto;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
 public class SaleStockUpdateDto {
     private Long stockId;
     private ProductDto productDto;
-    private Double quantity;
+    private BigDecimal quantity;
     private Integer unitsPerBox;
-    private Double wholeSalePrice;
-    private Double pricePerBox;
-    private Double pricePerUnit;
+    private BigDecimal wholeSalePrice;
+    private BigDecimal pricePerBox;
+    private BigDecimal pricePerUnit;
     private LocalDate expiryDate;
     private Integer boxesOrdered;
     private Integer unitsOrdered;
-    private Double total;
+    private BigDecimal total;
 }

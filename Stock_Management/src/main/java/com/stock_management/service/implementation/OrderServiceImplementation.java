@@ -41,12 +41,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @EnableAutoConfiguration
@@ -93,7 +96,7 @@ public class OrderServiceImplementation implements OrderService {
 
     @Override
     public OrderDto findOrderById(Long OrderId) {
-        java.util.Optional<Order> order = orderRepository.findById(OrderId);
+        Optional<Order> order = orderRepository.findById(OrderId);
         var oneOrder = order.orElse(null);
         return orderMapper.mapOrderEntityToDto(oneOrder);
     }
@@ -220,8 +223,14 @@ public class OrderServiceImplementation implements OrderService {
     public void saveSaleTransaction(SaleTransactionDto saleTransactionDto) throws Exception {
 
         var user = userRepository.findById(saleTransactionDto.getUserId()).orElse(null);
-        var filteredStocks = saleTransactionDto.getSaleStockUpdatesDto().stream().filter(stockDto -> Objects.nonNull(stockDto.getQuantity()) && stockDto.getQuantity() > 0D).collect(Collectors.toList());
-        var totalPrice = filteredStocks.stream().mapToDouble(SaleStockUpdateDto::getTotal).sum();
+        var filteredStocks = saleTransactionDto.getSaleStockUpdatesDto().stream().filter(stockDto -> Objects.nonNull(stockDto.getQuantity()) && stockDto.getQuantity().compareTo(BigDecimal.ZERO) > 0).collect(Collectors.toList());
+
+        BigDecimal totalPrice = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
+        for (SaleStockUpdateDto saleStockUpdateDto : filteredStocks) {
+            totalPrice = totalPrice.add(saleStockUpdateDto.getTotal());
+        }
+
+//        var totalPrice = filteredStocks.stream().mapToDouble(SaleStockUpdateDto::getTotal).sum();
 
         var savedOrder = saveOrderFromST(saleTransactionDto, totalPrice, user);
 
@@ -232,9 +241,10 @@ public class OrderServiceImplementation implements OrderService {
         saveOrderLines(saleTransactionDto.getSaleStockUpdatesDto(), savedOrder);
     }
 
-    private Order saveOrderFromST(SaleTransactionDto saleTransactionDto, Double totalPrice, UserProfile user) throws Exception {
+    private Order saveOrderFromST(SaleTransactionDto saleTransactionDto, BigDecimal totalPrice, UserProfile user) throws Exception {
         Order order = new Order();
         if (saleTransactionDto.getIsPrescription().equals(true)) {
+            order.setPrescription(true);
             if (saleTransactionDto.getIsNewCustomer().equals(true)) {
                 var savedCustomer = customerRepository.save(customerMapper.mapCustomerDtoToEntity(saleTransactionDto.getCustomerDto()));
                 order.setCustomer(savedCustomer);
@@ -258,12 +268,15 @@ public class OrderServiceImplementation implements OrderService {
                 throw new Exception("doctor.not.provided");
             }
         } else {
+            order.setPrescription(false);
             if (saleTransactionDto.getIsNewCustomer().equals(true)) {
                 var savedCustomer = customerRepository.save(customerMapper.mapCustomerDtoToEntity(saleTransactionDto.getCustomerDto()));
                 order.setCustomer(savedCustomer);
             } else if (!Objects.nonNull(saleTransactionDto.getCustomerDto().getCustomerId())) {
                 var spontaneousCustomer = customerRepository.findCustomerByLastName("anonymous");
                 order.setCustomer(spontaneousCustomer);
+            } else {
+                order.setCustomer(customerMapper.mapCustomerDtoToEntity(saleTransactionDto.getCustomerDto()));
             }
             saleTransactionDto.setDoctorDto(null);
         }
@@ -275,9 +288,9 @@ public class OrderServiceImplementation implements OrderService {
         return orderRepository.save(order);
     }
 
-    private Invoice saveInvoiceFromtST(Order order, Double soldAt) {
+    private Invoice saveInvoiceFromtST(Order order, BigDecimal soldAt) {
         Invoice invoice = new Invoice();
-
+        invoice.setOrder(order);
         invoice.setCustomer(order.getCustomer());
         invoice.setCreatedBy(order.getCreatedBy());
         invoice.setCreatedDate(new Date());
@@ -285,7 +298,7 @@ public class OrderServiceImplementation implements OrderService {
         invoice.setTransactionType(TransactionType.SALE);
         invoice.setTotalPrice(order.getTotalPrice());
         invoice.setPrescription(order.getPrescription());
-        invoice.setDiscount(order.getTotalPrice() - soldAt);
+        invoice.setDiscount(order.getTotalPrice().subtract(soldAt));
 
         return invoiceRepository.save(invoice);
     }
@@ -299,7 +312,7 @@ public class OrderServiceImplementation implements OrderService {
                 throw new Exception("total.units.less.than.zero");
             } else {
                 stock.setUnitsTotal(currentUnits - (totalUnitsOrdered));
-                stock.setQuantity((double) (stock.getUnitsTotal()/stock.getUnitsPerBox()));
+                stock.setQuantity(new BigDecimal (stock.getUnitsTotal()/stock.getUnitsPerBox()));
             }
         }
         return stock;

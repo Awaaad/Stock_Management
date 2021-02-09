@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -38,22 +39,22 @@ public class Stock {
     private Product product;
 
     @Column(name = "QUANTITY", nullable = false)
-    private Double quantity;
+    private BigDecimal quantity;
     
     @Column(name = "UNITS_PER_BOX")
     private Integer unitsPerBox;
 
     @Column(name = "UNITS_TOTAL")
-    private Double unitsTotal;
+    private Integer unitsTotal;
 
     @Column(name = "WHOLE_SALE_PRICE", nullable = false)
-    private Double wholeSalePrice;
+    private BigDecimal wholeSalePrice;
 
     @Column(name = "PRICE_PER_BOX", nullable = false)
-    private Double pricePerBox;
+    private BigDecimal pricePerBox;
 
     @Column(name = "PRICE_PER_UNIT", nullable = false)
-    private Double pricePerUnit;
+    private BigDecimal pricePerUnit;
 
     @Column(name = "EXPIRY_DATE")
     private LocalDate expiryDate;
