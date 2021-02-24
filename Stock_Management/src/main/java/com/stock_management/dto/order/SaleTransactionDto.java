@@ -6,6 +6,7 @@ import com.stock_management.dto.payment.PaymentDto;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -21,5 +22,5 @@ public class SaleTransactionDto {
     private BigDecimal soldAt;
     private List<PaymentDto> paymentsDto;
     private Long userId;
-    private Date createdDate;
+    private LocalDateTime createdDate;
 }

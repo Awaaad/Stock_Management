@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -65,7 +66,7 @@ public class StockControlSystemApplication extends SpringBootServletInitializer 
 		userService.saveUsers(userProfiles);
 
 		Customer customer = new Customer(1L, "anonymous", "anonymous", null, null, userRepository.findByUsername
-				("m.awad.l"), new Date(), null, null);
+				("m.awad.l"), LocalDateTime.now(), null, null);
 		if (!customerRepository.existsByFirstNameAndLastName(customer.getFirstName(), customer.getLastName())) {
 			customerRepository.save(customer);
 		}

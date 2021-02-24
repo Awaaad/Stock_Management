@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -52,7 +53,7 @@ public class Supplier {
 
     @CreatedDate
     @Column(name = "CREATED_DATE")
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     @LastModifiedBy
     @ManyToOne(targetEntity = UserProfile.class)
@@ -61,17 +62,17 @@ public class Supplier {
 
     @LastModifiedDate
     @Column(name = "LAST_Modified_DATE")
-    private Date lastModifiedDate;
+    private LocalDateTime lastModifiedDate;
 
     @PrePersist
     protected void prePersist() {
-        createdDate = new Date();
-        lastModifiedDate = new Date();
+        createdDate = LocalDateTime.now();
+        lastModifiedDate = LocalDateTime.now();
         lastModifiedBy = createdBy;
     }
 
     @PreUpdate
     protected void preUpdate() {
-        lastModifiedDate = new Date();
+        lastModifiedDate = LocalDateTime.now();
     }
 }

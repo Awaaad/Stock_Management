@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -46,11 +47,11 @@ public class Order {
 
     @CreatedDate
     @Column(name = "CREATED_DATE", nullable = false)
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     @PrePersist
     protected void prePersist() {
-        createdDate = new Date();
+        createdDate = LocalDateTime.now();
     }
 }
 

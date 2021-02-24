@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -41,12 +42,12 @@ public class StockServiceImplementation implements StockService {
             stock.setUnitsTotal((stockDto.getQuantity().multiply(new BigDecimal(stock.getProduct().getUnitsPerBox())).intValue()));
             stock.setWholeSalePrice(stockDto.getWholeSalePrice());
             stock.setPricePerBox(stockDto.getPricePerBox());
-            stock.setPricePerUnit(stockDto.getPricePerBox().divide(new BigDecimal(stockDto.getProductDto().getUnitsPerBox())).setScale(2, RoundingMode.HALF_UP));
+            stock.setPricePerUnit(stockDto.getPricePerBox().divide(new BigDecimal(stockDto.getProductDto().getUnitsPerBox()), 2, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP));
             stock.setExpiryDate(stockDto.getExpiryDate().plusDays(1));
             stock.setCreatedBy(userRepository.findById(stockDto.getCreatedBy().getUserId()).orElse(null));
-            stock.setCreatedDate(new Date());
+            stock.setCreatedDate(LocalDateTime.now());
             stock.setLastModifiedBy(userRepository.findById(stockDto.getLastModifiedBy().getUserId()).orElse(null));
-            stock.setLastModifiedDate(new Date());
+            stock.setLastModifiedDate(LocalDateTime.now());
             return stock;
     }
 
@@ -63,10 +64,10 @@ public class StockServiceImplementation implements StockService {
             stock.setUnitsPerBox(stockDto.getUnitsPerBox());
             stock.setWholeSalePrice(stockDto.getWholeSalePrice());
             stock.setPricePerBox(stockDto.getPricePerBox());
-            stock.setPricePerUnit(stockDto.getPricePerBox().divide(new BigDecimal(stockDto.getProductDto().getUnitsPerBox())).setScale(2, RoundingMode.HALF_UP));
+            stock.setPricePerUnit(stockDto.getPricePerBox().divide(new BigDecimal(stockDto.getProductDto().getUnitsPerBox()), 2, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP));
             stock.setExpiryDate(stockDto.getExpiryDate());
             stock.setLastModifiedBy(user);
-            stock.setLastModifiedDate(new Date());
+            stock.setLastModifiedDate(LocalDateTime.now());
             stock.setUnitsTotal(stockDto.getQuantity().multiply(new BigDecimal(stockDto.getProductDto().getUnitsPerBox())).intValue());
             stockRepository.save(stock);
         } else {

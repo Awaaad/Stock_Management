@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +18,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -41,6 +45,10 @@ public class Payment {
     @Column(name = "AMOUNT_PAID", nullable = false)
     private BigDecimal amountPaid;
 
+    @Column(name = "PREVIOUS_PAYMENT_MODE")
+    @Enumerated(EnumType.STRING)
+    private PaymentType previousPaymentMode;
+
     @Column(name = "PAYMENT_MODE", nullable = false)
     @Enumerated(EnumType.STRING)
     private PaymentType paymentMode;
@@ -51,10 +59,26 @@ public class Payment {
 
     @CreatedDate
     @Column(name = "CREATED_DATE", nullable = false)
-    private Date createdDate;
+    private LocalDateTime createdDate;
+
+    @LastModifiedBy
+    @ManyToOne(targetEntity = UserProfile.class)
+    @JoinColumn(name = "LAST_MODIFIED_BY", referencedColumnName = "USER_ID")
+    private UserProfile lastModifiedBy;
+
+    @LastModifiedDate
+    @Column(name = "LAST_Modified_DATE")
+    private LocalDateTime lastModifiedDate;
 
     @PrePersist
     protected void prePersist() {
-        createdDate = new Date();
+        createdDate = LocalDateTime.now();
+        lastModifiedDate = LocalDateTime.now();
+        lastModifiedBy = createdBy;
+    }
+
+    @PreUpdate
+    protected void preUpdate() {
+        lastModifiedDate = LocalDateTime.now();
     }
 }

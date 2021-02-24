@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -53,11 +54,11 @@ public class Receipt {
 
     @CreatedDate
     @Column(name = "CREATED_DATE", nullable = false)
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     @PrePersist
     protected void prePersist() {
-        createdDate = new Date();
+        createdDate = LocalDateTime.now();
     }
 
 }

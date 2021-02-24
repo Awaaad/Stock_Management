@@ -5,6 +5,7 @@ import com.stock_management.type.TransactionType;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -16,5 +17,5 @@ public class SavePurchaseInvoiceStockDto {
     private Long supplierId;
     private List<StockDto> stocksDto;
     private Long userId;
-    private Date createdDate;
+    private LocalDateTime createdDate;
 }

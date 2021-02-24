@@ -6,6 +6,7 @@ import com.stock_management.dto.customer.CustomerDto;
 import com.stock_management.entity.UserProfile;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class OrderDto {
     private Double totalPrice;
     private Boolean prescription;
     private UserProfile createdBy;
-    private Date createdDate;
+    private LocalDateTime createdDate;
     private Boolean isNewCustomer;
     private Boolean isNewDoctor;
 }

@@ -13,6 +13,8 @@ import com.stock_management.repository.PaymentRepository;
 import com.stock_management.repository.ReceiptRepository;
 import com.stock_management.service.ReceiptService;
 import org.springframework.stereotype.Service;
+
+import java.math.RoundingMode;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -48,7 +50,7 @@ public class ReceiptServiceImplementation implements ReceiptService {
 
         customReceiptDto.setReceiptId(receipt.getReceiptId());
         customReceiptDto.setTotalPrice(receipt.getTotalPrice());
-        customReceiptDto.setDiscount(receipt.getDiscount());
+        customReceiptDto.setDiscount(receipt.getDiscount().setScale(2, RoundingMode.HALF_UP));
         customReceiptDto.setPaymentsDto(paymentRepository.findByInvoice_InvoiceId(invoiceId).stream().map(paymentMapper::mapPaymentEntityToDto).collect(Collectors.toList()));
         customReceiptDto.setCustomerDto(customerMapper.mapCustomerEntityToDto(receipt.getCustomer()));
         if (Objects.nonNull(receipt.getDoctor())) {

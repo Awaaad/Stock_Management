@@ -7,6 +7,7 @@ import com.stock_management.dto.security.UserDto;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -18,5 +19,5 @@ public class ReceiptDto {
     private CustomerDto customerDto;
     private DoctorDto doctorDto;
     private UserDto createdBy;
-    private Date createdDate;
+    private LocalDateTime createdDate;
 }

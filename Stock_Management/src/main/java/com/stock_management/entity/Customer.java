@@ -51,7 +51,7 @@ public class Customer {
 
     @CreatedDate
     @Column(name = "CREATED_DATE")
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     @LastModifiedBy
     @ManyToOne(targetEntity = UserProfile.class)
@@ -60,17 +60,17 @@ public class Customer {
 
     @LastModifiedDate
     @Column(name = "LAST_Modified_DATE")
-    private Date lastModifiedDate;
+    private LocalDateTime lastModifiedDate;
 
     @PrePersist
     protected void prePersist() {
-        createdDate = new Date();
-        lastModifiedDate = new Date();
+        createdDate = LocalDateTime.now();
+        lastModifiedDate = LocalDateTime.now();
         lastModifiedBy = createdBy;
     }
 
     @PreUpdate
     protected void preUpdate() {
-        lastModifiedDate = new Date();
+        lastModifiedDate = LocalDateTime.now();
     }
 }

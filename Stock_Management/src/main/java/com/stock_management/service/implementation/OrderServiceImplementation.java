@@ -26,7 +26,6 @@ import com.stock_management.repository.InvoiceRepository;
 import com.stock_management.repository.OrderLineRepository;
 import com.stock_management.repository.OrderRepository;
 import com.stock_management.repository.PaymentRepository;
-import com.stock_management.repository.ProductRepository;
 import com.stock_management.repository.ReceiptRepository;
 import com.stock_management.repository.StockRepository;
 import com.stock_management.repository.UserRepository;
@@ -223,14 +222,12 @@ public class OrderServiceImplementation implements OrderService {
     public void saveSaleTransaction(SaleTransactionDto saleTransactionDto) throws Exception {
 
         var user = userRepository.findById(saleTransactionDto.getUserId()).orElse(null);
-        var filteredStocks = saleTransactionDto.getSaleStockUpdatesDto().stream().filter(stockDto -> Objects.nonNull(stockDto.getQuantity()) && stockDto.getQuantity().compareTo(BigDecimal.ZERO) > 0).collect(Collectors.toList());
+        var filteredStocks = saleTransactionDto.getSaleStockUpdatesDto().stream().filter(stockDto -> (Objects.nonNull(stockDto.getBoxesOrdered()) && stockDto.getBoxesOrdered() > 0) || Objects.nonNull(stockDto.getUnitsOrdered()) && stockDto.getUnitsOrdered() > 0).collect(Collectors.toList());
 
         BigDecimal totalPrice = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
         for (SaleStockUpdateDto saleStockUpdateDto : filteredStocks) {
             totalPrice = totalPrice.add(saleStockUpdateDto.getTotal());
         }
-
-//        var totalPrice = filteredStocks.stream().mapToDouble(SaleStockUpdateDto::getTotal).sum();
 
         var savedOrder = saveOrderFromST(saleTransactionDto, totalPrice, user);
 
@@ -238,7 +235,7 @@ public class OrderServiceImplementation implements OrderService {
         var savedReceipt = saveReceipt(savedInvoice, savedOrder, user);
 
         savePayments(saleTransactionDto.getPaymentsDto(), savedInvoice, savedReceipt);
-        saveOrderLines(saleTransactionDto.getSaleStockUpdatesDto(), savedOrder);
+        saveOrderLines(filteredStocks, savedOrder);
     }
 
     private Order saveOrderFromST(SaleTransactionDto saleTransactionDto, BigDecimal totalPrice, UserProfile user) throws Exception {
@@ -283,7 +280,7 @@ public class OrderServiceImplementation implements OrderService {
 
         order.setCreatedBy(user);
         order.setTotalPrice(totalPrice);
-        order.setCreatedDate(new Date());
+        order.setCreatedDate(LocalDateTime.now());
 
         return orderRepository.save(order);
     }
@@ -293,12 +290,12 @@ public class OrderServiceImplementation implements OrderService {
         invoice.setOrder(order);
         invoice.setCustomer(order.getCustomer());
         invoice.setCreatedBy(order.getCreatedBy());
-        invoice.setCreatedDate(new Date());
+        invoice.setCreatedDate(LocalDateTime.now());
         invoice.setInvoiceNumber("TEST123");
         invoice.setTransactionType(TransactionType.SALE);
         invoice.setTotalPrice(order.getTotalPrice());
         invoice.setPrescription(order.getPrescription());
-        invoice.setDiscount(order.getTotalPrice().subtract(soldAt));
+        invoice.setDiscount((((order.getTotalPrice().subtract(soldAt)).divide(order.getTotalPrice(), 5, RoundingMode.HALF_UP)).multiply(new BigDecimal("100"))));
 
         return invoiceRepository.save(invoice);
     }
@@ -325,8 +322,11 @@ public class OrderServiceImplementation implements OrderService {
             payment.setReceipt(receipt);
             payment.setAmountPaid(paymentDto.getAmountPaid());
             payment.setPaymentMode(paymentDto.getPaymentMode());
+            payment.setPreviousPaymentMode(paymentDto.getPaymentMode());
             payment.setCreatedBy(userRepository.findById(paymentDto.getCreatedBy().getUserId()).orElse(null));
-            payment.setCreatedDate(new Date());
+            payment.setCreatedDate(LocalDateTime.now());
+            payment.setLastModifiedBy(userRepository.findById(paymentDto.getCreatedBy().getUserId()).orElse(null));
+            payment.setLastModifiedDate(LocalDateTime.now());
             return payment;
         }).collect(Collectors.toList());
 
@@ -357,7 +357,7 @@ public class OrderServiceImplementation implements OrderService {
         receipt.setTotalPrice(invoice.getTotalPrice());
         receipt.setDiscount(invoice.getDiscount());
         receipt.setCreatedBy(user);
-        receipt.setCreatedDate(new Date());
+        receipt.setCreatedDate(LocalDateTime.now());
         receipt.setCustomer(order.getCustomer());
         receipt.setDoctor(order.getDoctor());
         return receiptRepository.save(receipt);

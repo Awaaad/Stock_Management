@@ -2,6 +2,7 @@ package com.stock_management.dto.invoice;
 
 import com.stock_management.dto.doctor.DoctorDto;
 import com.stock_management.dto.order.OrderDto;
+import com.stock_management.dto.payment.PaymentDto;
 import com.stock_management.dto.receipt.ReceiptDto;
 import com.stock_management.dto.supplier.SupplierDto;
 import com.stock_management.dto.security.UserDto;
@@ -11,6 +12,7 @@ import com.stock_management.type.TransactionType;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +31,11 @@ public class InvoiceDto {
     private DoctorDto doctorDto;
     private SupplierDto supplierDto;
     private UserDto createdBy;
-    private Date createdDate;
+    private LocalDateTime createdDate;
     private Boolean paid;
     private BigDecimal amountPaid;
+    private BigDecimal amountDue;
+    private Boolean isChecked;
+    private List<PaymentDto> paymentsDto;
+    private BigDecimal discountOnTotalCredit;
 }

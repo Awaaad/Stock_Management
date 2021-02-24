@@ -43,6 +43,7 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -198,7 +199,11 @@ public class ProductServiceImplementation implements ProductService {
             productStockDto.setCreatedDate(stock.getCreatedDate());
             productStockDto.setLastModifiedBy(userMapper.mapUserEntityToDto(stock.getLastModifiedBy()));
             productStockDto.setLastModifiedDate(stock.getLastModifiedDate());
-            productStockDto.setMaxUnitsCanBeEntered(null);
+            if (stock.getUnitsPerBox() >= stock.getUnitsTotal()) {
+                productStockDto.setMaxUnitsCanBeEntered(stock.getUnitsTotal());
+            } else {
+                productStockDto.setMaxUnitsCanBeEntered(stock.getUnitsPerBox());
+            }
             productStocksDto.add(productStockDto);
         });
 
@@ -238,7 +243,7 @@ public class ProductServiceImplementation implements ProductService {
             product.setMinStockAmount(saveProductDto.getMinStockAmount());
             product.setSupplier(supplier);
             product.setLastModifiedBy(user);
-            product.setLastModifiedDate(new Date());
+            product.setLastModifiedDate(LocalDateTime.now());
             productRepository.save(product);
 
             if (Objects.nonNull(stock)) {
@@ -247,11 +252,11 @@ public class ProductServiceImplementation implements ProductService {
                 stock.setUnitsTotal(saveProductDto.getBox().multiply(new BigDecimal(saveProductDto.getUnitsPerBox())).intValue());
                 stock.setWholeSalePrice(saveProductDto.getWholeSalePrice());
                 stock.setPricePerBox(saveProductDto.getPricePerBox());
-                stock.setPricePerUnit(saveProductDto.getPricePerBox().divide(new BigDecimal(saveProductDto.getUnitsPerBox())).setScale(2, RoundingMode.HALF_UP));
+                stock.setPricePerUnit(saveProductDto.getPricePerBox().divide(new BigDecimal(saveProductDto.getUnitsPerBox()), 2, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP));
                 stock.setExpiryDate(saveProductDto.getExpiryDate().plusDays(1));
                 stock.setUnitsPerBox(saveProductDto.getUnitsPerBox());
                 stock.setLastModifiedBy(user);
-                stock.setLastModifiedDate(new Date());
+                stock.setLastModifiedDate(LocalDateTime.now());
                 stockRepository.save(stock);
             }
         } else {
@@ -283,7 +288,7 @@ public class ProductServiceImplementation implements ProductService {
         stock.setPricePerBox(saveProductDto.getPricePerBox());
         stock.setExpiryDate(saveProductDto.getExpiryDate().plusDays(1));
         stock.setUnitsTotal(saveProductDto.getBox().multiply(new BigDecimal(saveProductDto.getUnitsPerBox())).intValue());
-        stock.setPricePerUnit(saveProductDto.getPricePerBox().divide(new BigDecimal(saveProductDto.getUnitsPerBox())).setScale(2, RoundingMode.HALF_UP));
+        stock.setPricePerUnit(saveProductDto.getPricePerBox().divide(new BigDecimal(saveProductDto.getUnitsPerBox()), 2, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP));
         stock.setUnitsPerBox(saveProductDto.getUnitsPerBox());
         if (Objects.nonNull(saveProductDto.getUserId())) {
             var user = userRepository.findById(saveProductDto.getUserId()).orElse(null);
@@ -293,8 +298,8 @@ public class ProductServiceImplementation implements ProductService {
             }
         }
 
-        stock.setCreatedDate(new Date());
-        stock.setLastModifiedDate(new Date());
+        stock.setCreatedDate(LocalDateTime.now());
+        stock.setLastModifiedDate(LocalDateTime.now());
         stockRepository.save(stock);
     }
 

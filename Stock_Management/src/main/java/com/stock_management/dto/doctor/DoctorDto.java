@@ -5,6 +5,7 @@ import com.stock_management.dto.shared.AuditDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
@@ -16,7 +17,7 @@ public class DoctorDto extends AuditDto {
     private String address;
     private Integer telephoneNumber;
     private UserDto createdBy;
-    private Date createdDate;
+    private LocalDateTime createdDate;
     private UserDto lastModifiedBy;
-    private Date lastModifiedDate;
+    private LocalDateTime lastModifiedDate;
 }

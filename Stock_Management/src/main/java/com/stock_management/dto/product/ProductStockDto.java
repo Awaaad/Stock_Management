@@ -15,5 +15,5 @@ public class ProductStockDto extends AuditDto {
     private BigDecimal pricePerUnit;
     private Integer unitsTotal;
     private LocalDate expiryDate;
-    private BigDecimal maxUnitsCanBeEntered;
+    private Integer maxUnitsCanBeEntered;
 }

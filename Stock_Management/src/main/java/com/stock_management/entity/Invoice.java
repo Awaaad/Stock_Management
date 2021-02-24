@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -79,10 +80,10 @@ public class Invoice {
 
     @CreatedDate
     @Column(name = "CREATED_DATE", nullable = false)
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     @PrePersist
     protected void prePersist() {
-        createdDate = new Date();
+        createdDate = LocalDateTime.now();
     }
 }
